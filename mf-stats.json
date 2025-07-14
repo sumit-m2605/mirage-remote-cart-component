@@ -1,0 +1,172 @@
+{
+  "id": "reactRemote",
+  "name": "reactRemote",
+  "metaData": {
+    "name": "reactRemote",
+    "type": "app",
+    "buildInfo": {
+      "buildVersion": "1.0.0",
+      "buildName": "mirage-remote-cart-component"
+    },
+    "remoteEntry": {
+      "name": "remoteEntry.js",
+      "path": "",
+      "type": "global"
+    },
+    "types": {
+      "path": "",
+      "name": "",
+      "zip": "@mf-types.zip",
+      "api": "@mf-types.d.ts"
+    },
+    "globalName": "reactRemote",
+    "pluginVersion": "0.15.0",
+    "prefetchInterface": false,
+    "publicPath": "/"
+  },
+  "shared": [
+    {
+      "singleton": true,
+      "requiredVersion": "^18.3.1",
+      "shareScope": "default",
+      "eager": true,
+      "name": "react",
+      "version": "18.3.1",
+      "id": "reactRemote:react",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/101.b034452e.js",
+            "remoteEntry.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": [
+        "./CartSettingsRemoteNovus",
+        "./CartSettingsRemote",
+        "./define-element"
+      ]
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^18.3.1",
+      "shareScope": "default",
+      "eager": true,
+      "name": "react-dom",
+      "version": "18.3.1",
+      "id": "reactRemote:react-dom",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "static/js/101.b034452e.js",
+            "remoteEntry.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": []
+    }
+  ],
+  "remotes": [],
+  "exposes": [
+    {
+      "path": "./define-element",
+      "id": "reactRemote:define-element",
+      "name": "define-element",
+      "requires": [
+        "react"
+      ],
+      "file": "src/defineElement.ts",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/__federation_expose_define_element.baf41c1e.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [
+            "static/css/async/__federation_expose_define_element.479a2f64.css"
+          ],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./ReactComponent",
+      "id": "reactRemote:ReactComponent",
+      "name": "ReactComponent",
+      "requires": [],
+      "file": "src/components/RemoteReactComponent.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/__federation_expose_ReactComponent.771bf28d.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [
+            "static/css/async/__federation_expose_ReactComponent.479a2f64.css"
+          ],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./CartSettingsRemote",
+      "id": "reactRemote:CartSettingsRemote",
+      "name": "CartSettingsRemote",
+      "requires": [
+        "react"
+      ],
+      "file": "src/components/RemoteCartSettingsComponent.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/255.20c25fd9.js",
+            "static/js/async/237.a42b6005.js",
+            "static/js/async/__federation_expose_CartSettingsRemote.ad95bf5f.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./CartSettingsRemoteNovus",
+      "id": "reactRemote:CartSettingsRemoteNovus",
+      "name": "CartSettingsRemoteNovus",
+      "requires": [
+        "react"
+      ],
+      "file": "src/components/RemoteCartSettingsComponentNovus.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/255.20c25fd9.js",
+            "static/js/async/522.100d157e.js",
+            "static/js/async/__federation_expose_CartSettingsRemoteNovus.0e4c84eb.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [],
+          "async": []
+        }
+      }
+    }
+  ]
+}
