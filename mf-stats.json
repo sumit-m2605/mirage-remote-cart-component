@@ -22,7 +22,7 @@
     "globalName": "reactRemote",
     "pluginVersion": "0.15.0",
     "prefetchInterface": false,
-    "publicPath": "/"
+    "publicPath": "https://sumit-m2605.github.io/mirage-remote-cart-component/"
   },
   "shared": [
     {
@@ -47,8 +47,8 @@
         }
       },
       "usedIn": [
-        "./CartSettingsRemoteNovus",
         "./CartSettingsRemote",
+        "./CartSettingsRemoteNovus",
         "./define-element"
       ]
     },
