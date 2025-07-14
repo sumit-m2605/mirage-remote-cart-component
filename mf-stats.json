@@ -47,9 +47,9 @@
         }
       },
       "usedIn": [
-        "./define-element",
         "./CartSettingsRemote",
-        "./CartSettingsRemoteNovus"
+        "./CartSettingsRemoteNovus",
+        "./define-element"
       ]
     },
     {
