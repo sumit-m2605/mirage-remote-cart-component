@@ -22,7 +22,7 @@
     "globalName": "reactRemote",
     "pluginVersion": "0.15.0",
     "prefetchInterface": false,
-    "publicPath": "/"
+    "publicPath": "https://mirage-remote-cart-component.onrender.com/"
   },
   "shared": [
     {
