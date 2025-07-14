@@ -12,6 +12,7 @@ export default defineConfig({
       exposes: {
         './define-element': './src/defineElement.ts',
         './ReactComponent': './src/components/RemoteReactComponent.tsx',
+        './CartSettingsRemote': './src/components/RemoteCartSettingsComponent.tsx',
       },
       shared: {
         react: {
