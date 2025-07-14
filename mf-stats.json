@@ -22,7 +22,7 @@
     "globalName": "reactRemote",
     "pluginVersion": "0.15.0",
     "prefetchInterface": false,
-    "publicPath": "https://sumit-m2605.github.io/mirage-remote-cart-component/"
+    "publicPath": "/"
   },
   "shared": [
     {
@@ -133,7 +133,7 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/async/255.20c25fd9.js",
+            "static/js/async/255.d4a8e6fb.js",
             "static/js/async/237.a42b6005.js",
             "static/js/async/__federation_expose_CartSettingsRemote.ad95bf5f.js"
           ],
@@ -156,8 +156,8 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/async/255.20c25fd9.js",
-            "static/js/async/522.100d157e.js",
+            "static/js/async/255.d4a8e6fb.js",
+            "static/js/async/522.f2e0e7ab.js",
             "static/js/async/__federation_expose_CartSettingsRemoteNovus.0e4c84eb.js"
           ],
           "async": []
