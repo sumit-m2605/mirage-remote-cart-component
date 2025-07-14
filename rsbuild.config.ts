@@ -13,6 +13,7 @@ export default defineConfig({
         './define-element': './src/defineElement.ts',
         './ReactComponent': './src/components/RemoteReactComponent.tsx',
         './CartSettingsRemote': './src/components/RemoteCartSettingsComponent.tsx',
+        './CartSettingsRemoteNovus': './src/components/RemoteCartSettingsComponentNovus.tsx',
       },
       shared: {
         react: {

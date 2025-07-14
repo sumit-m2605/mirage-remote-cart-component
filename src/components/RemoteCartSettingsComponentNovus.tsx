@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import {
   Box,
-  Typography,
-  TextField,
   CircularProgress,
   IconButton,
   Snackbar,
   Alert,
 } from '@mui/material';
-import NovusButton from './Novus-MUI-wrappers/NovusButton';
-import NovusToggle from './Novus-MUI-wrappers/NovusToggle';
+
+import { Input, Button, Toggle, Typography } from "fds-web";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -18,7 +16,6 @@ interface CartToggleOption {
   display: string;
   value: boolean;
 }
-
 
 const CartSettingsRemote = ({
   fetchAppFeatures,
@@ -111,9 +108,6 @@ const CartSettingsRemote = ({
   };
 
   const validate = () => {
-
-    if (!cartConfig) return false;
-
     const newErrors = {};
     const num = /^[0-9]\d*$/;
     if (cartConfig.pan_card.enabled) {
@@ -220,15 +214,15 @@ const CartSettingsRemote = ({
         top={0}
         zIndex={10}
       >
-        <Typography variant="h6" fontWeight={600}>Cart</Typography>
-        <NovusButton
-          novusColor="default"
+        <Typography type="h1" variant="heading-xl">Cart</Typography>
+        <Button
           disabled={saving || !isDirty}
-          onClick={handleSave}
-        >
+          onClick={handleSave}>
           {saving ? 'Saving...' : 'Save'}
 
-        </NovusButton>
+        </Button>
+
+
       </Box>
 
       <Box display="flex" minHeight="calc(100vh - 64px)">
@@ -279,7 +273,7 @@ const CartSettingsRemote = ({
             boxShadow="0 1px 3px rgba(0,0,0,0.08)"
             p={4}
           >
-            <Typography variant="h6" fontWeight={600} mb={2}>Basic Configuration</Typography>
+            <Typography type="h2" variant="heading-xl">Basic Configuration</Typography>
 
             {options.map((opt, idx) => (
               <Box
@@ -290,79 +284,92 @@ const CartSettingsRemote = ({
                 py={1}
                 borderBottom="1px solid #eee"
               >
-                <Typography>{opt.display}</Typography>
-                <NovusToggle
+                <Typography type="span" variant="body-m">{opt.display}</Typography>
+
+                <Toggle
                   checked={opt.value}
-                  onChange={() => handleOptionToggle(idx)} />
+                  onChange={(_, checked) => handleOptionToggle(idx)}
+                />
 
               </Box>
             ))}
 
             <Box display="flex" justifyContent="space-between" alignItems="center" py={1}
               borderBottom="1px solid #eee">
-              <Typography>Allow coupon with rewards</Typography>
-              <NovusToggle
-                checked={cartConfig.revenue_engine_coupon}
-                onChange={(e) => handleCartChange('revenue_engine_coupon', e.target.checked)}
-              />
+              <Typography type="span" variant="body-m">Allow coupon with rewards</Typography>
 
+              <Toggle
+                checked={cartConfig.revenue_engine_coupon}
+                onChange={(_, checked) => handleCartChange('revenue_engine_coupon', checked)}
+              />
             </Box>
 
             <Box display="flex" justifyContent="space-between" alignItems="center" py={1}
               borderBottom="1px solid #eee"
             >
-              <Typography>Ask for PAN card details on checkout</Typography>
-              <NovusToggle
+              <Typography type="span" variant="body-m">Ask for PAN card details on checkout</Typography>
+
+              <Toggle
                 checked={cartConfig.pan_card.enabled}
-                onChange={(e) => handleCartChange('pan_card.enabled', e.target.checked)}
+                onChange={(_, checked) => handleCartChange('pan_card.enabled', checked)}
               />
             </Box>
 
             {cartConfig.pan_card.enabled && (
               <>
-                <TextField
-                  fullWidth
-                  margin="normal"
+
+                <Input
+                  type="number"
+                  name="cod_threshold"
                   label="PAN card required min cart COD checkout value"
-                  type="number"
                   value={cartConfig.pan_card.cod_threshold_amount}
-                  onChange={(e) => handleCartChange('pan_card.cod_threshold_amount', parseInt(e.target.value, 10))}
-                  error={!!errors.cod_threshold_amount}
-                  helperText={errors.cod_threshold_amount}
+                  onChange={(e) =>
+                    handleCartChange('pan_card.cod_threshold_amount', parseInt(e.target.value, 10))
+                  }
+                  state={errors.cod_threshold_amount ? 'error' : 'default'}
+                  validationText={errors.cod_threshold_amount}
                 />
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  label="PAN card required min cart Online checkout value"
+
+
+                <Input
                   type="number"
+                  name="online_threshold"
+                  label="PAN card required min cart Online checkout value"
                   value={cartConfig.pan_card.online_threshold_amount}
-                  onChange={(e) => handleCartChange('pan_card.online_threshold_amount', parseInt(e.target.value, 10))}
-                  error={!!errors.online_threshold_amount}
-                  helperText={errors.online_threshold_amount}
+                  onChange={(e) =>
+                    handleCartChange('pan_card.online_threshold_amount', parseInt(e.target.value, 10))
+                  }
+                  state={errors.online_threshold_amount ? 'error' : 'default'}
+                  validationText={errors.online_threshold_amount}
                 />
+
               </>
             )}
 
-            <TextField
-              fullWidth
-              margin="normal"
+            <Input
+              type="number"
+              name="max_items"
               label="Max Cart Items"
-              type="number"
               value={cartConfig.max_cart_items}
-              onChange={(e) => handleCartChange('max_cart_items', parseInt(e.target.value, 10))}
-              error={!!errors.max_cart_items}
-              helperText={errors.max_cart_items}
+              onChange={(e) =>
+                handleCartChange('max_cart_items', parseInt(e.target.value, 10))
+              }
+              state={errors.max_cart_items ? 'error' : 'default'}
+              validationText={errors.max_cart_items}
             />
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Min Cart Value"
+
+            <Input
               type="number"
+              name="min_value"
+              label="Min Cart Value"
               value={cartConfig.min_cart_value}
-              onChange={(e) => handleCartChange('min_cart_value', parseInt(e.target.value, 10))}
-              error={!!errors.min_cart_value}
-              helperText={errors.min_cart_value}
+              onChange={(e) =>
+                handleCartChange('min_cart_value', parseInt(e.target.value, 10))
+              }
+              state={errors.min_cart_value ? 'error' : 'default'}
+              validationText={errors.min_cart_value}
             />
+
           </Box>
 
           {/* Delivery Charges */}
@@ -373,7 +380,7 @@ const CartSettingsRemote = ({
             boxShadow="0 1px 3px rgba(0,0,0,0.08)"
             p={4}
           >
-            <Typography variant="h6" fontWeight={600} mb={2}>Delivery Charges</Typography>
+            <Typography type="h3" variant="heading-xl">Delivery Charges</Typography>
 
             <Box mt={1} display="flex" flexDirection="column" gap={2}>
               {cartConfig.delivery_charges.charges.map((row, idx) => (
@@ -385,29 +392,31 @@ const CartSettingsRemote = ({
                   gap={2}
                   justifyContent="flex-start"
                 >
-                  <TextField
-                    label="Threshold"
+
+                  <Input
                     type="number"
+                    name={`threshold-${idx}`}
+                    label="Threshold"
                     value={row.threshold}
                     onChange={(e) => {
                       const updated = [...cartConfig.delivery_charges.charges];
                       updated[idx].threshold = parseInt(e.target.value, 10);
                       handleCartChange('delivery_charges.charges', updated);
                     }}
-                    sx={{ width: '180px' }}
                   />
 
-                  <TextField
-                    label="Charges"
+                  <Input
                     type="number"
+                    name={`charges-${idx}`}
+                    label="Charges"
                     value={row.charges}
                     onChange={(e) => {
                       const updated = [...cartConfig.delivery_charges.charges];
                       updated[idx].charges = parseInt(e.target.value, 10);
                       handleCartChange('delivery_charges.charges', updated);
                     }}
-                    sx={{ width: '180px' }}
                   />
+
 
                   <IconButton onClick={() => removeDeliveryCharge(idx)}>
                     <DeleteIcon />
@@ -417,7 +426,11 @@ const CartSettingsRemote = ({
             </Box>
 
             <Box mt={2}>
-              <NovusButton onClick={addDeliveryCharge}>Add Delivery Charge</NovusButton>
+              <Button
+                onClick={addDeliveryCharge}>Add Delivery Charge
+
+              </Button>
+
             </Box>
           </Box>
         </Box>
