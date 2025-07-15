@@ -47,8 +47,8 @@
         }
       },
       "usedIn": [
-        "./CartSettingsRemoteNovus",
         "./CartSettingsRemote",
+        "./CartSettingsRemoteNovus",
         "./define-element"
       ]
     },
@@ -158,7 +158,7 @@
           "sync": [
             "static/js/async/255.d4a8e6fb.js",
             "static/js/async/522.f2e0e7ab.js",
-            "static/js/async/__federation_expose_CartSettingsRemoteNovus.ec64c75a.js"
+            "static/js/async/__federation_expose_CartSettingsRemoteNovus.a025aba9.js"
           ],
           "async": []
         },
