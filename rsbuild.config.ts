@@ -4,6 +4,9 @@ import { pluginModuleFederation } from '@module-federation/rsbuild-plugin';
 import { dependencies } from "./package.json";
 export default defineConfig({
   server: { port: 3002 },
+  output: {
+    // assetPrefix: 'https://mirage-remote-cart-component.onrender.com/',
+  },
   plugins: [
     pluginReact(),
     pluginModuleFederation({
@@ -14,6 +17,7 @@ export default defineConfig({
         './ReactComponent': './src/components/RemoteReactComponent.tsx',
         './CartSettingsRemote': './src/components/RemoteCartSettingsComponent.tsx',
         './CartSettingsRemoteNovus': './src/components/RemoteCartSettingsComponentNovus.tsx',
+        './RobotsTxtRemote': './src/components/RemoteRobotsTxtComponent.tsx',
       },
       shared: {
         react: {

@@ -225,14 +225,15 @@ const CartSettingsRemote = ({
 
       </Box>
 
-      <Box display="flex" minHeight="calc(100vh - 64px)">
-        {/* Sidebar */}
+      <Box display="flex" height="calc(100vh - 64px)">
+        {/* Sidebar - Fixed */}
         <Box
           minWidth="240px"
           p={2}
           position="sticky"
           top={64}
           height="calc(100vh - 64px)"
+          overflow="hidden"
         >
           <Box
             bgcolor="#ffffff"
@@ -240,6 +241,7 @@ const CartSettingsRemote = ({
             boxShadow="0 0 0 1px rgba(0,0,0,0.05)"
             display="flex"
             flexDirection="column"
+            height="100%"
           >
             {[{ label: 'Basic Configuration', ref: basicConfigRef }, { label: 'Delivery Charges', ref: deliveryChargesRef }].map((item, index) => (
               <Box
@@ -263,8 +265,20 @@ const CartSettingsRemote = ({
           </Box>
         </Box>
 
-        {/* Main Content */}
-        <Box flex={1} display={'flex'} flexDirection={'column'} gap={2} p={2} sx={{ scrollBehavior: 'smooth' }} ref={contentContainerRef}>
+        {/* Main Content - Scrollable */}
+        <Box 
+          flex={1} 
+          display={'flex'} 
+          flexDirection={'column'} 
+          gap={2} 
+          p={2} 
+          sx={{ 
+            scrollBehavior: 'smooth',
+            overflowY: 'auto',
+            height: 'calc(100vh - 64px)'
+          }} 
+          ref={contentContainerRef}
+        >
           {/* Basic Configuration */}
           <Box
             ref={basicConfigRef}
@@ -388,7 +402,7 @@ const CartSettingsRemote = ({
                   key={idx}
                   display="flex"
                   flexDirection="row"
-                  alignItems="center"
+                  alignItems="end"
                   gap={2}
                   justifyContent="flex-start"
                 >

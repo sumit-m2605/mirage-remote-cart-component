@@ -1,73 +1,94 @@
-// components/shared/NovusButton/NovusButton.tsx
-
 import React from 'react';
 import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import type { ButtonProps } from '@mui/material';
 
-const colorMap = {
-    default: {
-        background: '#3535f3',
-        text: '#FFFFFF',
-        border: 'none',
-    },
-    contrast: {
-        background: '#FFFFFF',
-        text: '#2C4BFF',
-        border: '1px solid #2C4BFF',
-    },
-    positive: {
-        background: '#00B140',
-        text: '#FFFFFF',
-        border: 'none',
+type VariantType = 'primary' | 'secondary' | 'tertiary';
 
-    },
-    error: {
-        background: '#FF3B3B',
-        text: '#FFFFFF',
-        border: 'none',
-    },
-    warning: {
-        background: '#FF7F00',
-        text: '#FFFFFF',
-        border: 'none',
-    }
+const colorMap = {
+  default: '#3535f3',
+  contrast: '#2C4BFF',
+  positive: '#00B140',
+  error: '#FF3B3B',
+  warning: '#FF7F00',
 };
 
 interface NovusButtonProps extends ButtonProps {
-    novusColor?: keyof typeof colorMap;
+  novusColor?: keyof typeof colorMap;
+  variantType?: VariantType;
 }
 
 const StyledNovusButton = styled(Button, {
-    shouldForwardProp: (prop) => prop !== 'novusColor',
-})<NovusButtonProps>(({ novusColor = 'default' }) => {
-    const color = colorMap[novusColor];
+  shouldForwardProp: (prop) => prop !== 'variantType' && prop !== 'novusColor',
+})<NovusButtonProps>(({ variantType = 'primary', novusColor = 'default' }) => {
+  const baseColor = colorMap[novusColor];
 
+  const shared = {
+    borderRadius: 999,
+    fontWeight: 600,
+    padding: '10px 24px',
+    fontSize: '14px',
+    boxShadow: 'none',
+    textTransform: 'none' as const,
+    '&:hover': {
+      boxShadow: 'none',
+      opacity: 0.9,
+    },
+    '&.Mui-disabled': {
+      opacity: 0.5,
+      cursor: 'not-allowed',
+    },
+  };
+
+  if (variantType === 'primary') {
     return {
-        borderRadius: 999,
-        fontWeight: 600,
-        padding: '10px 24px',
-        fontSize: '14px',
-        backgroundColor: color.background,
-        color: color.text,
-        border: color.border || 'none',
-        boxShadow: 'none',
-        '&:hover': {
-            backgroundColor: color.background,
-            opacity: 0.9,
-            boxShadow: 'none',
-        },
-        '&.Mui-disabled': {
-            opacity: 0.5,
-            cursor: 'not-allowed',
-            backgroundColor: color.background,
-            color: color.text,
-        },
+      ...shared,
+      backgroundColor: baseColor,
+      color: '#fff',
+      '&:hover': {
+        backgroundColor: baseColor,
+        opacity: 0.9,
+      },
+      '&.Mui-disabled': {
+        backgroundColor: baseColor,
+        color: '#fff',
+      },
     };
+  }
+
+  if (variantType === 'secondary') {
+    return {
+      ...shared,
+      backgroundColor: '#fff',
+      border: `1px solid ${baseColor}`,
+      color: baseColor,
+      '&:hover': {
+        backgroundColor: '#f7f9ff',
+      },
+      '&.Mui-disabled': {
+        backgroundColor: '#fff',
+        borderColor: baseColor,
+        color: baseColor,
+      },
+    };
+  }
+
+  // Tertiary
+  return {
+    ...shared,
+    backgroundColor: 'transparent',
+    color: baseColor,
+    '&:hover': {
+      backgroundColor: '#f5f5f5',
+    },
+    '&.Mui-disabled': {
+      color: baseColor,
+    },
+  };
 });
 
 const NovusButton: React.FC<NovusButtonProps> = (props) => {
-    return <StyledNovusButton {...props} />;
+  return <StyledNovusButton {...props} />;
 };
 
 export default NovusButton;
