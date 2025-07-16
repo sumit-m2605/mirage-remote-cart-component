@@ -4,33 +4,25 @@ import {
   Typography,
   IconButton,
   Menu,
-  MenuItem,
-  CircularProgress
+  MenuItem
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import NovusButton from '../Novus-MUI-wrappers/NovusButton';
 
 interface RemotePageHeaderProps {
   title: string;
   onBack: () => void;
-  onReset: () => void;
-  onSave: () => void;
-  disableSave?: boolean;
-  saving?: boolean;
   helpSlug?: string;
   helpDocsURLs: Record<string, string>;
+  renderActions?: React.ReactNode;
 }
 
 const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
   title,
   onBack,
-  onReset,
-  onSave,
-  disableSave,
-  saving,
   helpSlug,
-  helpDocsURLs
+  helpDocsURLs,
+  renderActions
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -68,16 +60,7 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
       </Box>
 
       <Box display="flex" alignItems="center" gap={1}>
-        <NovusButton variantType="secondary" onClick={onReset}>
-          Reset
-        </NovusButton>
-        <NovusButton
-          variantType="primary"
-          onClick={onSave}
-          disabled={disableSave}
-        >
-          {saving ? 'Saving...' : 'Save'}
-        </NovusButton>
+        {renderActions}
         <IconButton onClick={handleMenuClick}>
           <MoreVertIcon />
         </IconButton>
@@ -90,3 +73,4 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
 };
 
 export default RemotePageHeader;
+ 

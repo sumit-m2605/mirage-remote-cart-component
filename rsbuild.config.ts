@@ -18,6 +18,7 @@ export default defineConfig({
         './CartSettingsRemote': './src/components/RemoteCartSettingsComponent.tsx',
         './CartSettingsRemoteNovus': './src/components/RemoteCartSettingsComponentNovus.tsx',
         './RobotsTxtRemote': './src/components/RemoteRobotsTxtComponent.tsx',
+        './CustomMetaTagsRemote': './src/components/RemoteMetaTagsComponent.tsx',
       },
       shared: {
         react: {
