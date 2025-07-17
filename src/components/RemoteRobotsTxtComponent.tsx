@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
-  TextField,
   CircularProgress,
   Snackbar,
   Alert,
 } from "@mui/material";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
+import CodeEditor from "./commmon/CodeEditor";
 
 interface Props {
   fetchRobotsTxt: () => Promise<string>;
@@ -116,14 +116,11 @@ const RobotsTxtRemote: React.FC<Props> = ({
         gap={2}
       >
         <Box flex={{ xs: "1 1 100%", md: "0 1 70%" }}>
-          <TextField
-            label="Robots.txt"
+          <CodeEditor
             value={robotsTxt}
-            onChange={(e) => setRobotsTxt(e.target.value)}
-            multiline
-            fullWidth
-            rows={20}
-            variant="outlined"
+            onChange={setRobotsTxt}
+            placeholder="Paste robots.txt content here..."
+            height="300px"
           />
         </Box>
 
