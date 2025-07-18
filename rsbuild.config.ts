@@ -21,6 +21,7 @@ export default defineConfig({
         './CustomMetaTagsRemote': './src/components/RemoteMetaTagsComponent.tsx',
         './CanonicalTagRemote': './src/components/RemoteCanonicalComponent.tsx',
         './SitemapRemote': './src/components/RemoteSiteMapComponent.tsx',
+        './SEODetailsRemote': './src/components/RemoteDetailsComponent.tsx',
       },
       shared: {
         react: {
