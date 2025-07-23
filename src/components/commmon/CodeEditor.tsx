@@ -1,25 +1,36 @@
+import React from 'react';
 import CodeMirror from '@uiw/react-codemirror';
+import { json } from '@codemirror/lang-json';
 import { xml } from '@codemirror/lang-xml';
 
-const CodeEditor = ({
-  value,
-  onChange,
-  height = '300px',
-  placeholder = '',
-}: {
+interface CodeEditorProps {
   value: string;
   onChange: (val: string) => void;
   height?: string;
   placeholder?: string;
-}) => {
+  language?: 'json' | 'xml' | 'schema';
+  readOnly?: boolean;
+}
+
+const CodeEditor: React.FC<CodeEditorProps> = ({
+  value,
+  onChange,
+  height = '300px',
+  placeholder = '',
+  language = 'json',
+  readOnly = false,
+}: CodeEditorProps) => {
+  const extensions = language === 'json' || language === 'schema' ? [json()] : [xml()];
+
   return (
     <CodeMirror
       value={value}
       height={height}
       theme="dark"
       placeholder={placeholder}
-      extensions={[xml()]}
+      extensions={extensions}
       onChange={(val) => onChange(val)}
+      readOnly={readOnly}
       basicSetup={{
         lineNumbers: true,
         foldGutter: true,
@@ -29,4 +40,4 @@ const CodeEditor = ({
   );
 };
 
-export default CodeEditor;
+export default CodeEditor; 

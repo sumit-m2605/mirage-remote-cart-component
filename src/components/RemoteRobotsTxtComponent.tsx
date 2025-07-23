@@ -10,6 +10,7 @@ import {
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
 import CodeEditor from "./commmon/CodeEditor";
+import AlertBox from "./commmon/AlertBox";
 
 interface Props {
   fetchRobotsTxt: () => Promise<string>;
@@ -94,11 +95,12 @@ const RobotsTxtRemote: React.FC<Props> = ({
         helpDocsURLs={helpDocsURLs}
         renderActions={
           <>
-            <NovusButton variantType="secondary" onClick={handleReset}>
+            <NovusButton variantType="secondary" novusSize="s" onClick={handleReset}>
               Reset
             </NovusButton>
             <NovusButton
               variantType="primary"
+              novusSize="s"
               onClick={handleSave}
               disabled={saving}
             >
@@ -110,30 +112,22 @@ const RobotsTxtRemote: React.FC<Props> = ({
 
       <Box
         display="flex"
+        flexDirection="column"
         flex={1}
         padding={2}
-        flexDirection={{ xs: "column", md: "row" }}
         gap={2}
       >
-        <Box flex={{ xs: "1 1 100%", md: "0 1 70%" }}>
+        <AlertBox showCloseButton={false}>
+          A robots.txt file tells search engines which pages not to index. Learn more from Google Search docs.
+        </AlertBox>
+
+        <Box>
           <CodeEditor
             value={robotsTxt}
             onChange={setRobotsTxt}
             placeholder="Paste robots.txt content here..."
             height="300px"
           />
-        </Box>
-
-        <Box flex={{ xs: "1 1 100%", md: "0 1 30%" }}>
-          <Box p={2} bgcolor="#f9f9f9" borderRadius={2} boxShadow={1}>
-            <Typography fontWeight={600} mb={1}>
-              What is Robots.txt?
-            </Typography>
-            <Typography fontSize="0.875rem" color="text.secondary">
-              A robots.txt file tells search engines which pages not to index.
-              Learn more from Google Search docs.
-            </Typography>
-          </Box>
         </Box>
       </Box>
 

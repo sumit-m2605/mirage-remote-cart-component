@@ -22,6 +22,7 @@ export default defineConfig({
         './CanonicalTagRemote': './src/components/RemoteCanonicalComponent.tsx',
         './SitemapRemote': './src/components/RemoteSiteMapComponent.tsx',
         './SEODetailsRemote': './src/components/RemoteDetailsComponent.tsx',
+        './SchemaRemote': './src/components/RemoteSchemaComponent.tsx',
       },
       shared: {
         react: {

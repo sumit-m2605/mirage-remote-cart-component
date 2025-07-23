@@ -3,7 +3,6 @@ import {
   Box,
   Typography,
   TextField,
-  Button,
   Chip,
   Dialog,
   DialogTitle,
@@ -20,6 +19,7 @@ import {
   MenuItem,
   Divider,
 } from "@mui/material";
+import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -413,45 +413,47 @@ const SEOComponent: React.FC<Props> = ({
           <Tooltip title={titleTooltipText} arrow>
             <Box display="flex" gap={1} mt={1}>
               {generateTitleProgress ? (
-                <Button
-                  variant="outlined"
-                  size="small"
+                <NovusButton
+                  variantType="secondary"
+                  novusSize="xs"
                   onClick={() => cancelGenerate("title", "")}
-                  startIcon={<CircularProgress size={16} />}
+                  disabled={true}
                 >
+                  <CircularProgress size={16} style={{ marginRight: '8px' }} />
                   Cancel
-                </Button>
+                </NovusButton>
               ) : (
-                <Button
-                  variant="outlined"
-                  size="small"
+                <NovusButton
+                  variantType="tertiary"
+                  novusSize="xs"
                   onClick={() => generate("title", "")}
-                  startIcon={<GenerateIcon />}
                 >
+                  <GenerateIcon style={{ marginRight: '8px', fontSize: '16px' }} />
                   Generate
-                </Button>
+                </NovusButton>
               )}
               
               <Divider orientation="vertical" flexItem />
               
               {generateTitleWithKeyWordProgress ? (
-                <Button
-                  variant="outlined"
-                  size="small"
+                <NovusButton
+                  variantType="secondary"
+                  novusSize="xs"
                   onClick={() => cancelGenerate("title", "keyword")}
-                  startIcon={<CircularProgress size={16} />}
+                  disabled={true}
                 >
+                  <CircularProgress size={16} style={{ marginRight: '8px' }} />
                   Cancel
-                </Button>
+                </NovusButton>
               ) : (
-                <Button
-                  variant="outlined"
-                  size="small"
+                <NovusButton
+                  variantType="tertiary"
+                  novusSize="xs"
                   onClick={() => setTitleDialogOpen(true)}
-                  startIcon={<KeyIcon />}
                 >
+                  <KeyIcon style={{ marginRight: '8px', fontSize: '16px' }} />
                   Generate Using Custom Keyword
-                </Button>
+                </NovusButton>
               )}
             </Box>
           </Tooltip>
@@ -490,45 +492,47 @@ const SEOComponent: React.FC<Props> = ({
           <Tooltip title={descriptionTooltipText} arrow>
             <Box display="flex" gap={1} mt={1}>
               {generateDescriptionProgress ? (
-                <Button
-                  variant="outlined"
-                  size="small"
+                <NovusButton
+                  variantType="secondary"
+                  novusSize="xs"
                   onClick={() => cancelGenerate("description", "")}
-                  startIcon={<CircularProgress size={16} />}
+                  disabled={true}
                 >
+                  <CircularProgress size={16} style={{ marginRight: '8px' }} />
                   Cancel
-                </Button>
+                </NovusButton>
               ) : (
-                <Button
-                  variant="outlined"
-                  size="small"
+                <NovusButton
+                  variantType="tertiary"
+                  novusSize="xs"
                   onClick={() => generate("description", "")}
-                  startIcon={<GenerateIcon />}
                 >
+                  <GenerateIcon style={{ marginRight: '8px', fontSize: '16px' }} />
                   Generate
-                </Button>
+                </NovusButton>
               )}
               
               <Divider orientation="vertical" flexItem />
               
               {generateDescriptionWithKeyWordProgress ? (
-                <Button
-                  variant="outlined"
-                  size="small"
+                <NovusButton
+                  variantType="secondary"
+                  novusSize="xs"
                   onClick={() => cancelGenerate("description", "keyword")}
-                  startIcon={<CircularProgress size={16} />}
+                  disabled={true}
                 >
+                  <CircularProgress size={16} style={{ marginRight: '8px' }} />
                   Cancel
-                </Button>
+                </NovusButton>
               ) : (
-                <Button
-                  variant="outlined"
-                  size="small"
+                <NovusButton
+                  variantType="tertiary"
+                  novusSize="xs"
                   onClick={() => setDescriptionDialogOpen(true)}
-                  startIcon={<KeyIcon />}
                 >
+                  <KeyIcon style={{ marginRight: '8px', fontSize: '16px' }} />
                   Generate Using Custom Keyword
-                </Button>
+                </NovusButton>
               )}
             </Box>
           </Tooltip>
@@ -796,16 +800,19 @@ const SEOComponent: React.FC<Props> = ({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setTitleDialogOpen(false)}>Cancel</Button>
-          <Button
+          <NovusButton variantType="secondary" novusSize="s" onClick={() => setTitleDialogOpen(false)}>
+            Cancel
+          </NovusButton>
+          <NovusButton
+            variantType="primary"
+            novusSize="s"
             onClick={() => {
               generate("title", "keyword");
               setTitleDialogOpen(false);
             }}
-            variant="contained"
           >
             Generate
-          </Button>
+          </NovusButton>
         </DialogActions>
       </Dialog>
 
@@ -854,16 +861,19 @@ const SEOComponent: React.FC<Props> = ({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDescriptionDialogOpen(false)}>Cancel</Button>
-          <Button
+          <NovusButton variantType="secondary" novusSize="s" onClick={() => setDescriptionDialogOpen(false)}>
+            Cancel
+          </NovusButton>
+          <NovusButton
+            variantType="primary"
+            novusSize="s"
             onClick={() => {
               generate("description", "keyword");
               setDescriptionDialogOpen(false);
             }}
-            variant="contained"
           >
             Generate
-          </Button>
+          </NovusButton>
         </DialogActions>
       </Dialog>
 

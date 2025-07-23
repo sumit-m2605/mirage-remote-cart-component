@@ -16,8 +16,8 @@ interface SEOData {
   description: string;
   image_url: string;
   breadcrumbs: Array<{
-    url: string;
-    action: any;
+    url?: string;
+    action?: any;
   }>;
   sitemap: {
     priority: number;
@@ -218,7 +218,7 @@ const DetailsRemote: React.FC<Props> = ({
         <Typography variant="h6" color="error" mb={2}>
           Failed to load application details
         </Typography>
-        <NovusButton variantType="secondary" onClick={getDetails}>
+        <NovusButton variantType="secondary" novusSize="s" onClick={getDetails}>
           Retry
         </NovusButton>
       </Box>
@@ -240,6 +240,7 @@ const DetailsRemote: React.FC<Props> = ({
         renderActions={
           <NovusButton
             variantType="secondary"
+            novusSize="s"
             onClick={handleSave}
             disabled={saving}
           >
@@ -261,6 +262,9 @@ const DetailsRemote: React.FC<Props> = ({
           sx={{
             width: { xs: "100%", md: "70%" },
             marginRight: { md: 3 },
+            background: "white",
+            padding: "1.5rem",
+            borderRadius: "8px",
           }}
         >
           <SEOComponent
