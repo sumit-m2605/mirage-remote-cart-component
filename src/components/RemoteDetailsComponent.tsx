@@ -207,7 +207,6 @@ const DetailsRemote: React.FC<Props> = ({
   if (loading) {
     return (
       <Box p={4} display="flex" justifyContent="center">
-        <CircularProgress />
       </Box>
     );
   }
@@ -261,7 +260,6 @@ const DetailsRemote: React.FC<Props> = ({
           flex={1}
           sx={{
             width: { xs: "100%", md: "70%" },
-            marginRight: { md: 3 },
             background: "white",
             padding: "1.5rem",
             borderRadius: "8px",
