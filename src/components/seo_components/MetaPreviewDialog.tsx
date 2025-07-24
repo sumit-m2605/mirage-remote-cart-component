@@ -4,10 +4,10 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
   TextField,
   Box,
 } from "@mui/material";
+import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface MetaTagItem {
   key: string;
@@ -67,9 +67,9 @@ const MetaPreviewDialog: React.FC<Props> = ({ open, onClose, metaTags }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} variant="outlined">
+        <NovusButton onClick={onClose} variantType="secondary">
           OK
-        </Button>
+        </NovusButton>
       </DialogActions>
     </Dialog>
   );

@@ -634,14 +634,14 @@ const SEOComponent: React.FC<Props> = ({
               onDeleteBreadcrumb={() => deleteBreadcrumb(index)}
             />
           ))}
-          <Button
-            variant="outlined"
+          <NovusButton
+            variantType="secondary"
             onClick={addBreadcrumbLevel}
             startIcon={<AddIcon />}
             sx={{ mt: 2 }}
           >
             Add Level
-          </Button>
+          </NovusButton>
         </Box>
       )}
 
@@ -692,20 +692,19 @@ const SEOComponent: React.FC<Props> = ({
               Meta Tags
             </Typography>
             <Box display="flex" gap={1}>
-              <Button
-                variant="outlined"
+              <NovusButton
+                variantType="secondary"
                 onClick={() => setMetaPreviewDialogOpen(true)}
                 startIcon={<VisibilityIcon />}
               >
                 Preview
-              </Button>
-              <Button
-                variant="contained"
+              </NovusButton>
+              <NovusButton
                 onClick={() => setMetaTagsDialogOpen(true)}
                 startIcon={<AddIcon />}
               >
                 Add SEO Meta Tags
-              </Button>
+              </NovusButton>
             </Box>
           </Box>
 

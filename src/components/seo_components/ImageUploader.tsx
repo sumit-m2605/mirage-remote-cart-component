@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   Box,
   Typography,
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -33,6 +32,7 @@ import {
   Close as CloseIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
+import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface ImageUploaderProps {
   value: string;
@@ -430,9 +430,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                     <Typography variant="body2" color="text.secondary" mb={2}>
                       Or click to select file
                     </Typography>
-                    <Button variant="outlined" component="span">
+                    <NovusButton variantType="secondary" component="span">
                       Select File
-                    </Button>
+                    </NovusButton>
                   </Box>
                 )}
                 <input
@@ -592,14 +592,14 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                                     {/* Load More Button */}
                     {galleryPagination.nextPage && !galleryLoading && (
                       <Box display="flex" justifyContent="center" mt={2}>
-                        <Button
-                          variant="outlined"
-                          size="small"
+                        <NovusButton
+                          variantType="secondary"
+                          novusSize="s"
                           onClick={() => fetchGalleryImagesFromBackend("", false)}
                           disabled={galleryLoading}
                         >
                           {galleryLoading ? <CircularProgress size={16} /> : "Load More"}
-                        </Button>
+                        </NovusButton>
                       </Box>
                     )}
               </Box>
@@ -608,14 +608,14 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         </DialogContent>
         <DialogActions>
           {value && (
-            <Button onClick={handleDelete} color="error" startIcon={<DeleteIcon />}>
+            <NovusButton onClick={handleDelete} appearance="negative" startIcon={<DeleteIcon />}>
               Delete
-            </Button>
+            </NovusButton>
           )}
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleSave} variant="contained">
+          <NovusButton onClick={handleCloseDialog} variantType="secondary">Cancel</NovusButton>
+          <NovusButton onClick={handleSave}>
             {value ? "Update" : "Add"}
-          </Button>
+          </NovusButton>
         </DialogActions>
       </Dialog>
 

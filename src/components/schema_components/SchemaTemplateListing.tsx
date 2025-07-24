@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Box,
   TextField,
@@ -10,10 +10,10 @@ import {
   SelectChangeEvent,
   Typography,
   CircularProgress,
-  Alert
-} from '@mui/material';
-import { Search as SearchIcon } from '@mui/icons-material';
-import SchemaTemplateCard from './SchemaTemplateCard';
+  Alert,
+} from "@mui/material";
+import { Search as SearchIcon } from "@mui/icons-material";
+import SchemaTemplateCard from "./SchemaTemplateCard";
 
 interface SchemaTemplate {
   _id: string;
@@ -36,24 +36,24 @@ interface SchemaTemplateListingProps {
 }
 
 const PAGE_FILTERS = [
-  { text: 'All', value: 'all' },
-  { text: 'Active', value: 'active' },
-  { text: 'Inactive', value: 'inactive' }
+  { text: "All", value: "all" },
+  { text: "Active", value: "active" },
+  { text: "Inactive", value: "inactive" },
 ];
 
 const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
   onEditTemplate,
-  fetchSchemaTemplates
+  fetchSchemaTemplates,
 }) => {
   const [templates, setTemplates] = useState<SchemaTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [searchText, setSearchText] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("all");
   const [pagination, setPagination] = useState<PaginationData>({
     limit: 10,
     current: 1,
-    total: 0
+    total: 0,
   });
 
   // Debounce search function
@@ -69,16 +69,16 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     if (!fetchSchemaTemplates) {
       return;
     }
-    
+
     setLoading(true);
     try {
       const params: any = {
         page_size: pagination.limit,
-        page_no: pagination.current
+        page_no: pagination.current,
       };
 
-      if (selectedFilter !== 'all') {
-        params.active = selectedFilter === 'active' ? 'true' : 'false';
+      if (selectedFilter !== "all") {
+        params.active = selectedFilter === "active" ? "true" : "false";
       }
 
       if (searchText) {
@@ -86,25 +86,31 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
       }
 
       const response = await fetchSchemaTemplates(params);
-      
+
       // Handle the response structure from Vuex store
       const responseData = response.data || response;
-      
+
       setTemplates(responseData.items || []);
-      setPagination(prev => ({
+      setPagination((prev) => ({
         ...prev,
         total: responseData.page?.item_total || 0,
         current: responseData.page?.current || 1,
-        limit: responseData.page?.size || 10
+        limit: responseData.page?.size || 10,
       }));
       setError(false);
     } catch (err) {
-      console.error('Error fetching templates:', err);
+      console.error("Error fetching templates:", err);
       setError(true);
     } finally {
       setLoading(false);
     }
-  }, [fetchSchemaTemplates, pagination.limit, pagination.current, selectedFilter, searchText]);
+  }, [
+    fetchSchemaTemplates,
+    pagination.limit,
+    pagination.current,
+    selectedFilter,
+    searchText,
+  ]);
 
   useEffect(() => {
     fetchTemplates();
@@ -123,16 +129,19 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
 
   const handleFilterChange = (event: SelectChangeEvent) => {
     setSelectedFilter(event.target.value);
-    setPagination(prev => ({ ...prev, current: 1 }));
+    setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setPagination(prev => ({ ...prev, current: page }));
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
+    setPagination((prev) => ({ ...prev, current: page }));
   };
 
   const debouncedSearch = useCallback(
     debounce(() => {
-      setPagination(prev => ({ ...prev, current: 1 }));
+      setPagination((prev) => ({ ...prev, current: 1 }));
       fetchTemplates();
     }, 500),
     [fetchTemplates]
@@ -148,7 +157,14 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
 
   if (loading && templates.length === 0) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 200 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 200,
+        }}
+      >
         <CircularProgress />
       </Box>
     );
@@ -167,40 +183,43 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
   return (
     <Box sx={{ mt: 2.5 }}>
       {/* Search and Filter Section */}
-      {(loading || searchText !== '' || selectedFilter !== 'all' || templates.length > 0) && (
+      {(loading ||
+        searchText !== "" ||
+        selectedFilter !== "all" ||
+        templates.length > 0) && (
         <Box
           sx={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
-            mb: 2
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            mb: 2,
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              width: '100%',
+              display: "flex",
+              width: "100%",
               padding: 1.5,
-              alignItems: 'flex-start',
+              alignItems: "flex-start",
               gap: 1.25,
               borderRadius: 1,
-              backgroundColor: '#f5f5f5'
+              backgroundColor: "#f5f5f5",
             }}
           >
             <Box
               sx={{
-                display: 'flex',
+                display: "flex",
                 height: 40,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'flex-start',
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "flex-start",
                 gap: 1.25,
                 flex: 1,
                 borderRadius: 1,
-                border: '1px solid #e0e0e0',
-                backgroundColor: '#fff',
-                px: 1.5
+                border: "1px solid #e0e0e0",
+                backgroundColor: "#fff",
+                px: 1.5,
               }}
             >
               <TextField
@@ -209,10 +228,12 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
                 value={searchText}
                 onChange={handleSearchChange}
                 InputProps={{
-                  startAdornment: <SearchIcon sx={{ color: 'text.secondary', mr: 1 }} />,
-                  sx: { border: 'none', '& fieldset': { border: 'none' } }
+                  startAdornment: (
+                    <SearchIcon sx={{ color: "text.secondary", mr: 1 }} />
+                  ),
+                  sx: { border: "none", "& fieldset": { border: "none" } },
                 }}
-                sx={{ '& .MuiInputBase-root': { border: 'none' } }}
+                sx={{ "& .MuiInputBase-root": { border: "none" } }}
               />
             </Box>
             <FormControl sx={{ minWidth: 120 }}>
@@ -222,7 +243,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
                 displayEmpty
                 sx={{
                   height: 40,
-                  '& .MuiSelect-select': { py: 1 }
+                  "& .MuiSelect-select": { py: 1 },
                 }}
               >
                 {PAGE_FILTERS.map((filter) => (
@@ -238,7 +259,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
 
       {/* Templates List */}
       {templates.length > 0 ? (
-        <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 2 }}>
+        <Box component="ul" sx={{ listStyle: "none", p: 0, m: 2 }}>
           {templates.map((template) => (
             <Box component="li" key={template._id} sx={{ mb: 1 }}>
               <SchemaTemplateCard
@@ -249,16 +270,26 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
           ))}
         </Box>
       ) : !loading ? (
-        <Box sx={{ textAlign: 'center', py: 4 }}>
-          <Typography variant="h6" color="text.secondary">
-            No results found
-          </Typography>
+        <Box
+          p={4}
+          textAlign="center"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          gap={2}
+        >
+          <img
+            src="/public/admin/assets/admin/svgs/no_search_result_found.svg"
+            alt="No Results"
+          />
+          No results found
         </Box>
       ) : null}
 
       {/* Pagination */}
       {pagination.total > 0 && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
           <Pagination
             count={Math.ceil(pagination.total / pagination.limit)}
             page={pagination.current}
@@ -273,4 +304,4 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
   );
 };
 
-export default SchemaTemplateListing; 
+export default SchemaTemplateListing;

@@ -4,7 +4,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
   TextField,
   IconButton,
   Box,
@@ -15,6 +14,7 @@ import {
   Add as AddIcon,
   Delete as DeleteIcon,
 } from "@mui/icons-material";
+import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface MetaTagItem {
   key: string;
@@ -238,22 +238,22 @@ const MetaTagsDialog: React.FC<Props> = ({
           ))}
         </Box>
 
-        <Button
-          variant="outlined"
+        <NovusButton
+          variantType="secondary"
           onClick={addMetaTag}
           startIcon={<AddIcon />}
           sx={{ mt: 1 }}
         >
           Add
-        </Button>
+        </NovusButton>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} variant="outlined">
+        <NovusButton onClick={handleClose} variantType="secondary">
           Cancel
-        </Button>
-        <Button onClick={handleSave} variant="contained">
+        </NovusButton>
+        <NovusButton onClick={handleSave}>
           Save
-        </Button>
+        </NovusButton>
       </DialogActions>
     </Dialog>
   );

@@ -5,9 +5,9 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
   Typography
 } from '@mui/material';
+import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface Props {
   open: boolean;
@@ -23,8 +23,8 @@ const ConfirmDialog: React.FC<Props> = ({ open, onClose, onConfirm }) => {
         <Typography>Are you sure you want to delete this meta tag?</Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button color="error" variant="contained" onClick={onConfirm}>Delete</Button>
+        <NovusButton onClick={onClose} variantType="secondary">Cancel</NovusButton>
+        <NovusButton appearance="negative" onClick={onConfirm}>Delete</NovusButton>
       </DialogActions>
     </Dialog>
   );

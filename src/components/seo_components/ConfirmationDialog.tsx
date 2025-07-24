@@ -4,10 +4,10 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
   Typography,
   Box,
 } from "@mui/material";
+import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface Props {
   open: boolean;
@@ -37,12 +37,12 @@ const ConfirmationDialog: React.FC<Props> = ({
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCancel} variant="outlined">
+        <NovusButton onClick={onCancel} variantType="secondary">
           {cancelText}
-        </Button>
-        <Button onClick={onConfirm} variant="contained" color="error">
+        </NovusButton>
+        <NovusButton onClick={onConfirm} appearance="negative">
           {confirmText}
-        </Button>
+        </NovusButton>
       </DialogActions>
     </Dialog>
   );
