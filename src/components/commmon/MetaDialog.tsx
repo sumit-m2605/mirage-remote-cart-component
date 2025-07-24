@@ -40,7 +40,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{meta ? "Edit Meta Tag" : "Add Meta Tag"}</DialogTitle>
+      <DialogTitle>{meta?.name ? "Edit Meta Tag" : "Add Meta Tag"}</DialogTitle>
       <DialogContent>
         <Box display="flex" flexDirection="column" gap={2} mt={1}>
           <TextField
