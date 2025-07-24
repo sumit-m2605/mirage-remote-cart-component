@@ -18,7 +18,6 @@ import {
   Snackbar,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
 } from "@mui/material";
 import {
@@ -31,7 +30,7 @@ import {
   Close as CloseIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
-import { NovusInput } from "../Novus-MUI-wrappers";
+import { NovusInput, NovusDropdown } from "../Novus-MUI-wrappers";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface ImageUploaderProps {
@@ -336,31 +335,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           )}
         </Box>
 
-        {/* Meta Information */}
-        <Box
-          sx={{
-            mt: 1,
-            p: 1.5,
-            backgroundColor: "#F5F5F5",
-            borderRadius: 1,
-            display: "flex",
-            flexDirection: "column",
-            gap: 0.5,
-          }}
-        >
-          <Typography variant="caption" color="#5C5C5C">
-            Accepted image types: {fileTypes.join(", ")}
-          </Typography>
-          <Typography variant="caption" color="#5C5C5C">
-            Max image size: {formatBytes(maxSize * 1024)}
-          </Typography>
-          <Typography variant="caption" color="#5C5C5C">
-            Aspect ratio: {aspectRatio === "*" ? "Original" : aspectRatio}
-          </Typography>
-          <Typography variant="caption" color="#5C5C5C">
-            Min dimensions: {minimumResolution.width} x {minimumResolution.height} px
-          </Typography>
-        </Box>
+       
       </Box>
 
       {/* Upload Dialog */}
@@ -454,6 +429,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   value={imageUrl}
                   onChange={handleUrlChange}
                   novusSize="m"
+                  fullWidth
                 />
               </Box>
 
@@ -506,17 +482,18 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
               <Box flex={1}>
                 {/* Image Source Dropdown */}
                 <FormControl fullWidth size="small" sx={{ mb: 2 }}>
-                  <InputLabel>Image Source</InputLabel>
-                  <Select
+                  <NovusDropdown
                     value={imageSource}
-                    label="Image Source"
-                    onChange={(e) => handleImageSourceChange(e.target.value)}
-                  >
-                    <MenuItem value="namespace_images">My Images</MenuItem>
-                    <MenuItem value="brands">Brands</MenuItem>
-                    <MenuItem value="collections">Collections</MenuItem>
-                    <MenuItem value="products">Products</MenuItem>
-                  </Select>
+                    onChange={(e) => handleImageSourceChange(e.target.value as string)}
+                    options={[
+                      { value: "namespace_images", label: "My Images" },
+                      { value: "brands", label: "Brands" },
+                      { value: "collections", label: "Collections" },
+                      { value: "products", label: "Products" },
+                    ]}
+                    placeholder="Select Image Source"
+                    novusSize="m"
+                  />
                 </FormControl>
 
                 {/* Search Input */}
@@ -524,9 +501,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   placeholder={`Search ${imageSource !== 'namespace_images' ? imageSource + ' ' : ''}image`}
                   onChange={(e) => handleGallerySearch(e.target.value)}
                   novusSize="m"
+                  fullWidth
                   sx={{ mb: 2 }}
                 />
-
                 {/* Gallery Images */}
                 {galleryError && (
                   <Alert severity="error" sx={{ mb: 2 }}>

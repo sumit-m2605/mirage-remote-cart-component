@@ -3,11 +3,11 @@ import {
   Box,
   Typography,
   FormControl,
-  Select,
   MenuItem,
-  SelectChangeEvent,
   FormHelperText
 } from '@mui/material';
+import type { SelectChangeEvent } from '@mui/material';
+import { NovusDropdown } from '../Novus-MUI-wrappers';
 import CodeEditor from '../commmon/CodeEditor';
 
 interface SchemaTemplateVariablesProps {
@@ -283,26 +283,16 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
         {/* Page Type Selection */}
         <Box sx={{ mb: 3 }}>
           <FormControl fullWidth error={selectedPageType.showerror}>
-            <Select
+            <NovusDropdown
               value={selectedPageType.value}
-              onChange={handlePageTypeChange}
-              displayEmpty
+              onChange={(event: any) => handlePageTypeChange(event)}
               placeholder="Select a page"
-              sx={{
-                '& .MuiSelect-select': {
-                  py: 1.5
-                }
-              }}
-            >
-              <MenuItem value="" disabled>
-                Select a page
-              </MenuItem>
-              {PAGE_TYPE_LIST.map((pageType) => (
-                <MenuItem key={pageType.value} value={pageType.value}>
-                  {pageType.text}
-                </MenuItem>
-              ))}
-            </Select>
+              options={PAGE_TYPE_LIST.map(pageType => ({
+                value: pageType.value,
+                label: pageType.text
+              }))}
+              novusSize="m"
+            />
             {selectedPageType.showerror && (
               <FormHelperText>{selectedPageType.errortext}</FormHelperText>
             )}

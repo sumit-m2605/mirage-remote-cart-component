@@ -3,7 +3,6 @@ import {
   Box,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
   IconButton,
   Typography,
@@ -12,6 +11,7 @@ import {
 import {
   Delete as DeleteIcon,
 } from "@mui/icons-material";
+import { NovusDropdown } from "../Novus-MUI-wrappers";
 
 // Breadcrumb types data
 const BREADCRUMB_TYPES = [
@@ -144,8 +144,8 @@ const BreadcrumbBuilder: React.FC<Props> = ({
   const loadParamsAndQueries = (type: string) => {
     const typeData = BREADCRUMB_TYPES.find((t) => t.page_type === type);
     if (typeData) {
-      setPathParams([...typeData.params]);
-      setQueryParams([...typeData.query]);
+      setPathParams(typeData.params || []);
+      setQueryParams(typeData.query || []);
     }
   };
 
@@ -229,25 +229,17 @@ const BreadcrumbBuilder: React.FC<Props> = ({
 
       {/* Level Type Dropdown */}
       <FormControl fullWidth>
-        <InputLabel>Level Type</InputLabel>
-        <Select
+        <NovusDropdown
           value={levelType}
-          label="Level Type"
           onChange={handleLevelTypeChange}
-        >
-          {levelTypeOptions.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              <Box>
-                <Typography variant="body1" fontWeight={600}>
-                  {option.text}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  {option.description}
-                </Typography>
-              </Box>
-            </MenuItem>
-          ))}
-        </Select>
+          options={levelTypeOptions.map(option => ({
+            value: option.value,
+            label: option.text,
+            secondaryText: option.description
+          }))}
+          placeholder="Select Level Type"
+          novusSize="m"
+        />
       </FormControl>
 
       {/* Path Parameters */}
@@ -258,16 +250,16 @@ const BreadcrumbBuilder: React.FC<Props> = ({
           </Typography>
           {pathParams.map((param) => (
             <FormControl key={param.key} fullWidth sx={{ mb: 1 }}>
-              <InputLabel>{param.name || param.key}</InputLabel>
-              <Select
+              <NovusDropdown
                 value={selectedPathValues[param.key] || ""}
-                label={param.name || param.key}
                 onChange={(e) => handlePathParamChange(param.key, e.target.value)}
-              >
-                <MenuItem value="">Select {param.name || param.key}</MenuItem>
-                {/* This would be populated with actual data from API */}
-                <MenuItem value="sample-value">Sample Value</MenuItem>
-              </Select>
+                options={[
+                  { value: "", label: `Select ${param.name || param.key}` },
+                  { value: "sample-value", label: "Sample Value" }
+                ]}
+                placeholder={`Select ${param.name || param.key}`}
+                novusSize="m"
+              />
             </FormControl>
           ))}
         </Box>
@@ -281,16 +273,16 @@ const BreadcrumbBuilder: React.FC<Props> = ({
           </Typography>
           {queryParams.map((param) => (
             <FormControl key={param.key} fullWidth sx={{ mb: 1 }}>
-              <InputLabel>{param.name || param.key}</InputLabel>
-              <Select
+              <NovusDropdown
                 value={selectedQueryValues[param.key] || ""}
-                label={param.name || param.key}
                 onChange={(e) => handleQueryParamChange(param.key, e.target.value)}
-              >
-                <MenuItem value="">Select {param.name || param.key}</MenuItem>
-                {/* This would be populated with actual data from API */}
-                <MenuItem value="sample-value">Sample Value</MenuItem>
-              </Select>
+                options={[
+                  { value: "", label: `Select ${param.name || param.key}` },
+                  { value: "sample-value", label: "Sample Value" }
+                ]}
+                placeholder={`Select ${param.name || param.key}`}
+                novusSize="m"
+              />
             </FormControl>
           ))}
         </Box>

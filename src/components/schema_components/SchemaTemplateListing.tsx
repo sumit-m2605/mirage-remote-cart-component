@@ -3,7 +3,6 @@ import {
   Box,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
   Pagination,
   Typography,
@@ -12,7 +11,7 @@ import {
 } from "@mui/material";
 import type { SelectChangeEvent } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
-import { NovusInput } from "../Novus-MUI-wrappers";
+import { NovusInput, NovusDropdown } from "../Novus-MUI-wrappers";
 import SchemaTemplateCard from "./SchemaTemplateCard";
 
 interface SchemaTemplate {
@@ -127,7 +126,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     setSearchText(event.target.value);
   };
 
-  const handleFilterChange = (event: SelectChangeEvent) => {
+  const handleFilterChange = (event: any) => {
     setSelectedFilter(event.target.value);
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
@@ -229,21 +228,16 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
               />
             </Box>
             <FormControl sx={{ minWidth: 120 }}>
-              <Select
+              <NovusDropdown
                 value={selectedFilter}
                 onChange={handleFilterChange}
-                displayEmpty
-                sx={{
-                  height: 40,
-                  "& .MuiSelect-select": { py: 1 },
-                }}
-              >
-                {PAGE_FILTERS.map((filter) => (
-                  <MenuItem key={filter.value} value={filter.value}>
-                    {filter.text}
-                  </MenuItem>
-                ))}
-              </Select>
+                options={PAGE_FILTERS.map(filter => ({
+                  value: filter.value,
+                  label: filter.text
+                }))}
+                placeholder="Filter"
+                novusSize="m"
+              />
             </FormControl>
           </Box>
         </Box>

@@ -14,11 +14,10 @@ import {
   CircularProgress,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
   Divider,
 } from "@mui/material";
-import { NovusInput } from "../Novus-MUI-wrappers";
+import { NovusInput, NovusDropdown } from "../Novus-MUI-wrappers";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 import {
   Add as AddIcon,
@@ -637,32 +636,22 @@ const SEOComponent: React.FC<Props> = ({
           </Typography>
           <Box display="flex" gap={2}>
             <FormControl sx={{ minWidth: 200 }}>
-              <InputLabel>Priority</InputLabel>
-              <Select
+              <NovusDropdown
                 value={priority}
-                label="Priority"
                 onChange={handlePriorityChange}
-              >
-                {priorityOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
+                options={priorityOptions.map(option => ({ value: option, label: option.toString() }))}
+                placeholder="Select priority"
+                novusSize="m"
+              />
             </FormControl>
             <FormControl sx={{ minWidth: 200 }}>
-              <InputLabel>Frequency</InputLabel>
-              <Select
+              <NovusDropdown
                 value={frequency}
-                label="Frequency"
                 onChange={handleFrequencyChange}
-              >
-                {frequencyOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
+                options={frequencyOptions.map(option => ({ value: option, label: option }))}
+                placeholder="Select frequency"
+                novusSize="m"
+              />
             </FormControl>
           </Box>
         </Box>
