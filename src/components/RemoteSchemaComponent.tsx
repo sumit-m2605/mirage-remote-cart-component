@@ -8,25 +8,23 @@ interface RemoteSchemaComponentProps {
   createSchemaTemplate?: (data: any) => Promise<any>;
   updateSchemaTemplate?: (id: string, data: any) => Promise<any>;
   deleteSchemaTemplate?: (id: string) => Promise<any>;
-  getDefaultSEOSchema?: (pageType: string) => Promise<any>;
   onCancel?: () => void;
   showSnackbar?: (message: string, type: 'success' | 'error') => void;
   helpSlug?: string;
   helpDocsURLs?: Record<string, string>;
 }
 
-const RemoteSchemaComponent: React.FC<RemoteSchemaComponentProps> = ({
+const RemoteSchemaComponent = ({
   fetchSchemaTemplates,
   fetchSchemaTemplate,
   createSchemaTemplate,
   updateSchemaTemplate,
   deleteSchemaTemplate,
-  getDefaultSEOSchema,
   onCancel,
   showSnackbar,
   helpSlug = 'seo',
   helpDocsURLs = { seo: 'https://platform.fynd.com/help/docs/manage-website/seo' }
-}) => {
+}: RemoteSchemaComponentProps) => {
   const [currentView, setCurrentView] = useState<'listing' | 'create' | 'edit'>('listing');
   const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
 
@@ -50,28 +48,17 @@ const RemoteSchemaComponent: React.FC<RemoteSchemaComponentProps> = ({
 
   const handleSaveTemplate = async (data: any) => {
     try {
-      let response;
       if (currentView === 'create' && createSchemaTemplate) {
-        response = await createSchemaTemplate(data);
-        if (response?.status === 200) {
-          showSnackbar?.('Schema has been published!', 'success');
-          // Return to listing after successful save
-          setCurrentView('listing');
-          setSelectedTemplate(null);
-        } else {
-          throw new Error('Failed to create schema template');
-        }
+        await createSchemaTemplate(data);
+        showSnackbar?.('Schema template created successfully', 'success');
       } else if (currentView === 'edit' && selectedTemplate && updateSchemaTemplate) {
-        response = await updateSchemaTemplate(selectedTemplate._id, data);
-        if (response?.status === 200) {
-          showSnackbar?.('Schema has been updated!', 'success');
-          // Return to listing after successful save
-          setCurrentView('listing');
-          setSelectedTemplate(null);
-        } else {
-          throw new Error('Failed to update schema template');
-        }
+        await updateSchemaTemplate(selectedTemplate._id, data);
+        showSnackbar?.('Schema template updated successfully', 'success');
       }
+      
+      // Return to listing after successful save
+      setCurrentView('listing');
+      setSelectedTemplate(null);
     } catch (error) {
       console.error('Error saving template:', error);
       showSnackbar?.('Failed to save schema template', 'error');
@@ -116,7 +103,6 @@ const RemoteSchemaComponent: React.FC<RemoteSchemaComponentProps> = ({
         fetchSchemaTemplate={fetchSchemaTemplate}
         createSchemaTemplate={createSchemaTemplate}
         updateSchemaTemplate={updateSchemaTemplate}
-        getDefaultSEOSchema={getDefaultSEOSchema}
         showSnackbar={showSnackbar}
       />
     );
@@ -135,7 +121,6 @@ const RemoteSchemaComponent: React.FC<RemoteSchemaComponentProps> = ({
         fetchSchemaTemplate={fetchSchemaTemplate}
         createSchemaTemplate={createSchemaTemplate}
         updateSchemaTemplate={updateSchemaTemplate}
-        getDefaultSEOSchema={getDefaultSEOSchema}
         showSnackbar={showSnackbar}
       />
     );

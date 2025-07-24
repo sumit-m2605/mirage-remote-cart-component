@@ -65,14 +65,14 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     };
   }, []);
 
-  const fetchTemplates = async () => {
+  const fetchTemplates = useCallback(async () => {
     if (!fetchSchemaTemplates) {
       return;
     }
     
     setLoading(true);
     try {
-      const params = {
+      const params: any = {
         page_size: pagination.limit,
         page_no: pagination.current
       };
@@ -85,9 +85,9 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
         params.title = searchText;
       }
 
-      const response = await fetchSchemaTemplates({ params });
+      const response = await fetchSchemaTemplates(params);
       
-      // The Vue wrapper transforms the response to { data: { items: [], page: {} } }
+      // Handle the response structure from Vuex store
       const responseData = response.data || response;
       
       setTemplates(responseData.items || []);
@@ -104,7 +104,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchSchemaTemplates, pagination.limit, pagination.current, selectedFilter, searchText]);
 
   useEffect(() => {
     fetchTemplates();
@@ -130,14 +130,17 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     setPagination(prev => ({ ...prev, current: page }));
   };
 
-  const debouncedSearch = debounce(() => {
-    setPagination(prev => ({ ...prev, current: 1 }));
-    fetchTemplates();
-  }, 500);
+  const debouncedSearch = useCallback(
+    debounce(() => {
+      setPagination(prev => ({ ...prev, current: 1 }));
+      fetchTemplates();
+    }, 500),
+    [fetchTemplates]
+  );
 
   useEffect(() => {
     debouncedSearch();
-  }, [searchText]);
+  }, [searchText, debouncedSearch]);
 
   const handleEditTemplate = (template: SchemaTemplate) => {
     onEditTemplate(template);
