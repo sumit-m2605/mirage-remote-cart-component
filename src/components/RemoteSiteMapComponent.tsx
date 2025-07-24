@@ -118,10 +118,13 @@ const SitemapRemote: React.FC<Props> = ({
               checked={enabled}
               onChange={handleToggle}
             />
-            <NovusButton variantType="secondary" onClick={() => setContent("")}>
+            <NovusButton
+              novusSize="s"
+              variantType="secondary" onClick={() => setContent("")}>
               Reset
             </NovusButton>
             <NovusButton
+            novusSize="s"
               variantType="primary"
               onClick={handleSave}
               disabled={saving}

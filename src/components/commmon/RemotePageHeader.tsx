@@ -174,7 +174,7 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
         </PageSlot>
 
         <MenuButton onClick={handleMenuClick}>
-          <MoreVertIcon style={{ color: isMobile ? '#ffffff' : '#000000' }} />
+          <MoreVertIcon style={{ height: '30px', width: '30px', color: isMobile ? '#ffffff' : '#000000' }} />
         </MenuButton>
 
         <Menu 

@@ -67,7 +67,7 @@ const AlertBox: React.FC<AlertBoxProps> = ({
     <AlertContainer>
       <MainContent>
         <WarnIcon>
-          {icon || <InfoIcon style={{ fontSize: '16px', color: '#2E31BE' }} />}
+          {icon || <InfoIcon style={{ height: '20px', width: '20px', color: '#2E31BE' }} />}
         </WarnIcon>
         <Box>
           {children}
