@@ -2,12 +2,12 @@ import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import {
   Box,
   Typography,
-  TextField,
   CircularProgress,
   IconButton,
   Snackbar,
   Alert,
 } from '@mui/material';
+import { NovusInput } from './Novus-MUI-wrappers';
 import NovusButton from './Novus-MUI-wrappers/NovusButton';
 import NovusToggle from './Novus-MUI-wrappers/NovusToggle';
 
@@ -320,48 +320,44 @@ const CartSettingsRemote = ({
 
             {cartConfig.pan_card.enabled && (
               <>
-                <TextField
-                  fullWidth
-                  margin="normal"
+                <NovusInput
                   label="PAN card required min cart COD checkout value"
                   type="number"
                   value={cartConfig.pan_card.cod_threshold_amount}
                   onChange={(e) => handleCartChange('pan_card.cod_threshold_amount', parseInt(e.target.value, 10))}
-                  error={!!errors.cod_threshold_amount}
+                  variantType={errors.cod_threshold_amount ? 'error' : 'default'}
                   helperText={errors.cod_threshold_amount}
+                  novusSize="m"
                 />
-                <TextField
-                  fullWidth
-                  margin="normal"
+                <NovusInput
                   label="PAN card required min cart Online checkout value"
                   type="number"
                   value={cartConfig.pan_card.online_threshold_amount}
                   onChange={(e) => handleCartChange('pan_card.online_threshold_amount', parseInt(e.target.value, 10))}
-                  error={!!errors.online_threshold_amount}
+                  variantType={errors.online_threshold_amount ? 'error' : 'default'}
                   helperText={errors.online_threshold_amount}
+                  novusSize="m"
                 />
               </>
             )}
 
-            <TextField
-              fullWidth
-              margin="normal"
+            <NovusInput
               label="Max Cart Items"
               type="number"
               value={cartConfig.max_cart_items}
               onChange={(e) => handleCartChange('max_cart_items', parseInt(e.target.value, 10))}
-              error={!!errors.max_cart_items}
+              variantType={errors.max_cart_items ? 'error' : 'default'}
               helperText={errors.max_cart_items}
+              novusSize="m"
             />
-            <TextField
-              fullWidth
-              margin="normal"
+            <NovusInput
               label="Min Cart Value"
               type="number"
               value={cartConfig.min_cart_value}
               onChange={(e) => handleCartChange('min_cart_value', parseInt(e.target.value, 10))}
-              error={!!errors.min_cart_value}
+              variantType={errors.min_cart_value ? 'error' : 'default'}
               helperText={errors.min_cart_value}
+              novusSize="m"
             />
           </Box>
 
@@ -385,29 +381,33 @@ const CartSettingsRemote = ({
                   gap={2}
                   justifyContent="flex-start"
                 >
-                  <TextField
-                    label="Threshold"
-                    type="number"
-                    value={row.threshold}
-                    onChange={(e) => {
-                      const updated = [...cartConfig.delivery_charges.charges];
-                      updated[idx].threshold = parseInt(e.target.value, 10);
-                      handleCartChange('delivery_charges.charges', updated);
-                    }}
-                    sx={{ width: '180px' }}
-                  />
+                  <Box sx={{ width: '180px' }}>
+                    <NovusInput
+                      label="Threshold"
+                      type="number"
+                      value={row.threshold}
+                      onChange={(e) => {
+                        const updated = [...cartConfig.delivery_charges.charges];
+                        updated[idx].threshold = parseInt(e.target.value, 10);
+                        handleCartChange('delivery_charges.charges', updated);
+                      }}
+                      novusSize="m"
+                    />
+                  </Box>
 
-                  <TextField
-                    label="Charges"
-                    type="number"
-                    value={row.charges}
-                    onChange={(e) => {
-                      const updated = [...cartConfig.delivery_charges.charges];
-                      updated[idx].charges = parseInt(e.target.value, 10);
-                      handleCartChange('delivery_charges.charges', updated);
-                    }}
-                    sx={{ width: '180px' }}
-                  />
+                  <Box sx={{ width: '180px' }}>
+                    <NovusInput
+                      label="Charges"
+                      type="number"
+                      value={row.charges}
+                      onChange={(e) => {
+                        const updated = [...cartConfig.delivery_charges.charges];
+                        updated[idx].charges = parseInt(e.target.value, 10);
+                        handleCartChange('delivery_charges.charges', updated);
+                      }}
+                      novusSize="m"
+                    />
+                  </Box>
 
                   <IconButton onClick={() => removeDeliveryCharge(idx)}>
                     <DeleteIcon />

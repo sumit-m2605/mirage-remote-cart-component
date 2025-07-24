@@ -50,6 +50,20 @@ const NovusInputField = styled(TextField)<TextFieldProps>(() => ({
     display: 'flex',
     alignItems: 'center',
   },
+  // Textarea specific styling - only applied when multiline is true
+  '& .MuiInputBase-inputMultiline': {
+    resize: 'vertical',
+    minHeight: '80px',
+    padding: '12px !important',
+    alignItems: 'flex-start',
+    overflow: 'auto',
+    '&::-webkit-resizer': {
+      borderWidth: '8px',
+      borderStyle: 'solid',
+      borderColor: 'transparent #E0E0E0 #E0E0E0 transparent',
+      backgroundColor: 'transparent',
+    },
+  },
   '& .MuiOutlinedInput-notchedOutline': {
     border: 'none !important',
     borderRadius: '16px !important',
@@ -116,9 +130,87 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
     return '#000000A6';
   };
 
+  // Get border color based on variant
+  const getBorderColor = () => {
+    if (isError) return '#F50031';
+    if (isSuccess) return '#25AB21';
+    return '#E0E0E0';
+  };
+
   // Determine wrapper width behavior
   const shouldUnsetMinWidth =
     props.fullWidth || (props.sx && typeof props.sx === 'object' && 'width' in props.sx);
+
+  // Map novusSize to exact Figma specifications
+  const getSizeStyles = () => {
+    switch (novusSize) {
+      case 's':
+        return {
+          '& .MuiOutlinedInput-root': {
+            padding: '8px 12px', // Spacing + Padding/4 (4+4=8) top/bottom, Spacing + Padding/8 (4+8=12) left/right
+            borderRadius: '6px', // BorderRadius/Core/6
+            height: '32px',
+            minHeight: '32px',
+            maxHeight: '32px',
+            gap: '10px',
+            boxSizing: 'border-box',
+          },
+          '& .MuiOutlinedInput-input': {
+            fontSize: '14px',
+            lineHeight: '1.4285714285714286em',
+            padding: '0',
+          },
+          '& .MuiInputBase-inputMultiline': {
+            minHeight: '60px',
+            padding: '8px 12px !important',
+          },
+        };
+      case 'm':
+        return {
+          '& .MuiOutlinedInput-root': {
+            padding: '12px 12px', // Spacing + Padding/8 (4+8=12) top/bottom, Padding/12 left/right
+            borderRadius: '8px', // BorderRadius/Component/Input field S
+            height: '40px',
+            minHeight: '40px',
+            maxHeight: '40px',
+            gap: '10px',
+            boxSizing: 'border-box',
+          },
+          '& .MuiOutlinedInput-input': {
+            fontSize: '14px',
+            lineHeight: '1.4285714285714286em',
+            padding: '0',
+          },
+          '& .MuiInputBase-inputMultiline': {
+            minHeight: '80px',
+            padding: '12px 12px !important',
+          },
+        };
+      case 'l':
+        return {
+          '& .MuiOutlinedInput-root': {
+            padding: '16px 12px', // Spacing + Padding/12 (4+12=16) top/bottom, Padding/12 left/right
+            borderRadius: '12px', // BorderRadius/Component/Input field L
+            height: '48px',
+            minHeight: '48px',
+            maxHeight: '48px',
+            gap: '10px',
+            boxSizing: 'border-box',
+          },
+          '& .MuiOutlinedInput-input': {
+            fontSize: '16px',
+            lineHeight: '1.5em',
+            padding: '0',
+          },
+          '& .MuiInputBase-inputMultiline': {
+            minHeight: '100px',
+            padding: '16px 12px !important',
+          },
+        };
+      default:
+        return {};
+    }
+  };
 
   return (
     <Box
@@ -174,6 +266,14 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
           '& .MuiFormHelperText-root': {
             color: getHelperTextColor(),
           },
+          // Only apply these overrides for multiline inputs
+          ...(props.multiline && {
+            '& .MuiOutlinedInput-root': {
+              height: 'auto !important',
+              minHeight: '80px !important',
+              maxHeight: 'none !important',
+            },
+          }),
         }}
         {...props}
       />

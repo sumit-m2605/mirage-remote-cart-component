@@ -2,9 +2,9 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'rea
 import {
   Box,
   Typography,
-  TextField,
   FormHelperText
 } from '@mui/material';
+import { NovusInput } from '../Novus-MUI-wrappers';
 import './SchemaTemplateVariables.css';
 
 interface FormField {
@@ -184,32 +184,23 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
 
         {/* Title Field */}
         <Box sx={{ mb: 3 }}>
-          <TextField
-            fullWidth
-            label="Title *"
+          <NovusInput
+            label="Title"
             placeholder="Enter Title"
             value={data.title.value}
             onChange={(e) => handleFieldChange('title', e.target.value)}
             disabled={systemDisableEdit}
-            inputProps={{ maxLength: validLength.title }}
-            error={data.title.showerror}
-            sx={{
-              '& .MuiInputBase-root': {
-                borderRadius: 1
-              }
-            }}
+            maxLength={validLength.title}
+            variantType={data.title.showerror ? 'error' : 'default'}
+            helperText={data.title.showerror ? data.title.errortext : undefined}
+            novusSize="m"
+            required
           />
-          {data.title.showerror && (
-            <FormHelperText error sx={{ mt: 0.5 }}>
-              {data.title.errortext}
-            </FormHelperText>
-          )}
         </Box>
 
         {/* Description Field */}
         <Box sx={{ mb: 3 }}>
-          <TextField
-            fullWidth
+          <NovusInput
             label={`Description ${data.description.value.length}/${MAX_DESCRIPTION_CHAR_LIMIT}`}
             placeholder="Enter description"
             value={data.description.value}
@@ -217,19 +208,12 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             disabled={systemDisableEdit}
             multiline
             rows={4}
-            inputProps={{ maxLength: validLength.desc }}
-            error={data.description.showerror}
-            sx={{
-              '& .MuiInputBase-root': {
-                borderRadius: 1
-              }
-            }}
+            maxLength={validLength.desc}
+            variantType={data.description.showerror ? 'error' : 'default'}
+            helperText={data.description.showerror ? data.description.errortext : undefined}
+            novusSize="m"
+            showCharacterCount
           />
-          {data.description.showerror && (
-            <FormHelperText error sx={{ mt: 0.5 }}>
-              {data.description.errortext}
-            </FormHelperText>
-          )}
         </Box>
       </Box>
     </Box>

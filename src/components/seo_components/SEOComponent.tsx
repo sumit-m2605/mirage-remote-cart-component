@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Typography,
-  TextField,
   Chip,
   Dialog,
   DialogTitle,
@@ -19,6 +18,7 @@ import {
   MenuItem,
   Divider,
 } from "@mui/material";
+import { NovusInput } from "../Novus-MUI-wrappers";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 import {
   Add as AddIcon,
@@ -384,14 +384,13 @@ const SEOComponent: React.FC<Props> = ({
       <Box display="flex" flexDirection="column" gap={2}>
         {/* Title Input */}
         <Box>
-          <TextField
+          <NovusInput
             label="Title"
             value={value.title}
             onChange={handleTitleChange}
             placeholder="Add title here"
-            fullWidth
             disabled={generateTitleProgress || generateTitleWithKeyWordProgress}
-            inputProps={{ maxLength: 400 }}
+            maxLength={400}
             helperText={
               value.title && value.title.length > 0
                 ? value.title.length > 44 && value.title.length < 61
@@ -399,15 +398,8 @@ const SEOComponent: React.FC<Props> = ({
                   : "Recommended: Keep SEO title between 45-60 characters"
                 : ""
             }
-            FormHelperTextProps={{
-              sx: {
-                color: value.title && value.title.length > 0
-                  ? value.title.length > 44 && value.title.length < 61
-                    ? "#33C04D"
-                    : "#000000"
-                  : "inherit"
-              }
-            }}
+            novusSize="m"
+            showCharacterCount
           />
           
           <Tooltip title={titleTooltipText} arrow>
@@ -461,16 +453,15 @@ const SEOComponent: React.FC<Props> = ({
 
         {/* Description Input */}
         <Box>
-          <TextField
+          <NovusInput
             label="Description"
             value={value.description}
             onChange={handleDescriptionChange}
             placeholder="Enter description here"
-            fullWidth
             multiline
             rows={4}
             disabled={generateDescriptionProgress || generateDescriptionWithKeyWordProgress}
-            inputProps={{ maxLength: 600 }}
+            maxLength={600}
             helperText={
               value.description && value.description.length > 0
                 ? value.description.length <= 160
@@ -478,15 +469,8 @@ const SEOComponent: React.FC<Props> = ({
                   : "Recommended limit exceeded - this may impact your SEO"
                 : ""
             }
-            FormHelperTextProps={{
-              sx: {
-                color: value.description && value.description.length > 0
-                  ? value.description.length <= 160
-                    ? "#000000"
-                    : "#CD0909"
-                  : "inherit"
-              }
-            }}
+            novusSize="m"
+            showCharacterCount
           />
           
           <Tooltip title={descriptionTooltipText} arrow>
@@ -786,14 +770,13 @@ const SEOComponent: React.FC<Props> = ({
                   size="small"
                 />
               ))}
-              <TextField
+              <NovusInput
                 placeholder="Type a keyword and press enter"
                 value={chipInput}
                 onChange={(e) => setChipInput(e.target.value)}
-                onKeyDown={(e) => addChip(e, "title")}
-                variant="standard"
-                size="small"
-                sx={{ minWidth: 200 }}
+                onKeyDown={(e) => addChip(e, "keywords")}
+                novusSize="s"
+                sx={{ mt: 1 }}
               />
             </Box>
           </Box>
@@ -847,14 +830,13 @@ const SEOComponent: React.FC<Props> = ({
                   size="small"
                 />
               ))}
-              <TextField
+              <NovusInput
                 placeholder="Type a keyword and press enter"
                 value={chipInput}
                 onChange={(e) => setChipInput(e.target.value)}
                 onKeyDown={(e) => addChip(e, "description")}
-                variant="standard"
-                size="small"
-                sx={{ minWidth: 200 }}
+                novusSize="s"
+                sx={{ mt: 1 }}
               />
             </Box>
           </Box>

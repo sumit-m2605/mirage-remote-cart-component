@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
-  TextField,
   Tooltip,
   IconButton,
 } from "@mui/material";
 import { Help as HelpIcon } from "@mui/icons-material";
+import { NovusInput } from "../Novus-MUI-wrappers";
 
 interface Props {
   canonicalUrlPath: string;
@@ -55,19 +55,23 @@ const CanonicalUrlBuilder: React.FC<Props> = ({
       </Box>
       
       <Box display="flex" gap={2} alignItems="flex-end">
-        <TextField
-          label="Domain"
-          value={urlDomain}
-          disabled
-          sx={{ width: "30%" }}
-        />
-        <TextField
-          label="Path"
-          value={urlPath}
-          onChange={handleUrlPathChange}
-          placeholder="Enter canonical url path"
-          sx={{ width: "70%" }}
-        />
+        <Box sx={{ width: "30%" }}>
+          <NovusInput
+            label="Domain"
+            value={urlDomain}
+            disabled
+            novusSize="m"
+          />
+        </Box>
+        <Box sx={{ width: "70%" }}>
+          <NovusInput
+            label="Path"
+            value={urlPath}
+            onChange={handleUrlPathChange}
+            placeholder="Enter canonical url path"
+            novusSize="m"
+          />
+        </Box>
       </Box>
     </Box>
   );

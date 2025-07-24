@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
-  TextField,
   Chip,
   Divider,
   Grid,
@@ -32,6 +31,7 @@ import {
   Close as CloseIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
+import { NovusInput } from "../Novus-MUI-wrappers";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface ImageUploaderProps {
@@ -449,13 +449,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 <Typography variant="subtitle2" mb={1}>
                   Or enter image URL
                 </Typography>
-                <TextField
-                  fullWidth
+                <NovusInput
                   placeholder="Enter image URL"
                   value={imageUrl}
                   onChange={handleUrlChange}
-                  variant="outlined"
-                  size="small"
+                  novusSize="m"
                 />
               </Box>
 
@@ -522,16 +520,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 </FormControl>
 
                 {/* Search Input */}
-                <TextField
-                  fullWidth
+                <NovusInput
                   placeholder={`Search ${imageSource !== 'namespace_images' ? imageSource + ' ' : ''}image`}
-                  variant="outlined"
-                  size="small"
-                  sx={{ mb: 2 }}
                   onChange={(e) => handleGallerySearch(e.target.value)}
-                  InputProps={{
-                    startAdornment: <SearchIcon sx={{ mr: 1, color: 'text.secondary' }} />,
-                  }}
+                  novusSize="m"
+                  sx={{ mb: 2 }}
                 />
 
                 {/* Gallery Images */}

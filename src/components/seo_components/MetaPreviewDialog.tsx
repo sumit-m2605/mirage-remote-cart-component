@@ -4,9 +4,9 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TextField,
   Box,
 } from "@mui/material";
+import { NovusInput } from "../Novus-MUI-wrappers";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface MetaTagItem {
@@ -46,13 +46,12 @@ const MetaPreviewDialog: React.FC<Props> = ({ open, onClose, metaTags }) => {
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>Preview SEO Meta</DialogTitle>
       <DialogContent>
-        <TextField
+        <NovusInput
           value={content}
           multiline
           rows={15}
-          fullWidth
           disabled
-          variant="outlined"
+          novusSize="m"
           sx={{
             mt: 1,
             "& .MuiInputBase-root": {

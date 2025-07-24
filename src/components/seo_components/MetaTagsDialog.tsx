@@ -4,7 +4,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TextField,
   IconButton,
   Box,
   Typography,
@@ -14,6 +13,7 @@ import {
   Add as AddIcon,
   Delete as DeleteIcon,
 } from "@mui/icons-material";
+import { NovusInput } from "../Novus-MUI-wrappers";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface MetaTagItem {
@@ -196,12 +196,12 @@ const MetaTagsDialog: React.FC<Props> = ({
         {isEditMode ? "Edit SEO Meta Tag" : "Add SEO Meta Tags"}
       </DialogTitle>
       <DialogContent>
-        <TextField
+        <NovusInput
           label="Name*"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          fullWidth
-          margin="normal"
+          required
+          novusSize="m"
         />
 
         <Box mt={2}>
@@ -213,18 +213,24 @@ const MetaTagsDialog: React.FC<Props> = ({
               alignItems="flex-start"
               mb={2}
             >
-              <TextField
-                label="Key*"
-                value={item.key}
-                onChange={(e) => updateMetaTagItem(index, "key", e.target.value)}
-                sx={{ flex: 1 }}
-              />
-              <TextField
-                label="Value*"
-                value={item.value}
-                onChange={(e) => updateMetaTagItem(index, "value", e.target.value)}
-                sx={{ flex: 1 }}
-              />
+              <Box sx={{ flex: 1 }}>
+                <NovusInput
+                  label="Key*"
+                  value={item.key}
+                  onChange={(e) => updateMetaTagItem(index, "key", e.target.value)}
+                  required
+                  novusSize="m"
+                />
+              </Box>
+              <Box sx={{ flex: 1 }}>
+                <NovusInput
+                  label="Value*"
+                  value={item.value}
+                  onChange={(e) => updateMetaTagItem(index, "value", e.target.value)}
+                  required
+                  novusSize="m"
+                />
+              </Box>
               {metaTagsItems.length > 1 && (
                 <IconButton
                   onClick={() => deleteMetaTag(index)}

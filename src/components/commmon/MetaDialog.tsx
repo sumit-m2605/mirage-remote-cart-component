@@ -5,12 +5,12 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TextField,
   Box,
 } from "@mui/material";
 import type { MetaTag } from "./MetaTags";
-import NovusButton from "../Novus-MUI-wrappers/NovusButton";
+import { NovusInput } from "../Novus-MUI-wrappers";
 import CodeEditor from "./CodeEditor";
+import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
 interface Props {
   open: boolean;
@@ -43,12 +43,12 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
       <DialogTitle>{meta?.name ? "Edit Meta Tag" : "Add Meta Tag"}</DialogTitle>
       <DialogContent>
         <Box display="flex" flexDirection="column" gap={2} mt={1}>
-          <TextField
+          <NovusInput
             label="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            fullWidth
             required
+            novusSize="m"
           />
 
           <Box>

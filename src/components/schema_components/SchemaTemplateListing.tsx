@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
   Box,
-  TextField,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Pagination,
-  SelectChangeEvent,
   Typography,
   CircularProgress,
   Alert,
 } from "@mui/material";
+import type { SelectChangeEvent } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
+import { NovusInput } from "../Novus-MUI-wrappers";
 import SchemaTemplateCard from "./SchemaTemplateCard";
 
 interface SchemaTemplate {
@@ -217,23 +217,15 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
                 gap: 1.25,
                 flex: 1,
                 borderRadius: 1,
-                border: "1px solid #e0e0e0",
-                backgroundColor: "#fff",
                 px: 1.5,
               }}
             >
-              <TextField
-                fullWidth
+              <NovusInput
                 placeholder="Search here"
                 value={searchText}
                 onChange={handleSearchChange}
-                InputProps={{
-                  startAdornment: (
-                    <SearchIcon sx={{ color: "text.secondary", mr: 1 }} />
-                  ),
-                  sx: { border: "none", "& fieldset": { border: "none" } },
-                }}
-                sx={{ "& .MuiInputBase-root": { border: "none" } }}
+                novusSize="m"
+                fullWidth
               />
             </Box>
             <FormControl sx={{ minWidth: 120 }}>
