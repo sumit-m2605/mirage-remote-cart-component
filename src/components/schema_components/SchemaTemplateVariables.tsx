@@ -380,11 +380,12 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
     <Box sx={{ width: '100%', maxWidth: '100%' }}>
       <Box sx={{ 
         width: '100%', 
-        padding: 4, 
-        border: '1px solid #e0e0e0', 
-        borderRadius: 2, 
-        backgroundColor: '#fff',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+        padding: '24px',
+        borderRadius: '16px',
+        backgroundColor: '#ffffff',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
         boxSizing: 'border-box'
       }}>
         <Typography
@@ -394,14 +395,13 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
             fontSize: '18px',
             lineHeight: '27px',
             textAlign: 'left',
-            mb: 3
           }}
         >
           Select Page
         </Typography>
 
         {/* Page Type Selection */}
-        <Box sx={{ mb: 3 }}>
+        <Box>
           <FormControl fullWidth error={selectedPageType.showerror}>
             <NovusDropdown
               value={selectedPageType.value}
@@ -426,14 +426,13 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
             fontSize: '18px',
             lineHeight: '27px',
             textAlign: 'left',
-            mb: 3
           }}
         >
           Schema
         </Typography>
 
         {/* Schema Editor */}
-        <Box sx={{ mb: 4, width: '100%' }}>
+        <Box >
           <Box sx={{ 
             border: '1px solid #e0e0e0', 
             borderRadius: 2, 

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Snackbar,
-  Alert,
   Typography,
 } from "@mui/material";
+import NovusSnackbar from "./Novus-MUI-wrappers/NovusSnackbar";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusToggle from "./Novus-MUI-wrappers/NovusToggle";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
@@ -48,7 +47,7 @@ const SitemapRemote: React.FC<Props> = ({
       .catch(() =>
         setSnackbar({
           open: true,
-          message: "❌ Failed to fetch sitemap info",
+          message: "  Failed to fetch sitemap info",
           success: false,
         })
       )
@@ -62,8 +61,8 @@ const SitemapRemote: React.FC<Props> = ({
     setSnackbar({
       open: true,
       message: success
-        ? `✅ Sitemap ${value ? "Enabled" : "Disabled"}`
-        : "❌ Update failed",
+        ? `Sitemap ${value ? "Enabled" : "Disabled"}`
+        : "Sitemap update failed",
       success,
     });
   };
@@ -76,7 +75,7 @@ const SitemapRemote: React.FC<Props> = ({
       if (!isValidXML) {
         setSnackbar({
           open: true,
-          message: "❌ Invalid Sitemap.xml format",
+          message: "Invalid Sitemap.xml format",
           success: false,
         });
         return;
@@ -85,8 +84,8 @@ const SitemapRemote: React.FC<Props> = ({
       setSnackbar({
         open: true,
         message: success
-          ? "✅ Sitemap.xml updated successfully"
-          : "❌ Failed to update content",
+          ? "Sitemap.xml updated successfully"
+          : "Failed to update content",
         success,
       });
     } finally {
@@ -180,19 +179,13 @@ const SitemapRemote: React.FC<Props> = ({
         />
       </Box>
 
-      <Snackbar
+      <NovusSnackbar
         open={snackbar.open}
-        autoHideDuration={3000}
+        severity={snackbar.success ? "success" : "error"}
+        message={snackbar.message}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          severity={snackbar.success ? "success" : "error"}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+        closable={false}
+      />
     </Box>
   );
 };

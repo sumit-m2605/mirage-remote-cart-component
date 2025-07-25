@@ -54,7 +54,7 @@ const RemoteReactComponent = ({ store, route, router, saveProfile }) => {
       setMessage('✅ Saved!');
     } catch (e) {
       console.error('[Remote/React] Save failed:', e);
-      setMessage('❌ Save failed');
+      setMessage('  Save failed');
     } finally {
       setLoading(false);
     }

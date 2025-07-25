@@ -1,9 +1,7 @@
-import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import {
   Box,
-  Typography,
-  FormHelperText
-} from '@mui/material';
+  Typography} from '@mui/material';
 import { NovusInput } from '../Novus-MUI-wrappers';
 import './SchemaTemplateVariables.css';
 
@@ -22,8 +20,6 @@ interface SchemaTemplateEditProps {
 }
 
 const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
-  isEditMode = false,
-  schemaId,
   onSave,
   initialData,
   systemDisableEdit = false
@@ -167,11 +163,15 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
   }
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '100%' }}>
       <Box sx={{ 
         width: '100%', 
-        padding: 4, 
-        boxSizing: 'border-box'
+        padding: '24px',
+        borderRadius: '16px',
+        backgroundColor: '#ffffff',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px'
       }}>
         <Typography
           sx={{
@@ -180,14 +180,12 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             fontSize: '18px',
             lineHeight: '27px',
             textAlign: 'left',
-            mb: 4
           }}
         >
           Details
         </Typography>
 
         {/* Title Field */}
-        <Box sx={{ mb: 4, width: '100%', maxWidth: '100%' }}>
           <NovusInput
             label="Title"
             placeholder="Enter Title"
@@ -201,10 +199,8 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             required
             fullWidth
           />
-        </Box>
 
         {/* Description Field */}
-        <Box sx={{ mb: 4, width: '100%', maxWidth: '100%' }}>
           <NovusInput
             label={`Description ${data.description.value.length}/${MAX_DESCRIPTION_CHAR_LIMIT}`}
             placeholder="Enter description"
@@ -220,9 +216,7 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             showCharacterCount
             fullWidth
           />
-        </Box>
       </Box>
-    </Box>
   );
 });
 

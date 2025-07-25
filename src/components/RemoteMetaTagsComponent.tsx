@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box, Snackbar, Alert } from "@mui/material";
+import { Box } from "@mui/material";
+import NovusSnackbar from "./Novus-MUI-wrappers/NovusSnackbar";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import MetaList from "./meta_components/MetaList.tsx";
 import MetaDialog from "./meta_components/MetaDialog.tsx";
@@ -42,7 +43,7 @@ const MetaTagsRemote: React.FC<Props> = ({
       .catch(() =>
         setSnackbar({
           open: true,
-          message: "❌ Failed to load meta tags",
+          message: "  Failed to load meta tags",
           success: false,
         })
       )
@@ -61,14 +62,14 @@ const MetaTagsRemote: React.FC<Props> = ({
         setMetaList(updated);
         setSnackbar({
           open: true,
-          message: "✅ Saved successfully",
+          message: "Saved successfully",
           success: true,
         });
       })
       .catch(() => {
         setSnackbar({
           open: true,
-          message: "❌ Failed to save meta tag",
+          message: "  Failed to save meta tag",
           success: false,
         });
       });
@@ -86,14 +87,14 @@ const MetaTagsRemote: React.FC<Props> = ({
         setMetaList(updated);
         setSnackbar({
           open: true,
-          message: "✅ Deleted successfully",
+          message: "Deleted successfully",
           success: true,
         });
       })
       .catch(() => {
         setSnackbar({
           open: true,
-          message: "❌ Failed to delete meta tag",
+          message: "  Failed to delete meta tag",
           success: false,
         });
       });
@@ -107,7 +108,7 @@ const MetaTagsRemote: React.FC<Props> = ({
     updateCustomMetaTags(updated).catch(() => {
       setSnackbar({
         open: true,
-        message: "❌ Failed to reorder meta tags",
+        message: "  Failed to reorder meta tags",
         success: false,
       });
     });
@@ -203,19 +204,13 @@ const MetaTagsRemote: React.FC<Props> = ({
         onConfirm={handleDeleteMeta}
       />
 
-      <Snackbar
+      <NovusSnackbar
         open={snackbar.open}
-        autoHideDuration={3000}
+        severity={snackbar.success ? "success" : "error"}
+        message={snackbar.message}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          severity={snackbar.success ? "success" : "error"}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+        closable={false}
+      />
     </Box>
   );
 };

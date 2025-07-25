@@ -37,10 +37,16 @@ const SchemaTemplates: React.FC<SchemaTemplatesProps> = ({
         onBack={onBack}
         helpSlug={helpSlug}
         helpDocsURLs={helpDocsURLs}
-        renderActions={renderActions}
+        renderActions={renderActions()}
       />
 
-      <Container maxWidth={false} sx={{ mt: 3, px: 3 }}>
+      <Box sx={{ 
+        flex: 1, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        padding: '24px',
+        overflow: 'hidden'
+      }}>
         {/* Schema Description Section */}
         <Box
           sx={{
@@ -49,10 +55,11 @@ const SchemaTemplates: React.FC<SchemaTemplatesProps> = ({
             alignItems: 'flex-start',
             gap: 1,
             alignSelf: 'stretch',
-            borderRadius: 1,
-            border: '1px solid #F0F4FF',
-            background: 'linear-gradient(270deg, #F0F4FF 0.03%, #FFF 99.97%)',
-            mb: 3
+            borderRadius: '12px',
+            border: '1px solid #ffffff',
+            background: '#ffffff',
+            marginBottom: '24px',
+            flexShrink: 0
           }}
         >
           <Box
@@ -114,17 +121,20 @@ const SchemaTemplates: React.FC<SchemaTemplatesProps> = ({
         </Box>
 
         {/* Main Content - Only Listing */}
-        <Box sx={{ backgroundColor: '#fff', display: 'block', my: 3 }}>
-          <Box sx={{ width: '100%' }}>
-            <Box sx={{ width: '100%' }}>
-              <SchemaTemplateListing
-                onEditTemplate={onEditTemplate}
-                fetchSchemaTemplates={fetchSchemaTemplates}
-              />
-            </Box>
-          </Box>
+        <Box sx={{ 
+          backgroundColor: '#ffffff', 
+          display: 'flex', 
+          flexDirection: 'column',
+          flex: 1,
+          borderRadius: '12px',
+          overflow: 'hidden'
+        }}>
+          <SchemaTemplateListing
+            onEditTemplate={onEditTemplate}
+            fetchSchemaTemplates={fetchSchemaTemplates}
+          />
         </Box>
-      </Container>
+      </Box>
     </Box>
   );
 };

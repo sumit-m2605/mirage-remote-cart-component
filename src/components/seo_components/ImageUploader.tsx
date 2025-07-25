@@ -14,12 +14,11 @@ import {
   CardMedia,
   CardContent,
   CircularProgress,
-  Alert,
-  Snackbar,
   FormControl,
   InputLabel,
   MenuItem,
 } from "@mui/material";
+import NovusSnackbar from "../Novus-MUI-wrappers/NovusSnackbar";
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -344,17 +343,88 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         onClose={handleCloseDialog}
         maxWidth="md"
         fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: '16px',
+            boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)',
+            maxHeight: '80vh'
+          }
+        }}
       >
-        <DialogTitle>
-          Upload {label}
-          <IconButton
-            onClick={handleCloseDialog}
-            sx={{ position: "absolute", right: 8, top: 8 }}
+        {/* Header */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '12px 16px',
+            backgroundColor: '#F5F5F5',
+            borderBottom: '1px solid #E0E0E0'
+          }}
+        >
+          <Box sx={{ flex: 1 }}>
+            <Box
+              sx={{
+                fontWeight: 600,
+                fontSize: '18px',
+                color: '#141414'
+              }}
+            >
+              Upload {label}
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '12px'
+            }}
           >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent>
+            <Box
+              onClick={handleCloseDialog}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '4px',
+                width: '24px',
+                height: '24px',
+                borderRadius: '250px',
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                }
+              }}
+            >
+              <Box
+                sx={{
+                  width: '16px',
+                  height: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                ✕
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Content */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: '12px',
+            padding: '16px 20px',
+            backgroundColor: '#FFFFFF'
+          }}
+        >
           <Box display="flex" gap={3}>
             {/* Left Panel - Uploader and Preview */}
             <Box flex={1}>
@@ -575,26 +645,53 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
               </Box>
             )}
           </Box>
-        </DialogContent>
-        <DialogActions>
-          {value && (
-            <NovusButton onClick={handleDelete} appearance="negative" startIcon={<DeleteIcon />}>
-              Delete
+        </Box>
+
+        {/* Footer */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            alignSelf: 'stretch',
+            gap: '24px',
+            padding: '16px 24px',
+            backgroundColor: '#FFFFFF',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '12px'
+            }}
+          >
+            {value && (
+              <NovusButton 
+                onClick={handleDelete} 
+                variantType="secondary"
+                startIcon={<DeleteIcon />}
+                novusSize="sm"
+              >
+                Delete
+              </NovusButton>
+            )}
+            <NovusButton onClick={handleCloseDialog} variantType="secondary" novusSize="sm">
+              Cancel
             </NovusButton>
-          )}
-          <NovusButton onClick={handleCloseDialog} variantType="secondary">Cancel</NovusButton>
-          <NovusButton onClick={handleSave}>
-            {value ? "Update" : "Add"}
-          </NovusButton>
-        </DialogActions>
+            <NovusButton onClick={handleSave} variantType="primary" novusSize="sm">
+              {value ? "Update" : "Add"}
+            </NovusButton>
+          </Box>
+        </Box>
       </Dialog>
 
       {/* Snackbar */}
-      <Snackbar
+      <NovusSnackbar
         open={showSnackbar}
-        autoHideDuration={3000}
-        onClose={() => setShowSnackbar(false)}
+        severity="info"
         message={snackbarMessage}
+        onClose={() => setShowSnackbar(false)}
+        closable={false}
       />
     </>
   );

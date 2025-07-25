@@ -2,9 +2,8 @@ import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import {
   Box,
   IconButton,
-  Snackbar,
-  Alert,
 } from '@mui/material';
+import NovusSnackbar from './Novus-MUI-wrappers/NovusSnackbar';
 
 import { Input, Button, Toggle, Typography } from "fds-web";
 
@@ -75,7 +74,7 @@ const CartSettingsRemote = ({
         config: JSON.stringify(config.cart)
       });
     } catch (err) {
-      setMessage('❌ Failed to load settings');
+      setMessage('  Failed to load settings');
       console.error('[CartSettings] Fetch error:', err);
     } finally {
       setLoading(false);
@@ -142,7 +141,7 @@ const CartSettingsRemote = ({
 
   const handleSave = async () => {
     if (!validate()) {
-      setMessage('❌ Fix validation errors');
+      setMessage('  Fix validation errors');
       return;
     }
     setSaving(true);
@@ -158,7 +157,7 @@ const CartSettingsRemote = ({
         updateAppFeatures(featurePayload),
         saveCartSettings({ cart: cartConfig })
       ]);
-      setMessage('✅ Settings saved successfully');
+      setMessage('Settings saved successfully');
       setSnackbarOpen(true);
       setInitialState({
         options: JSON.stringify(options.map(o => o.value)),
@@ -166,7 +165,7 @@ const CartSettingsRemote = ({
       });
     } catch (err) {
       console.error('[CartSettings] Save failed', err);
-      setMessage('❌ Save failed');
+      setMessage('  Save failed');
       setSnackbarOpen(true);
     } finally {
       setSaving(false);
@@ -449,16 +448,13 @@ const CartSettingsRemote = ({
           </Box>
         </Box>
       </Box>
-      <Snackbar
+      <NovusSnackbar
         open={snackbarOpen}
-        autoHideDuration={3000}
+        severity={message.startsWith('Settings saved successfully') ? 'success' : 'error'}
+        message={message}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert onClose={handleSnackbarClose} severity={message.startsWith('✅') ? 'success' : 'error'}>
-          {message}
-        </Alert>
-      </Snackbar>
+        closable={false}
+      />
     </Box>
 
   );

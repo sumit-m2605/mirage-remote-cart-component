@@ -67,49 +67,58 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     };
   }, []);
 
-  const fetchTemplates = useCallback(async (pageOverride?: number) => {
-    if (!fetchSchemaTemplates) {
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const currentPage = pageOverride || pagination.current;
-      
-      const params: any = {
-        page_size: pagination.limit,
-        page_no: currentPage,
-      };
-
-      if (selectedFilter !== "all") {
-        params.active = selectedFilter === "active" ? "true" : "false";
+  const fetchTemplates = useCallback(
+    async (pageOverride?: number) => {
+      if (!fetchSchemaTemplates) {
+        return;
       }
 
-      if (searchText) {
-        params.title = searchText;
+      setLoading(true);
+      try {
+        const currentPage = pageOverride || pagination.current;
+
+        const params: any = {
+          page_size: pagination.limit,
+          page_no: currentPage,
+        };
+
+        if (selectedFilter !== "all") {
+          params.active = selectedFilter === "active" ? "true" : "false";
+        }
+
+        if (searchText) {
+          params.title = searchText;
+        }
+
+        const response = await fetchSchemaTemplates(params);
+
+        // Handle the response structure from Vuex store
+        const responseData = response.data || response;
+
+        setTemplates(responseData.items || []);
+        setPagination((prev) => ({
+          ...prev,
+          total: responseData.page?.item_total || 0,
+          current: responseData.page?.current || currentPage,
+          limit: responseData.page?.size || 10,
+        }));
+        setError(false);
+      } catch (err) {
+        console.error("Error fetching templates:", err);
+        setError(true);
+        setTemplates([]);
+      } finally {
+        setLoading(false);
       }
-
-      const response = await fetchSchemaTemplates(params);
-
-      // Handle the response structure from Vuex store
-      const responseData = response.data || response;
-
-      setTemplates(responseData.items || []);
-      setPagination((prev) => ({
-        ...prev,
-        total: responseData.page?.item_total || 0,
-        current: responseData.page?.current || currentPage,
-        limit: responseData.page?.size || 10,
-      }));
-      setError(false);
-    } catch (err) {
-      console.error("Error fetching templates:", err);
-      setError(true);
-      setTemplates([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [fetchSchemaTemplates, pagination.limit, selectedFilter, searchText, pagination.current]);
+    },
+    [
+      fetchSchemaTemplates,
+      pagination.limit,
+      selectedFilter,
+      searchText,
+      pagination.current,
+    ]
+  );
 
   // Initial load
   useEffect(() => {
@@ -184,7 +193,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
   }
 
   return (
-    <Box sx={{ mt: 2.5 , pb: '20px !important'}}>
+    <Box sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
       {/* Search and Filter Section */}
       {(loading ||
         searchText !== "" ||
@@ -196,101 +205,94 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            mb: 2,
+            padding: "24px",
+            boxSizing: "border-box",
+            gap: "16px",
           }}
         >
-          <Box
+          <NovusInput
+            placeholder="Search here"
+            value={searchText}
+            onChange={handleSearchChange}
+            novusSize="md"
+            fullWidth
+          />
+          <FormControl
             sx={{
-              display: "flex",
-              width: "100%",
-              padding: 1.5,
-              alignItems: "flex-start",
-              gap: 1.25,
-              borderRadius: 1,
-              backgroundColor: "#f5f5f5",
+              minWidth: 120,
+              flexShrink: 0,
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                height: 40,
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "flex-start",
-                gap: 1.25,
-                flex: 1,
-                borderRadius: 1,
-                px: 1.5,
-              }}
-            >
-              <NovusInput
-                placeholder="Search here"
-                value={searchText}
-                onChange={handleSearchChange}
-                novusSize="md"
-                fullWidth
-              />
-            </Box>
-            <FormControl sx={{ minWidth: 120 }}>
-              <NovusDropdown
-                value={selectedFilter}
-                onChange={handleFilterChange}
-                options={PAGE_FILTERS.map(filter => ({
-                  value: filter.value,
-                  label: filter.text
-                }))}
-                placeholder="Filter"
-                novusSize="md"
-              />
-            </FormControl>
-          </Box>
+            <NovusDropdown
+              value={selectedFilter}
+              onChange={handleFilterChange}
+              options={PAGE_FILTERS.map((filter) => ({
+                value: filter.value,
+                label: filter.text,
+              }))}
+              placeholder="Filter"
+              novusSize="md"
+            />
+          </FormControl>
         </Box>
       )}
 
       {/* Templates List */}
-      {templates.length > 0 ? (
-        <Box component="ul" sx={{ listStyle: "none", p: 0, m: 2 }}>
-          {templates.map((template) => (
-            <Box component="li" key={template._id} sx={{ mb: 1 }}>
-              <SchemaTemplateCard
-                template={template}
-                onEdit={handleEditTemplate}
-              />
-            </Box>
-          ))}
-        </Box>
-      ) : !loading ? (
-        <Box
-          p={4}
-          textAlign="center"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          gap={2}
-        >
-          <img
-            src="/public/admin/assets/admin/svgs/no_search_result_found.svg"
-            alt="No Results"
-          />
-          No results found
-        </Box>
-      ) : null}
+      <Box
+        sx={{
+          flex: 1,
+          overflow: "auto",
+          padding: "0 24px 24px 24px",
+          boxSizing: "border-box",
+        }}
+      >
+        {templates.length > 0 ? (
+          <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, display: "flex", flexDirection: "column", gap: "16px" }}>
+            {templates.map((template) => (
+              <Box
+                component="li"
+                key={template._id}
+              >
+                <SchemaTemplateCard
+                  template={template}
+                  onEdit={handleEditTemplate}
+                />
+              </Box>
+            ))}
+          </Box>
+        ) : !loading ? (
+          <Box
+            p={4}
+            textAlign="center"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            gap={2}
+          >
+            <img
+              src="/public/admin/assets/admin/svgs/no_search_result_found.svg"
+              alt="No Results"
+            />
+            No results found
+          </Box>
+        ) : null}
 
-      {/* Pagination */}
-      {pagination.total > 0 && (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 5 , mb: 5 }}>
-          <Pagination
-            count={Math.ceil(pagination.total / pagination.limit)}
-            page={pagination.current}
-            onChange={handlePageChange}
-            color="primary"
-            showFirstButton
-            showLastButton
-            disabled={loading}
-          />
-        </Box>
-      )}
+        {/* Pagination */}
+        {pagination.total > 0 && (
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 5, mb: 2 }}>
+            <Pagination
+              count={Math.ceil(pagination.total / pagination.limit)}
+              page={pagination.current}
+              onChange={handlePageChange}
+              color="primary"
+              showFirstButton
+              showLastButton
+              disabled={loading}
+            />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

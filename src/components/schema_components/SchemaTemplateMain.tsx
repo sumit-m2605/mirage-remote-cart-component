@@ -153,7 +153,7 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
   );
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: '#f8f9fa', width: '100%' }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: '#f5f5f5', width: '100%' }}>
       <RemotePageHeader
         title={isEditMode ? 'Edit Schema' : 'Create Schema'}
         onBack={handleCancel}
@@ -167,8 +167,8 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
         className="main-layout"
         sx={{ 
           display: 'flex', 
-          gap: { xs: 3, md: 6 }, 
-          padding: { xs: 2, md: 4 }, 
+          padding: '24px',
+          gap: '24px',
           minHeight: 'calc(100vh - 80px)',
           width: '100%',
           backgroundColor: '#f8f9fa',

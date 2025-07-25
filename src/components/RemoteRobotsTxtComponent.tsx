@@ -2,9 +2,8 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Snackbar,
-  Alert,
 } from "@mui/material";
+import NovusSnackbar from "./Novus-MUI-wrappers/NovusSnackbar";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
 import CodeEditor from "./commmon/CodeEditor";
@@ -41,7 +40,7 @@ const RobotsTxtRemote: React.FC<Props> = ({
       .catch(() =>
         setSnackbar({
           open: true,
-          message: "❌ Failed to load robots.txt",
+          message: "  Failed to load robots.txt",
           success: false,
         })
       )
@@ -58,13 +57,13 @@ const RobotsTxtRemote: React.FC<Props> = ({
       await saveRobotsTxt(robotsTxt);
       setSnackbar({
         open: true,
-        message: "✅ Robots.txt updated successfully",
+        message: "Robots.txt updated successfully",
         success: true,
       });
     } catch (err: any) {
       setSnackbar({
         open: true,
-        message: `❌ Failed to update Robots.txt${
+        message: `  Failed to update Robots.txt${
           err?.message ? " : " + err.message : ""
         }`,
         success: false,
@@ -148,19 +147,13 @@ const RobotsTxtRemote: React.FC<Props> = ({
 
       </Box>
 
-      <Snackbar
+      <NovusSnackbar
         open={snackbar.open}
-        autoHideDuration={3000}
+        severity={snackbar.success ? "success" : "error"}
+        message={snackbar.message}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          severity={snackbar.success ? "success" : "error"}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+        closable={false}
+      />
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Box,
   Typography,
@@ -8,13 +8,8 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
-  Tooltip,
-  Alert,
-  Snackbar,
   CircularProgress,
   FormControl,
-  InputLabel,
-  MenuItem,
   Divider,
 } from "@mui/material";
 import { NovusInput, NovusDropdown } from "../Novus-MUI-wrappers";
@@ -122,9 +117,7 @@ const SEOComponent: React.FC<Props> = ({
   const priorityOptions = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
   const frequencyOptions = ["never", "yearly", "monthly", "weekly", "daily", "hourly", "always"];
 
-  // Tooltip texts
-  const titleTooltipText = "If the SEO title field is left empty, the system will automatically use the product name as the SEO title for this product.";
-  const descriptionTooltipText = "Keep SEO description under 160 characters for best results on search engines";
+
 
   // Computed values
   const titlePreview = value.title && value.title.length > 80 
@@ -374,13 +367,30 @@ const SEOComponent: React.FC<Props> = ({
   };
 
   return (
-    <Box className="seo-container" display="flex" flexDirection="column">
-      {/* SEO Title Section */}
-      <Typography variant="h6" fontWeight={600} color="#41434C" mb={2}>
-        SEO
-      </Typography>
+    <Box className="seo-container" display="flex" flexDirection="column" gap={3}>
+      {/* SEO Section */}
+      <Box
+        bgcolor={'#FFFFFF'}
+        borderRadius={'12px'}
+        border={'1px solid #FAFAFA'}
+        display="flex"
+        flexDirection="column"
+      >
+        {/* Header */}
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={1}
+          padding={'16px 24px'}
+          borderBottom={'1px solid #E0E0E0'}
+        >
+          <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+            SEO
+          </Typography>
+        </Box>
 
-      <Box display="flex" flexDirection="column" gap={2}>
+        {/* Content */}
+        <Box padding={'24px'} display="flex" flexDirection="column" gap={3}>
         {/* Title Input */}
         <Box>
           <NovusInput
@@ -401,53 +411,51 @@ const SEOComponent: React.FC<Props> = ({
             showCharacterCount
           />
           
-          <Tooltip title={titleTooltipText} arrow>
-            <Box display="flex" gap={1} mt={1}>
-              {generateTitleProgress ? (
-                <NovusButton
-                  variantType="secondary"
-                  novusSize="xs"
-                  onClick={() => cancelGenerate("title", "")}
-                  disabled={true}
-                >
-                  <CircularProgress size={16} style={{ marginRight: '8px' }} />
-                  Cancel
-                </NovusButton>
-              ) : (
-                <NovusButton
-                  variantType="tertiary"
-                  novusSize="xs"
-                  onClick={() => generate("title", "")}
-                >
-                  <GenerateIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-                  Generate
-                </NovusButton>
-              )}
-              
-              <Divider orientation="vertical" flexItem />
-              
-              {generateTitleWithKeyWordProgress ? (
-                <NovusButton
-                  variantType="secondary"
-                  novusSize="xs"
-                  onClick={() => cancelGenerate("title", "keyword")}
-                  disabled={true}
-                >
-                  <CircularProgress size={16} style={{ marginRight: '8px' }} />
-                  Cancel
-                </NovusButton>
-              ) : (
-                <NovusButton
-                  variantType="tertiary"
-                  novusSize="xs"
-                  onClick={() => setTitleDialogOpen(true)}
-                >
-                  <KeyIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-                  Generate Using Custom Keyword
-                </NovusButton>
-              )}
-            </Box>
-          </Tooltip>
+          <Box display="flex" gap={1} mt={1}>
+            {generateTitleProgress ? (
+              <NovusButton
+                variantType="secondary"
+                novusSize="xs"
+                onClick={() => cancelGenerate("title", "")}
+                disabled={true}
+              >
+                <CircularProgress size={16} style={{ marginRight: '8px' }} />
+                Cancel
+              </NovusButton>
+            ) : (
+              <NovusButton
+                variantType="tertiary"
+                novusSize="xs"
+                onClick={() => generate("title", "")}
+              >
+                <GenerateIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+                Generate
+              </NovusButton>
+            )}
+            
+            <Divider orientation="vertical" flexItem />
+            
+            {generateTitleWithKeyWordProgress ? (
+              <NovusButton
+                variantType="secondary"
+                novusSize="xs"
+                onClick={() => cancelGenerate("title", "keyword")}
+                disabled={true}
+              >
+                <CircularProgress size={16} style={{ marginRight: '8px' }} />
+                Cancel
+              </NovusButton>
+            ) : (
+              <NovusButton
+                variantType="tertiary"
+                novusSize="xs"
+                onClick={() => setTitleDialogOpen(true)}
+              >
+                <KeyIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+                Generate Using Custom Keyword
+              </NovusButton>
+            )}
+          </Box>
         </Box>
 
         {/* Description Input */}
@@ -472,53 +480,51 @@ const SEOComponent: React.FC<Props> = ({
             showCharacterCount
           />
           
-          <Tooltip title={descriptionTooltipText} arrow>
-            <Box display="flex" gap={1} mt={1}>
-              {generateDescriptionProgress ? (
-                <NovusButton
-                  variantType="secondary"
-                  novusSize="xs"
-                  onClick={() => cancelGenerate("description", "")}
-                  disabled={true}
-                >
-                  <CircularProgress size={16} style={{ marginRight: '8px' }} />
-                  Cancel
-                </NovusButton>
-              ) : (
-                <NovusButton
-                  variantType="tertiary"
-                  novusSize="xs"
-                  onClick={() => generate("description", "")}
-                >
-                  <GenerateIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-                  Generate
-                </NovusButton>
-              )}
-              
-              <Divider orientation="vertical" flexItem />
-              
-              {generateDescriptionWithKeyWordProgress ? (
-                <NovusButton
-                  variantType="secondary"
-                  novusSize="xs"
-                  onClick={() => cancelGenerate("description", "keyword")}
-                  disabled={true}
-                >
-                  <CircularProgress size={16} style={{ marginRight: '8px' }} />
-                  Cancel
-                </NovusButton>
-              ) : (
-                <NovusButton
-                  variantType="tertiary"
-                  novusSize="xs"
-                  onClick={() => setDescriptionDialogOpen(true)}
-                >
-                  <KeyIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-                  Generate Using Custom Keyword
-                </NovusButton>
-              )}
-            </Box>
-          </Tooltip>
+          <Box display="flex" gap={1} mt={1}>
+            {generateDescriptionProgress ? (
+              <NovusButton
+                variantType="secondary"
+                novusSize="xs"
+                onClick={() => cancelGenerate("description", "")}
+                disabled={true}
+              >
+                <CircularProgress size={16} style={{ marginRight: '8px' }} />
+                Cancel
+              </NovusButton>
+            ) : (
+              <NovusButton
+                variantType="tertiary"
+                novusSize="xs"
+                onClick={() => generate("description", "")}
+              >
+                <GenerateIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+                Generate
+              </NovusButton>
+            )}
+            
+            <Divider orientation="vertical" flexItem />
+            
+            {generateDescriptionWithKeyWordProgress ? (
+              <NovusButton
+                variantType="secondary"
+                novusSize="xs"
+                onClick={() => cancelGenerate("description", "keyword")}
+                disabled={true}
+              >
+                <CircularProgress size={16} style={{ marginRight: '8px' }} />
+                Cancel
+              </NovusButton>
+            ) : (
+              <NovusButton
+                variantType="tertiary"
+                novusSize="xs"
+                onClick={() => setDescriptionDialogOpen(true)}
+              >
+                <KeyIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+                Generate Using Custom Keyword
+              </NovusButton>
+            )}
+          </Box>
         </Box>
 
         {/* Social Media Image Uploader */}
@@ -550,45 +556,65 @@ const SEOComponent: React.FC<Props> = ({
             />
           </Box>
         )}
+        </Box>
       </Box>
 
       {/* Preview Section */}
       {(titlePreview || descriptionPreview) && (
-        <Box mt={3} p={2} border={1} borderColor="#ddd" borderRadius={1}>
-          <Typography variant="h6" fontWeight={600} color="#41434C" mb={2}>
-            Preview
-          </Typography>
-          <Box fontFamily="arial, sans-serif">
-            <Typography
-              variant="h6"
-              color="#1a0dab"
-              sx={{ fontSize: 18, fontWeight: 400, lineHeight: 1.44, margin: 0 }}
-            >
-              {titlePreview || "Title"}
+        <Box
+          bgcolor={'#FFFFFF'}
+          borderRadius={'12px'}
+          border={'1px solid #FAFAFA'}
+          display="flex"
+          flexDirection="column"
+        >
+          {/* Header */}
+          <Box
+            display="flex"
+            alignItems="center"
+            gap={1}
+            padding={'16px 24px'}
+            borderBottom={'1px solid #E0E0E0'}
+          >
+            <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+              Preview
             </Typography>
-            <Typography
-              variant="body2"
-              color="#006621"
-              sx={{ fontSize: 14, lineHeight: 1.3, margin: 0 }}
-            >
-              {url || "https://"}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="#545454"
-              sx={{ fontSize: 14, lineHeight: 1.58, marginTop: 0.5 }}
-            >
-              {descriptionPreview || "Brief description about the preview"}
-            </Typography>
-            {showImageUploader && imagePreview && (
-              <Box mt={1}>
-                <img
-                  src={imagePreview}
-                  alt={titlePreview}
-                  style={{ height: 80, width: "auto" }}
-                />
-              </Box>
-            )}
+          </Box>
+
+          {/* Content */}
+          <Box padding={'16px'} border={'1px solid #E0E0E0'} borderRadius={'12px'} margin={'24px'}>
+            <Box fontFamily="arial, sans-serif">
+              <Typography
+                variant="h6"
+                color="#1a0dab"
+                sx={{ fontSize: 18, fontWeight: 400, lineHeight: 1.44, margin: 0 }}
+              >
+                {titlePreview || "Title"}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="#006621"
+                sx={{ fontSize: 14, lineHeight: 1.3, margin: 0 }}
+              >
+                {url || "https://"}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="#545454"
+                sx={{ fontSize: 14, lineHeight: 1.58, marginTop: 0.5 }}
+              >
+                {descriptionPreview || "Brief description about the preview"}
+              </Typography>
+              {showImageUploader && imagePreview && (
+                <Box mt={1}>
+                  <img
+                    src={imagePreview}
+                    alt={titlePreview}
+                    style={{ height: 80, width: "auto" }}
+                  />
+                </Box>
+              )}
+            </Box>
           </Box>
         </Box>
       )}
@@ -604,39 +630,76 @@ const SEOComponent: React.FC<Props> = ({
 
       {/* Breadcrumbs Section */}
       {breadcrumbEnabled && (
-        <Box mt={3}>
-          <Typography variant="h6" fontWeight={600} color="#41434C" mb={2}>
-            Breadcrumbs
-          </Typography>
-          {(value.breadcrumbs || []).map((breadcrumb, index) => (
-            <BreadcrumbBuilder
-              key={index}
-              breadcrumb={breadcrumb}
-              existingBreadcrumbs={value.breadcrumbs || []}
-              onUpdateBreadcrumb={updateBreadcrumb}
-              onDeleteBreadcrumb={() => deleteBreadcrumb(index)}
-            />
-          ))}
-          <NovusButton
-            variantType="secondary"
-            onClick={addBreadcrumbLevel}
-            startIcon={<AddIcon />}
-            sx={{ mt: 2 }}
+        <Box
+          bgcolor={'#FFFFFF'}
+          borderRadius={'12px'}
+          border={'1px solid #FAFAFA'}
+          display="flex"
+          flexDirection="column"
+        >
+          {/* Header */}
+          <Box
+            display="flex"
+            alignItems="center"
+            gap={1}
+            padding={'16px 24px'}
+            borderBottom={'1px solid #E0E0E0'}
           >
-            Add Level
-          </NovusButton>
+            <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+              Breadcrumbs
+            </Typography>
+          </Box>
+
+          {/* Content */}
+          <Box padding={'24px'} display="flex" flexDirection="column" gap={2}>
+            {(value.breadcrumbs || []).map((breadcrumb, index) => (
+              <BreadcrumbBuilder
+                key={index}
+                breadcrumb={breadcrumb}
+                existingBreadcrumbs={value.breadcrumbs || []}
+                onUpdateBreadcrumb={updateBreadcrumb}
+                onDeleteBreadcrumb={() => deleteBreadcrumb(index)}
+              />
+            ))}
+            <NovusButton
+              variantType="secondary"
+              onClick={addBreadcrumbLevel}
+              startIcon={<AddIcon />}
+              novusSize="sm"
+            >
+              Add Level
+            </NovusButton>
+          </Box>
         </Box>
       )}
 
       {/* Sitemap Section */}
       {sitemapEnabled && (
-        <Box mt={3}>
-          <Typography variant="h6" fontWeight={600} color="#41434C" mb={2}>
-            Sitemap
-          </Typography>
-          <Box display="flex" gap={2}>
+        <Box
+          bgcolor={'#FFFFFF'}
+          borderRadius={'12px'}
+          border={'1px solid #FAFAFA'}
+          display="flex"
+          flexDirection="column"
+        >
+          {/* Header */}
+          <Box
+            display="flex"
+            alignItems="center"
+            gap={1}
+            padding={'16px 24px'}
+            borderBottom={'1px solid #E0E0E0'}
+          >
+            <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+              Sitemap
+            </Typography>
+          </Box>
+
+          {/* Content */}
+          <Box padding={'24px'} display="flex" flexDirection="row" gap={3}>
             <FormControl sx={{ minWidth: 200 }}>
               <NovusDropdown
+                label="Priority"
                 value={priority}
                 onChange={handlePriorityChange}
                 options={priorityOptions.map(option => ({ value: option, label: option.toString() }))}
@@ -646,6 +709,7 @@ const SEOComponent: React.FC<Props> = ({
             </FormControl>
             <FormControl sx={{ minWidth: 200 }}>
               <NovusDropdown
+                label="Frequency"
                 value={frequency}
                 onChange={handleFrequencyChange}
                 options={frequencyOptions.map(option => ({ value: option, label: option }))}
@@ -659,9 +723,22 @@ const SEOComponent: React.FC<Props> = ({
 
       {/* Meta Tags Section */}
       {metaTagsEnabled && (
-        <Box mt={4}>
-          <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-            <Typography variant="h6" fontWeight={600} color="#41434C">
+        <Box
+          bgcolor={'#FFFFFF'}
+          borderRadius={'12px'}
+          border={'1px solid #FAFAFA'}
+          display="flex"
+          flexDirection="column"
+        >
+          {/* Header */}
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            padding={'16px 24px'}
+            borderBottom={'1px solid #E0E0E0'}
+          >
+            <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
               Meta Tags
             </Typography>
             <Box display="flex" gap={1}>
@@ -669,37 +746,39 @@ const SEOComponent: React.FC<Props> = ({
                 variantType="secondary"
                 onClick={() => setMetaPreviewDialogOpen(true)}
                 startIcon={<VisibilityIcon />}
+                novusSize="sm"
               >
                 Preview
               </NovusButton>
               <NovusButton
                 onClick={() => setMetaTagsDialogOpen(true)}
                 startIcon={<AddIcon />}
+                novusSize="sm"
               >
                 Add SEO Meta Tags
               </NovusButton>
             </Box>
           </Box>
 
-          {/* Meta Tags List */}
-          <Box>
+          {/* Content */}
+          <Box padding={'24px'} display="flex" flexDirection="column" gap={2}>
             {(value.meta_tags || []).map((metaTag, index) => (
               <Box
                 key={index}
                 p={2}
                 border={1}
-                borderColor="#e4e5e6"
+                borderColor="#E0E0E0"
                 borderRadius={1}
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                mb={2}
+                bgcolor="#FAFAFA"
               >
                 <Box>
-                  <Typography variant="subtitle1" mb={1}>
+                  <Typography variant="subtitle1" mb={1} fontWeight={500} fontSize="16px" color="#141414">
                     {metaTag.title}
                   </Typography>
-                  <Typography variant="body2" color="#9b9b9b">
+                  <Typography variant="body2" color="#9b9b9b" fontSize="11px">
                     {getTagInString(metaTag.items)}
                   </Typography>
                 </Box>
@@ -728,123 +807,347 @@ const SEOComponent: React.FC<Props> = ({
       {/* Dialogs */}
       
       {/* Title Keywords Dialog */}
-      <Dialog open={titleDialogOpen} onClose={() => setTitleDialogOpen(false)} maxWidth="sm" fullWidth>
-        <DialogTitle>Custom Keywords</DialogTitle>
-        <DialogContent>
-          <Typography variant="body2" color="text.secondary" mb={2}>
-            You can enter up to 6 custom keywords to help the system generate best description for you
-          </Typography>
-          <Box>
-            <Box display="flex" justifyContent="space-between" mb={1}>
-              <Typography variant="subtitle2">Keywords</Typography>
-              <Typography variant="body2" color="text.secondary">
-                {tags.length}/6 Keywords
-              </Typography>
-            </Box>
+      <Dialog 
+        open={titleDialogOpen} 
+        onClose={() => setTitleDialogOpen(false)} 
+        maxWidth="sm" 
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: '16px',
+            boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)',
+            maxHeight: '80vh'
+          }
+        }}
+      >
+        {/* Header */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '12px 16px',
+            backgroundColor: '#F5F5F5',
+            borderBottom: '1px solid #E0E0E0'
+          }}
+        >
+          <Box sx={{ flex: 1 }}>
             <Box
-              border={1}
-              borderColor="#E0E0E0"
-              borderRadius={1}
-              p={1}
-              minHeight={120}
-              display="flex"
-              flexWrap="wrap"
-              gap={1}
+              sx={{
+                fontWeight: 600,
+                fontSize: '18px',
+                color: '#141414'
+              }}
             >
-              {tags.map((tag, index) => (
-                <Chip
-                  key={index}
-                  label={tag}
-                  onDelete={() => removeChip(index, "title")}
-                  size="small"
-                />
-              ))}
-              <NovusInput
-                placeholder="Type a keyword and press enter"
-                value={chipInput}
-                onChange={(e) => setChipInput(e.target.value)}
-                onKeyDown={(e) => addChip(e, "keywords")}
-                novusSize="sm"
-                sx={{ mt: 1 }}
-              />
+              Custom Keywords
             </Box>
           </Box>
-        </DialogContent>
-        <DialogActions>
-          <NovusButton variantType="secondary" novusSize="sm" onClick={() => setTitleDialogOpen(false)}>
-            Cancel
-          </NovusButton>
-          <NovusButton
-            variantType="primary"
-            novusSize="sm"
-            onClick={() => {
-              generate("title", "keyword");
-              setTitleDialogOpen(false);
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '12px'
             }}
           >
-            Generate
-          </NovusButton>
-        </DialogActions>
+            <Box
+              onClick={() => setTitleDialogOpen(false)}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '4px',
+                width: '24px',
+                height: '24px',
+                borderRadius: '250px',
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                }
+              }}
+            >
+              <Box
+                sx={{
+                  width: '16px',
+                  height: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                ✕
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Content */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: '12px',
+            padding: '16px 20px',
+            backgroundColor: '#FFFFFF'
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignSelf: 'stretch',
+              gap: '24px'
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              You can enter up to 6 custom keywords to help the system generate best description for you
+            </Typography>
+            <Box>
+              <Box display="flex" justifyContent="space-between" mb={1}>
+                <Typography variant="subtitle2">Keywords</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {tags.length}/6 Keywords
+                </Typography>
+              </Box>
+              <Box
+                border={1}
+                borderColor="#E0E0E0"
+                borderRadius={1}
+                p={1}
+                minHeight={120}
+                display="flex"
+                flexWrap="wrap"
+                gap={1}
+              >
+                {tags.map((tag, index) => (
+                  <Chip
+                    key={index}
+                    label={tag}
+                    onDelete={() => removeChip(index, "title")}
+                    size="small"
+                  />
+                ))}
+                <NovusInput
+                  placeholder="Type a keyword and press enter"
+                  value={chipInput}
+                  onChange={(e) => setChipInput(e.target.value)}
+                  onKeyDown={(e) => addChip(e, "keywords")}
+                  novusSize="md"
+                  sx={{ mt: 1 }}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Footer */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            alignSelf: 'stretch',
+            gap: '24px',
+            padding: '16px 24px',
+            backgroundColor: '#FFFFFF',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '12px'
+            }}
+          >
+            <NovusButton variantType="secondary" novusSize="sm" onClick={() => setTitleDialogOpen(false)}>
+              Cancel
+            </NovusButton>
+            <NovusButton
+              variantType="primary"
+              novusSize="sm"
+              onClick={() => {
+                generate("title", "keyword");
+                setTitleDialogOpen(false);
+              }}
+            >
+              Generate
+            </NovusButton>
+          </Box>
+        </Box>
       </Dialog>
 
       {/* Description Keywords Dialog */}
-      <Dialog open={descriptionDialogOpen} onClose={() => setDescriptionDialogOpen(false)} maxWidth="sm" fullWidth>
-        <DialogTitle>Custom Keywords</DialogTitle>
-        <DialogContent>
-          <Typography variant="body2" color="text.secondary" mb={2}>
-            You can enter up to 8 custom keywords to help the system generate best description for you
-          </Typography>
-          <Box>
-            <Box display="flex" justifyContent="space-between" mb={1}>
-              <Typography variant="subtitle2">Keywords</Typography>
-              <Typography variant="body2" color="text.secondary">
-                {descriptionTags.length}/8 Keywords
-              </Typography>
-            </Box>
+      <Dialog 
+        open={descriptionDialogOpen} 
+        onClose={() => setDescriptionDialogOpen(false)} 
+        maxWidth="sm" 
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: '16px',
+            boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)',
+            maxHeight: '80vh'
+          }
+        }}
+      >
+        {/* Header */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '12px 16px',
+            backgroundColor: '#F5F5F5',
+            borderBottom: '1px solid #E0E0E0'
+          }}
+        >
+          <Box sx={{ flex: 1 }}>
             <Box
-              border={1}
-              borderColor="#E0E0E0"
-              borderRadius={1}
-              p={1}
-              minHeight={120}
-              display="flex"
-              flexWrap="wrap"
-              gap={1}
+              sx={{
+                fontWeight: 600,
+                fontSize: '18px',
+                color: '#141414'
+              }}
             >
-              {descriptionTags.map((tag, index) => (
-                <Chip
-                  key={index}
-                  label={tag}
-                  onDelete={() => removeChip(index, "description")}
-                  size="small"
-                />
-              ))}
-              <NovusInput
-                placeholder="Type a keyword and press enter"
-                value={chipInput}
-                onChange={(e) => setChipInput(e.target.value)}
-                onKeyDown={(e) => addChip(e, "description")}
-                novusSize="sm"
-                sx={{ mt: 1 }}
-              />
+              Custom Keywords
             </Box>
           </Box>
-        </DialogContent>
-        <DialogActions>
-          <NovusButton variantType="secondary" novusSize="sm" onClick={() => setDescriptionDialogOpen(false)}>
-            Cancel
-          </NovusButton>
-          <NovusButton
-            variantType="primary"
-            novusSize="sm"
-            onClick={() => {
-              generate("description", "keyword");
-              setDescriptionDialogOpen(false);
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '12px'
             }}
           >
-            Generate
-          </NovusButton>
-        </DialogActions>
+            <Box
+              onClick={() => setDescriptionDialogOpen(false)}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '4px',
+                width: '24px',
+                height: '24px',
+                borderRadius: '250px',
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                }
+              }}
+            >
+              <Box
+                sx={{
+                  width: '16px',
+                  height: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                ✕
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Content */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: '12px',
+            padding: '16px 20px',
+            backgroundColor: '#FFFFFF'
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignSelf: 'stretch',
+              gap: '24px'
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              You can enter up to 8 custom keywords to help the system generate best description for you
+            </Typography>
+            <Box>
+              <Box display="flex" justifyContent="space-between" mb={1}>
+                <Typography variant="subtitle2">Keywords</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {descriptionTags.length}/8 Keywords
+                </Typography>
+              </Box>
+              <Box
+                border={1}
+                borderColor="#E0E0E0"
+                borderRadius={1}
+                p={1}
+                minHeight={120}
+                display="flex"
+                flexWrap="wrap"
+                gap={1}
+              >
+                {descriptionTags.map((tag, index) => (
+                  <Chip
+                    key={index}
+                    label={tag}
+                    onDelete={() => removeChip(index, "description")}
+                    size="small"
+                  />
+                ))}
+                <NovusInput
+                  placeholder="Type a keyword and press enter"
+                  value={chipInput}
+                  onChange={(e) => setChipInput(e.target.value)}
+                  onKeyDown={(e) => addChip(e, "description")}
+                  novusSize="sm"
+                  sx={{ mt: 1 }}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Footer */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            alignSelf: 'stretch',
+            gap: '24px',
+            padding: '16px 24px',
+            backgroundColor: '#FFFFFF',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '12px'
+            }}
+          >
+            <NovusButton variantType="secondary" novusSize="sm" onClick={() => setDescriptionDialogOpen(false)}>
+              Cancel
+            </NovusButton>
+            <NovusButton
+              variantType="primary"
+              novusSize="sm"
+              onClick={() => {
+                generate("description", "keyword");
+                setDescriptionDialogOpen(false);
+              }}
+            >
+              Generate
+            </NovusButton>
+          </Box>
+        </Box>
       </Dialog>
 
       {/* Meta Tags Dialog */}

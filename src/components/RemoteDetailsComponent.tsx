@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Snackbar,
-  Alert,
   Typography,
 } from "@mui/material";
+import NovusSnackbar from "./Novus-MUI-wrappers/NovusSnackbar";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
 import SEOComponent from "./seo_components/SEOComponent";
 import ShimmerLoader from "./commmon/ShimmerLoader";
+import InfoBox from "./commmon/InfoBox";
 
 // Types moved from index.ts
 interface SEOData {
@@ -154,7 +154,7 @@ const DetailsRemote: React.FC<Props> = ({
       setPageError(true);
       setSnackbar({
         open: true,
-        message: "❌ Failed to fetch application details",
+        message: "  Failed to fetch application details",
         success: false,
       });
     } finally {
@@ -176,13 +176,13 @@ const DetailsRemote: React.FC<Props> = ({
 
       setSnackbar({
         open: true,
-        message: "✅ Application details updated successfully",
+        message: "Application details updated successfully",
         success: true,
       });
     } catch (error: any) {
       setSnackbar({
         open: true,
-        message: `❌ Failed to update Application Details${
+        message: `  Failed to update Application Details${
           error && error.message ? ` : ${error.message}` : ""
         }`,
         success: false,
@@ -199,7 +199,7 @@ const DetailsRemote: React.FC<Props> = ({
   const showSnackbar = (message: string, type: "success" | "error") => {
     setSnackbar({
       open: true,
-      message: type === "success" ? `✅ ${message}` : `❌ ${message}`,
+      message: type === "success" ? `${message}` : `  ${message}`,
       success: type === "success",
     });
   };
@@ -261,9 +261,6 @@ const DetailsRemote: React.FC<Props> = ({
           flex={1}
           sx={{
             width: { xs: "100%", md: "70%" },
-            background: "white",
-            padding: "1.5rem",
-            borderRadius: "8px",
           }}
         >
           <SEOComponent
@@ -288,49 +285,24 @@ const DetailsRemote: React.FC<Props> = ({
         </Box>
 
         {/* Help Section */}
-        <Box
-          sx={{
-            width: { xs: "100%", md: "30%" },
-            p: 2,
-            bgcolor: "#f9f9f9",
-            borderRadius: 2,
-            boxShadow: 1,
-            height: "fit-content",
-          }}
-        >
-          <Typography variant="h6" fontWeight={600} mb={2}>
-            Where will Application details be used?
-          </Typography>
-          <Typography variant="body2" color="text.secondary" mb={2}>
-            Application details are used to provide information about your application
-            to search engines and social media platforms. This helps improve your
-            application's visibility and presentation when shared online.
-          </Typography>
-          <Typography variant="body2" color="text.secondary" mb={2}>
-            The SEO title and description will appear in search engine results,
-            while the social media image will be used when your application is
-            shared on platforms like Facebook, Twitter, and LinkedIn.
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            The sitemap configuration helps search engines understand the structure
-            of your application and how frequently content is updated.
-          </Typography>
-        </Box>
+        <InfoBox 
+          title="Where will Application details be used?"
+          listItems={[
+            "Enter the application details (e.g. name of sales channel) that will be used in the meta fields i.e. title and description of all your web pages.",
+            "These details will be used by default unless you specify custom SEO fields for your web pages."
+          ]}
+          listStyle="bullet"
+          flex={{ xs: "1 1 100%", md: "0 1 30%" }}
+        />
       </Box>
 
-      <Snackbar
+      <NovusSnackbar
         open={snackbar.open}
-        autoHideDuration={3000}
+        severity={snackbar.success ? "success" : "error"}
+        message={snackbar.message}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          severity={snackbar.success ? "success" : "error"}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+        closable={false}
+      />
     </Box>
   );
 };

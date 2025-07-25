@@ -48,17 +48,19 @@ const SchemaTemplateCard: React.FC<SchemaTemplateCardProps> = ({
   return (
     <Box
       onClick={handleClick}
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: 2,
-        border: '1px solid #e4e5e6',
-        borderRadius: 1,
-        backgroundColor: '#fff',
+      sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        padding: '12px',
+        gap: '12px',
+        alignSelf: 'stretch',
+        borderRadius: '8px',
+        border: '1px solid #E0E0E0',
+        background: '#FAFAFA',
+        boxShadow: 'none',
         cursor: 'pointer',
-        transition: 'all 0.2s ease-in-out',
         '&:hover': {
-          borderColor: '#2C4BFF',
+          borderColor: 'rgba(0, 0, 147, 1)',
           boxShadow: '0 2px 8px rgba(44, 75, 255, 0.1)'
         }
       }}

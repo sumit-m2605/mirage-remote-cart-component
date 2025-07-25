@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
-  Snackbar,
-  Alert,
 } from "@mui/material";
+import NovusSnackbar from "./Novus-MUI-wrappers/NovusSnackbar";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusToggle from "./Novus-MUI-wrappers/NovusToggle";
 
@@ -37,7 +36,7 @@ const CanonicalTagRemote: React.FC<Props> = ({
       .catch(() =>
         setSnackbar({
           open: true,
-          message: "❌ Failed to fetch canonical status",
+          message: "  Failed to fetch canonical status",
           success: false,
         })
       )
@@ -51,8 +50,8 @@ const CanonicalTagRemote: React.FC<Props> = ({
     setSnackbar({
       open: true,
       message: success
-        ? `✅ Canonical ${value ? "Enabled" : "Disabled"}`
-        : "❌ Update failed",
+        ? `Canonical ${value ? "Enabled" : "Disabled"}`
+        : "Canonical update failed",
       success,
     });
   };
@@ -79,7 +78,7 @@ const CanonicalTagRemote: React.FC<Props> = ({
         }
       />
 
-      <Box bgcolor="#fff" m={3} p={3} borderRadius={2}>
+      <Box bgcolor="#fff" m={3} p={3} borderRadius={'12px'}>
         <Typography
           className="contain-heading"
           fontWeight={700}
@@ -115,19 +114,13 @@ const CanonicalTagRemote: React.FC<Props> = ({
         </Typography>
       </Box>
 
-      <Snackbar
+      <NovusSnackbar
         open={snackbar.open}
-        autoHideDuration={3000}
+        severity={snackbar.success ? "success" : "error"}
+        message={snackbar.message}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          severity={snackbar.success ? "success" : "error"}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+        closable={false}
+      />
     </Box>
   );
 };
