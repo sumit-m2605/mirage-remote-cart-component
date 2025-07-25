@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, CircularProgress, Snackbar, Alert, Fab } from "@mui/material";
+import { Box, Snackbar, Alert, Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import MetaList from "./commmon/MetaList.tsx";
@@ -7,6 +7,7 @@ import MetaDialog from "./commmon/MetaDialog.tsx";
 import ConfirmDialog from "./commmon/ConfirmDialog.tsx";
 import type { MetaTag } from "./commmon/MetaTags";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton.tsx";
+import ShimmerLoader from "./commmon/ShimmerLoader";
 
 interface Props {
   fetchCustomMetaTags: () => Promise<MetaTag[]>;
@@ -155,7 +156,7 @@ const MetaTagsRemote: React.FC<Props> = ({
 
       {loading ? (
         <Box p={4}>
-          <CircularProgress />
+          <ShimmerLoader height="200px" />
         </Box>
       ) : metaList.length === 0 ? (
         <Box

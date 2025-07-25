@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import {
   Box,
-  CircularProgress,
   IconButton,
   Snackbar,
   Alert,
@@ -10,6 +9,7 @@ import {
 import { Input, Button, Toggle, Typography } from "fds-web";
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import ShimmerLoader from './commmon/ShimmerLoader';
 
 interface CartToggleOption {
   key: string;
@@ -197,7 +197,7 @@ const CartSettingsRemote = ({
     });
   };
 
-  if (loading || !cartConfig) return <CircularProgress />;
+  if (loading || !cartConfig) return <ShimmerLoader height="200px" />;
 
   return (
     <Box>

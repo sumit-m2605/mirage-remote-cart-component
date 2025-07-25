@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  CircularProgress,
   Snackbar,
   Alert,
   Typography,
@@ -10,6 +9,7 @@ import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusToggle from "./Novus-MUI-wrappers/NovusToggle";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
 import CodeEditor from "./commmon/CodeEditor";
+import ShimmerLoader from "./commmon/ShimmerLoader";
 
 interface Props {
   fetchSitemapStatus: () => Promise<{ enabled: boolean; content: string }>;
@@ -96,7 +96,7 @@ const SitemapRemote: React.FC<Props> = ({
   if (loading)
     return (
       <Box p={4}>
-        <CircularProgress />
+        <ShimmerLoader height="200px" />
       </Box>
     );
 

@@ -1,9 +1,9 @@
 // REMOTE COMPONENT: src/components/RemoteRobotsTxtComponent.tsx
 import React, { useEffect, useState } from "react";
+import root from 'window-or-global';
 import {
   Box,
   Typography,
-  CircularProgress,
   Snackbar,
   Alert,
 } from "@mui/material";
@@ -11,6 +11,7 @@ import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
 import CodeEditor from "./commmon/CodeEditor";
 import AlertBox from "./commmon/AlertBox";
+import ShimmerLoader from "./commmon/ShimmerLoader";
 
 interface Props {
   fetchRobotsTxt: () => Promise<string>;
@@ -78,7 +79,7 @@ const RobotsTxtRemote: React.FC<Props> = ({
   if (loading)
     return (
       <Box p={4}>
-        <CircularProgress />
+        <ShimmerLoader height="200px" />
       </Box>
     );
 
@@ -117,6 +118,13 @@ const RobotsTxtRemote: React.FC<Props> = ({
         padding={2}
         gap={2}
       >
+{/* 
+xxx
+        {console.log('root:', root)}
+        {console.log('root.env:', root.env)}
+        {console.log('root.env?.BROWSER_CONFIG:', root.env?.BROWSER_CONFIG)}
+        {root.env?.FYND_PLATFORM_DOMAIN || 'pppp'}
+   xxx */}
         <AlertBox showCloseButton={false}>
           A robots.txt file tells search engines which pages not to index. Learn more from Google Search docs.
         </AlertBox>

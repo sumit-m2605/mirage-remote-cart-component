@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import {
   Box,
   Typography,
-  CircularProgress,
   IconButton,
   Snackbar,
   Alert,
@@ -10,6 +9,7 @@ import {
 import { NovusInput } from './Novus-MUI-wrappers';
 import NovusButton from './Novus-MUI-wrappers/NovusButton';
 import NovusToggle from './Novus-MUI-wrappers/NovusToggle';
+import ShimmerLoader from './commmon/ShimmerLoader';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -203,7 +203,7 @@ const CartSettingsRemote = ({
     });
   };
 
-  if (loading || !cartConfig) return <CircularProgress />;
+  if (loading || !cartConfig) return <ShimmerLoader height="200px" />;
 
   return (
     <Box>

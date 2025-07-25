@@ -6,13 +6,13 @@ import {
   MenuItem,
   Pagination,
   Typography,
-  CircularProgress,
   Alert,
 } from "@mui/material";
 import type { SelectChangeEvent } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 import { NovusInput, NovusDropdown } from "../Novus-MUI-wrappers";
 import SchemaTemplateCard from "./SchemaTemplateCard";
+import ShimmerLoader from "../commmon/ShimmerLoader";
 
 interface SchemaTemplate {
   _id: string;
@@ -168,7 +168,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
           height: 200,
         }}
       >
-        <CircularProgress />
+        <ShimmerLoader height="200px" />
       </Box>
     );
   }

@@ -26,11 +26,13 @@
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
     "@uiw/react-codemirror": "^4.24.1",
+    "browser-or-node": "^3.0.0",
     "fds-web": "git+ssh://git@ssh.dev.azure.com:v3/GoFynd/FyndDesignSystem/fds-web#0.0.5rc0.4",
     "mustache": "^4.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-to-webcomponent": "^2.0.1"
+    "react-to-webcomponent": "^2.0.1",
+    "window-or-global": "^1.0.1"
   },
   "devDependencies": {
     "@module-federation/rsbuild-plugin": "^0.15.0",

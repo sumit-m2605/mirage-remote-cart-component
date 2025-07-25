@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  CircularProgress,
   Snackbar,
   Alert,
   Typography,
@@ -9,6 +8,7 @@ import {
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
 import SEOComponent from "./seo_components/SEOComponent";
+import ShimmerLoader from "./commmon/ShimmerLoader";
 
 // Types moved from index.ts
 interface SEOData {
@@ -207,6 +207,7 @@ const DetailsRemote: React.FC<Props> = ({
   if (loading) {
     return (
       <Box p={4} display="flex" justifyContent="center">
+        <ShimmerLoader height="200px" />
       </Box>
     );
   }
