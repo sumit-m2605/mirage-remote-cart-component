@@ -327,7 +327,7 @@ const CartSettingsRemote = ({
                   onChange={(e) => handleCartChange('pan_card.cod_threshold_amount', parseInt(e.target.value, 10))}
                   variantType={errors.cod_threshold_amount ? 'error' : 'default'}
                   helperText={errors.cod_threshold_amount}
-                  novusSize="m"
+                  novusSize="md"
                 />
                 <NovusInput
                   label="PAN card required min cart Online checkout value"
@@ -336,7 +336,7 @@ const CartSettingsRemote = ({
                   onChange={(e) => handleCartChange('pan_card.online_threshold_amount', parseInt(e.target.value, 10))}
                   variantType={errors.online_threshold_amount ? 'error' : 'default'}
                   helperText={errors.online_threshold_amount}
-                  novusSize="m"
+                  novusSize="md"
                 />
               </>
             )}
@@ -348,7 +348,7 @@ const CartSettingsRemote = ({
               onChange={(e) => handleCartChange('max_cart_items', parseInt(e.target.value, 10))}
               variantType={errors.max_cart_items ? 'error' : 'default'}
               helperText={errors.max_cart_items}
-              novusSize="m"
+              novusSize="md"
             />
             <NovusInput
               label="Min Cart Value"
@@ -357,7 +357,7 @@ const CartSettingsRemote = ({
               onChange={(e) => handleCartChange('min_cart_value', parseInt(e.target.value, 10))}
               variantType={errors.min_cart_value ? 'error' : 'default'}
               helperText={errors.min_cart_value}
-              novusSize="m"
+              novusSize="md"
             />
           </Box>
 
@@ -391,7 +391,7 @@ const CartSettingsRemote = ({
                         updated[idx].threshold = parseInt(e.target.value, 10);
                         handleCartChange('delivery_charges.charges', updated);
                       }}
-                      novusSize="m"
+                      novusSize="md"
                     />
                   </Box>
 
@@ -405,7 +405,7 @@ const CartSettingsRemote = ({
                         updated[idx].charges = parseInt(e.target.value, 10);
                         handleCartChange('delivery_charges.charges', updated);
                       }}
-                      novusSize="m"
+                      novusSize="md"
                     />
                   </Box>
 

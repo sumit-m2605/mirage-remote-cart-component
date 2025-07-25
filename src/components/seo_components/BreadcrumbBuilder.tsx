@@ -238,7 +238,7 @@ const BreadcrumbBuilder: React.FC<Props> = ({
             secondaryText: option.description
           }))}
           placeholder="Select Level Type"
-          novusSize="m"
+          novusSize="md"
         />
       </FormControl>
 
@@ -258,7 +258,7 @@ const BreadcrumbBuilder: React.FC<Props> = ({
                   { value: "sample-value", label: "Sample Value" }
                 ]}
                 placeholder={`Select ${param.name || param.key}`}
-                novusSize="m"
+                novusSize="md"
               />
             </FormControl>
           ))}
@@ -281,7 +281,7 @@ const BreadcrumbBuilder: React.FC<Props> = ({
                   { value: "sample-value", label: "Sample Value" }
                 ]}
                 placeholder={`Select ${param.name || param.key}`}
-                novusSize="m"
+                novusSize="md"
               />
             </FormControl>
           ))}

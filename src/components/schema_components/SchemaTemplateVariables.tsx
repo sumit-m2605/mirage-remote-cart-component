@@ -411,7 +411,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
                 value: pageType.value,
                 label: pageType.text
               }))}
-              novusSize="m"
+              novusSize="md"
             />
             {selectedPageType.showerror && (
               <FormHelperText>{selectedPageType.errortext}</FormHelperText>

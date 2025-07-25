@@ -7,7 +7,7 @@ import {
   Paper
 } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import DragHandleIcon from '@mui/icons-material/DragHandle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import type { MetaTag } from './MetaTags';
@@ -29,29 +29,39 @@ const MetaList: React.FC<Props> = ({ metaList, onEdit, onDelete, onReorder }) =>
   };
 
   return (
-    <Box p={2} display="flex" flexDirection="column" gap={2}>
+    <Box p={'24px'} display="flex" flexDirection="column" gap={2}>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="meta-tags">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+            <div ref={provided.innerRef} {...provided.droppableProps} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {metaList.map((meta, index) => (
                 <Draggable key={index} draggableId={`meta-${index}`} index={index}>
                   {(provided) => (
                     <Paper
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      sx={{ display: 'flex', alignItems: 'center', p: 2, mb: 1 }}
+                      sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        padding: '12px',
+                        gap: '12px',
+                        alignSelf: 'stretch',
+                        borderRadius: '8px',
+                        border: '1px solid #E0E0E0',
+                        background: '#FAFAFA',
+                        boxShadow: 'none'
+                      }}
                     >
                       <Box {...provided.dragHandleProps} pr={2}>
-                        <DragIndicatorIcon />
+                        <DragHandleIcon />
                       </Box>
                       <Box flex={1}>
-                        <Typography fontWeight={600}>{meta.name}</Typography>
-                        <Typography variant="body2" color="text.secondary">{meta.content}</Typography>
+                        <Typography fontWeight={500} fontSize={'16px'} color={'#141414'}>{meta.name}</Typography>
+                        <Typography fontWeight={400} fontSize={'11px'} color={'#888888'}>{meta.content}</Typography>
                       </Box>
-                      <Box display="flex" gap={1}>
-                        <IconButton onClick={() => onEdit(meta, index)}><EditIcon /></IconButton>
-                        <IconButton onClick={() => onDelete(meta, index)}><DeleteIcon /></IconButton>
+                      <Box display="flex" gap={2}>
+                        <IconButton sx={{height: '16px', width: '16px'}} onClick={() => onEdit(meta, index)}><EditIcon  sx={{height: '16px', width: '16px'}} /></IconButton>
+                        <IconButton sx={{height: '16px', width: '16px'}} onClick={() => onDelete(meta, index)}><DeleteIcon sx={{height: '16px', width: '16px'}} /></IconButton>
                       </Box>
                     </Paper>
                   )}

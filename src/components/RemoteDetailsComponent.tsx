@@ -218,7 +218,7 @@ const DetailsRemote: React.FC<Props> = ({
         <Typography variant="h6" color="error" mb={2}>
           Failed to load application details
         </Typography>
-        <NovusButton variantType="secondary" novusSize="s" onClick={getDetails}>
+        <NovusButton variantType="secondary" novusSize="sm" onClick={getDetails}>
           Retry
         </NovusButton>
       </Box>
@@ -240,7 +240,7 @@ const DetailsRemote: React.FC<Props> = ({
         renderActions={
           <NovusButton
             variantType="secondary"
-            novusSize="s"
+            novusSize="sm"
             onClick={handleSave}
             disabled={saving}
           >

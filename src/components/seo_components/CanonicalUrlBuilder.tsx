@@ -60,7 +60,7 @@ const CanonicalUrlBuilder: React.FC<Props> = ({
             label="Domain"
             value={urlDomain}
             disabled
-            novusSize="m"
+            novusSize="md"
           />
         </Box>
         <Box sx={{ width: "70%" }}>
@@ -69,7 +69,7 @@ const CanonicalUrlBuilder: React.FC<Props> = ({
             value={urlPath}
             onChange={handleUrlPathChange}
             placeholder="Enter canonical url path"
-            novusSize="m"
+            novusSize="md"
           />
         </Box>
       </Box>

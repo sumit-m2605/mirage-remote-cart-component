@@ -397,7 +397,7 @@ const SEOComponent: React.FC<Props> = ({
                   : "Recommended: Keep SEO title between 45-60 characters"
                 : ""
             }
-            novusSize="m"
+            novusSize="md"
             showCharacterCount
           />
           
@@ -468,7 +468,7 @@ const SEOComponent: React.FC<Props> = ({
                   : "Recommended limit exceeded - this may impact your SEO"
                 : ""
             }
-            novusSize="m"
+            novusSize="md"
             showCharacterCount
           />
           
@@ -641,7 +641,7 @@ const SEOComponent: React.FC<Props> = ({
                 onChange={handlePriorityChange}
                 options={priorityOptions.map(option => ({ value: option, label: option.toString() }))}
                 placeholder="Select priority"
-                novusSize="m"
+                novusSize="md"
               />
             </FormControl>
             <FormControl sx={{ minWidth: 200 }}>
@@ -650,7 +650,7 @@ const SEOComponent: React.FC<Props> = ({
                 onChange={handleFrequencyChange}
                 options={frequencyOptions.map(option => ({ value: option, label: option }))}
                 placeholder="Select frequency"
-                novusSize="m"
+                novusSize="md"
               />
             </FormControl>
           </Box>
@@ -764,19 +764,19 @@ const SEOComponent: React.FC<Props> = ({
                 value={chipInput}
                 onChange={(e) => setChipInput(e.target.value)}
                 onKeyDown={(e) => addChip(e, "keywords")}
-                novusSize="s"
+                novusSize="sm"
                 sx={{ mt: 1 }}
               />
             </Box>
           </Box>
         </DialogContent>
         <DialogActions>
-          <NovusButton variantType="secondary" novusSize="s" onClick={() => setTitleDialogOpen(false)}>
+          <NovusButton variantType="secondary" novusSize="sm" onClick={() => setTitleDialogOpen(false)}>
             Cancel
           </NovusButton>
           <NovusButton
             variantType="primary"
-            novusSize="s"
+            novusSize="sm"
             onClick={() => {
               generate("title", "keyword");
               setTitleDialogOpen(false);
@@ -824,19 +824,19 @@ const SEOComponent: React.FC<Props> = ({
                 value={chipInput}
                 onChange={(e) => setChipInput(e.target.value)}
                 onKeyDown={(e) => addChip(e, "description")}
-                novusSize="s"
+                novusSize="sm"
                 sx={{ mt: 1 }}
               />
             </Box>
           </Box>
         </DialogContent>
         <DialogActions>
-          <NovusButton variantType="secondary" novusSize="s" onClick={() => setDescriptionDialogOpen(false)}>
+          <NovusButton variantType="secondary" novusSize="sm" onClick={() => setDescriptionDialogOpen(false)}>
             Cancel
           </NovusButton>
           <NovusButton
             variantType="primary"
-            novusSize="s"
+            novusSize="sm"
             onClick={() => {
               generate("description", "keyword");
               setDescriptionDialogOpen(false);

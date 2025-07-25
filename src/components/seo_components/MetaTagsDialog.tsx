@@ -201,7 +201,7 @@ const MetaTagsDialog: React.FC<Props> = ({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          novusSize="m"
+          novusSize="md"
         />
 
         <Box mt={2}>
@@ -219,7 +219,7 @@ const MetaTagsDialog: React.FC<Props> = ({
                   value={item.key}
                   onChange={(e) => updateMetaTagItem(index, "key", e.target.value)}
                   required
-                  novusSize="m"
+                  novusSize="md"
                 />
               </Box>
               <Box sx={{ flex: 1 }}>
@@ -228,7 +228,7 @@ const MetaTagsDialog: React.FC<Props> = ({
                   value={item.value}
                   onChange={(e) => updateMetaTagItem(index, "value", e.target.value)}
                   required
-                  novusSize="m"
+                  novusSize="md"
                 />
               </Box>
               {metaTagsItems.length > 1 && (

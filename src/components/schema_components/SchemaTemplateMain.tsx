@@ -145,7 +145,7 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
         variantType="secondary"
         onClick={handleSave}
         disabled={pageLoading}
-        novusSize="s"
+        novusSize="sm"
       >
         {pageLoading ? 'Saving...' : (isEditMode ? 'Save' : 'Create')}
       </NovusButton>

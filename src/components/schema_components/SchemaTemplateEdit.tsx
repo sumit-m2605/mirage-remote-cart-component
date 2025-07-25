@@ -197,7 +197,7 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             maxLength={validLength.title}
             variantType={data.title.showerror ? 'error' : 'default'}
             helperText={data.title.showerror ? data.title.errortext : undefined}
-            novusSize="m"
+            novusSize="md"
             required
             fullWidth
           />
@@ -216,7 +216,7 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             maxLength={validLength.desc}
             variantType={data.description.showerror ? 'error' : 'default'}
             helperText={data.description.showerror ? data.description.errortext : undefined}
-            novusSize="m"
+            novusSize="md"
             showCharacterCount
             fullWidth
           />

@@ -10,6 +10,7 @@ import NovusToggle from "./Novus-MUI-wrappers/NovusToggle";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
 import CodeEditor from "./commmon/CodeEditor";
 import ShimmerLoader from "./commmon/ShimmerLoader";
+import InfoBox from "./commmon/InfoBox";
 
 interface Props {
   fetchSitemapStatus: () => Promise<{ enabled: boolean; content: string }>;
@@ -105,6 +106,7 @@ const SitemapRemote: React.FC<Props> = ({
       className="page-container integration-container"
       display="flex"
       flexDirection="column"
+      bgcolor={'#F5F5F5'}
     >
       <RemotePageHeader
         title="Sitemap"
@@ -112,19 +114,19 @@ const SitemapRemote: React.FC<Props> = ({
         helpSlug={helpSlug}
         helpDocsURLs={helpDocsURLs}
         renderActions={
-          <Box display="flex" alignItems="center" gap={2}>
+          <Box display="flex" alignItems="center" gap={1}>
             <NovusToggle
               label={enabled ? "Sitemaps Enabled" : "Sitemaps Disabled"}
               checked={enabled}
               onChange={handleToggle}
             />
             <NovusButton
-              novusSize="s"
+              novusSize="sm"
               variantType="secondary" onClick={() => setContent("")}>
               Reset
             </NovusButton>
             <NovusButton
-            novusSize="s"
+            novusSize="sm"
               variantType="primary"
               onClick={handleSave}
               disabled={saving}
@@ -137,12 +139,19 @@ const SitemapRemote: React.FC<Props> = ({
 
       <Box
         display="flex"
+        flexDirection="row"
         flex={1}
-        flexDirection={{ xs: "column", md: "row" }}
-        padding={3}
-        gap={3}
+        padding={'24px'}
+        gap={'20px'}
       >
-        <Box flex={1}>
+        <Box
+          bgcolor={'#FFFFFF'}
+          borderRadius={'12px'}
+          border={'1px solid #FAFAFA'}
+          padding={'24px'}
+          height={'fit-content'}
+          flex={{ xs: "1 1 100%", md: "0 1 70%" }}
+        >
           <Typography variant="h6" fontWeight={600} mb={1}>
             Custom Sitemap
           </Typography>
@@ -150,19 +159,25 @@ const SitemapRemote: React.FC<Props> = ({
             Content added in the custom sitemap below will be integrated into
             the default sitemap and will not replace your default sitemap.
           </Typography>
-          <CodeEditor value={content} onChange={setContent} />
+          <CodeEditor 
+            value={content} 
+            onChange={setContent}
+            placeholder="Paste sitemap.xml content here..."
+            height="300px"
+            theme="light"
+          />
         </Box>
 
-        <Box width="30%" p={2} bgcolor="#f9f9f9" borderRadius={2} boxShadow={1}>
-          <Typography fontWeight={600} mb={1}>
-            What is sitemap?
-          </Typography>
-          <Typography fontSize="0.875rem" color="text.secondary">
-            A sitemap tells search engines how your site is structured. It helps
-            search crawlers understand what pages to index. Custom additions
-            will be merged with the default sitemap.
-          </Typography>
-        </Box>
+        <InfoBox 
+          title="What is Sitemap?"
+          listItems={[
+            "A sitemap tells search engines how your site is structured and helps search crawlers understand what pages to index.",
+            "It provides a list of all the important pages on your website, making it easier for search engines to discover and crawl your content.",
+            "Custom additions will be merged with the default sitemap and will not replace your existing sitemap structure."
+          ]}
+          listStyle="bullet"
+          flex={{ xs: "1 1 100%", md: "0 1 30%" }}
+        />
       </Box>
 
       <Snackbar

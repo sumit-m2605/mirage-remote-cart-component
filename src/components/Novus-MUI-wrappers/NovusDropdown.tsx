@@ -76,7 +76,7 @@ export interface NovusDropdownProps extends Omit<SelectProps, 'variant' | 'label
   label?: string;
   required?: boolean;
   variantType?: 'default' | 'error' | 'success';
-  novusSize?: 's' | 'm' | 'l';
+  novusSize?: 'sm' | 'md' | 'lg';
   showHelpIcon?: boolean;
   helperText?: string;
   placeholder?: string;
@@ -94,7 +94,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
   label,
   required = false,
   variantType = 'default',
-  novusSize = 'm',
+  novusSize = 'md',
   showHelpIcon = false,
   helperText,
   placeholder = 'Select an option',
@@ -128,7 +128,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
   // Map novusSize to exact Figma specifications - EXACTLY like NovusInput
   const getSizeStyles = () => {
     switch (novusSize) {
-      case 's':
+      case 'sm':
         return {
           '& .MuiOutlinedInput-root': {
             padding: '8px 12px !important',
@@ -148,7 +148,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
             minHeight: 'auto !important',
           },
         };
-      case 'm':
+      case 'md':
         return {
           '& .MuiOutlinedInput-root': {
             padding: '12px 12px !important',
@@ -168,7 +168,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
             minHeight: 'auto !important',
           },
         };
-      case 'l':
+      case 'lg':
         return {
           '& .MuiOutlinedInput-root': {
             padding: '16px 12px !important',
@@ -245,22 +245,22 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
           '& .MuiOutlinedInput-root': {
             border: 'none !important',
             borderRadius: '0 !important',
-            height: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
-            minHeight: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
-            maxHeight: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
-            ...(novusSize === 's' && {
+            height: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
+            minHeight: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
+            maxHeight: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
+            ...(novusSize === 'sm' && {
               padding: '6px 8px !important',
               gap: '10px',
               boxSizing: 'border-box !important',
               lineHeight: '32px !important',
             }),
-            ...(novusSize === 'm' && {
+            ...(novusSize === 'md' && {
               padding: '8px 12px !important',
               gap: '10px',
               boxSizing: 'border-box !important',
               lineHeight: '40px !important',
             }),
-            ...(novusSize === 'l' && {
+            ...(novusSize === 'lg' && {
               padding: '12px 12px !important',
               gap: '10px',
               boxSizing: 'border-box !important',
@@ -268,19 +268,19 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
             }),
           },
           '& .MuiSelect-select': {
-            fontSize: novusSize === 'l' ? '16px' : '14px',
-            lineHeight: novusSize === 'l' ? '1.5em' : '1.4285714285714286em',
+            fontSize: novusSize === 'lg' ? '16px' : '14px',
+            lineHeight: novusSize === 'lg' ? '1.5em' : '1.4285714285714286em',
             padding: '0 !important',
-            height: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
-            minHeight: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
-            maxHeight: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
+            height: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
+            minHeight: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
+            maxHeight: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
           },
           '& .MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input': {
             padding: '0rem 1rem !important',
-            borderRadius: novusSize === 's' ? '6px !important' : novusSize === 'm' ? '8px !important' : '12px !important',
-            height: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
-            minHeight: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
-            maxHeight: novusSize === 's' ? '32px !important' : novusSize === 'm' ? '40px !important' : '48px !important',
+            borderRadius: novusSize === 'sm' ? '6px !important' : novusSize === 'md' ? '8px !important' : '12px !important',
+            height: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
+            minHeight: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
+            maxHeight: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
             border: '1px solid #E0E0E0 !important',
             '&:hover': {
               borderColor: '#CBD5E0 !important',

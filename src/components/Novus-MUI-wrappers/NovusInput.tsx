@@ -14,7 +14,7 @@ export interface NovusInputProps extends Omit<TextFieldProps, 'variant' | 'label
   label?: string;
   required?: boolean;
   variantType?: 'default' | 'error' | 'success';
-  novusSize?: 's' | 'm' | 'l';
+  novusSize?: 'sm' | 'md' | 'lg';
   showHelpIcon?: boolean;
   showCharacterCount?: boolean;
   maxLength?: number;
@@ -84,19 +84,19 @@ const NovusInputField = styled(TextField)<TextFieldProps>(() => ({
 }));
 
 const sizeStyleMap: Record<string, any> = {
-  s: {
+  sm: {
     height: 32,
     padding: '6px 8px',
     borderRadius: '6px',
     fontSize: 14,
   },
-  m: {
+  md: {
     height: 40,
     padding: '8px 12px',
     borderRadius: '8px',
     fontSize: 14,
   },
-  l: {
+  lg: {
     height: 48,
     padding: '12px 12px',
     borderRadius: '12px',
@@ -108,7 +108,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
   label,
   required = false,
   variantType = 'default',
-  novusSize = 'm',
+  novusSize = 'md',
   showHelpIcon = false,
   showCharacterCount = false,
   maxLength,
@@ -121,7 +121,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
   const isError = variantType === 'error' || error;
   const isSuccess = variantType === 'success';
   const currentLength = typeof value === 'string' ? value.length : 0;
-  const size = sizeStyleMap[novusSize || 'm'];
+  const size = sizeStyleMap[novusSize || 'md'];
 
   // Get helper text color based on variant
   const getHelperTextColor = () => {
@@ -144,7 +144,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
   // Map novusSize to exact Figma specifications
   const getSizeStyles = () => {
     switch (novusSize) {
-      case 's':
+      case 'sm':
         return {
           '& .MuiOutlinedInput-root': {
             padding: '8px 12px', // Spacing + Padding/4 (4+4=8) top/bottom, Spacing + Padding/8 (4+8=12) left/right
@@ -165,7 +165,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
             padding: '8px 12px !important',
           },
         };
-      case 'm':
+      case 'md':
         return {
           '& .MuiOutlinedInput-root': {
             padding: '12px 12px', // Spacing + Padding/8 (4+8=12) top/bottom, Padding/12 left/right
@@ -186,7 +186,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
             padding: '12px 12px !important',
           },
         };
-      case 'l':
+      case 'lg':
         return {
           '& .MuiOutlinedInput-root': {
             padding: '16px 12px', // Spacing + Padding/12 (4+12=16) top/bottom, Padding/12 left/right

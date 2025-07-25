@@ -24,97 +24,58 @@ interface RemotePageHeaderProps {
 }
 
 // Styled components to match original design
-const PageHeaderContainer = styled(Box)(({ theme }) => ({
+const PageHeaderContainer = styled(Box)(() => ({
   position: 'sticky',
   top: 0,
   zIndex: 6,
-  height: '58.5px',
   backgroundColor: '#ffffff',
   boxShadow: '0 1px 0px 0 rgba(0, 0, 0, 0.1)',
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
-    height: 'auto',
-  }
+  padding: '16px 24px',
+  
 }));
 
-const PageNav = styled(Box)(({ theme }) => ({
+const PageNav = styled(Box)(() => ({
   display: 'grid',
   gridTemplateColumns: 'auto 2fr auto',
-  minHeight: '56.5px',
-  margin: 'auto 24px',
-  alignItems: 'center',
-  [theme.breakpoints.down('md')]: {
-    backgroundColor: '#3535F3',
-    margin: 0,
-    padding: '0 6px 0 0',
-  }
+  alignItems: 'center',  
 }));
 
-const BackButtonTitle = styled(Box)(({ theme }) => ({
+const BackButtonTitle = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
-  [theme.breakpoints.down('md')]: {
-    alignItems: 'center',
-    position: 'static',
-    marginLeft: '0px',
-  }
+  
 }));
 
-const PageTitle = styled(Typography)(({ theme }) => ({
-  color: '#2C2C2C',
+const PageTitle = styled(Typography)(() => ({
+  color: '#141414',
+  height: '32px',
   fontSize: '24px',
-  fontWeight: 'bold',
+  fontWeight: '600',
   display: 'flex',
   alignItems: 'center',
-  '& .page-logo': {
-    height: '40px',
-    marginRight: '10px',
-  },
-  [theme.breakpoints.down('md')]: {
-    color: '#ffffff',
-    fontWeight: 'normal',
-    fontSize: '18px',
-    width: '100%',
-  }
+  
 }));
 
-const PageSlot = styled(Box)<{ tags?: boolean }>(({ theme, tags }) => ({
+const PageSlot = styled(Box)<{ tags?: boolean }>(({ tags }) => ({
   display: 'flex',
   flex: 1,
   gap: '0.5rem',
   justifyContent: tags ? 'space-between' : 'flex-end',
   paddingLeft: '1rem',
-  [theme.breakpoints.down('md')]: {
-    display: 'none',
-  }
+  
 }));
 
-const MobileIcon = styled(IconButton)(({ theme }) => ({
-  display: 'none',
-  transform: 'rotate(90deg)',
-  paddingBottom: '6px',
-  color: '#ffffff',
-  [theme.breakpoints.down('md')]: {
-    display: 'block',
-  }
-}));
-
-const BackButton = styled(IconButton)(({ theme }) => ({
+const BackButton = styled(IconButton)(() => ({
   cursor: 'pointer',
   marginRight: '10px',
-  [theme.breakpoints.down('md')]: {
-    display: 'none',
-  }
+  
 }));
 
-const MenuButton = styled(IconButton)(({ theme }) => ({
+const MenuButton = styled(IconButton)(() => ({
+  padding: '0px',
   marginLeft: '8px',
-  [theme.breakpoints.down('md')]: {
-    marginLeft: 'auto',
-  }
 }));
 
 const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
@@ -153,9 +114,6 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
               <BackButton onClick={onBack} size="small">
                 <ArrowBackIcon />
               </BackButton>
-              <MobileIcon onClick={onBack} size="small">
-                <ArrowBackIcon />
-              </MobileIcon>
             </>
           )}
           {title && (
@@ -174,7 +132,7 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
         </PageSlot>
 
         <MenuButton onClick={handleMenuClick}>
-          <MoreVertIcon style={{ height: '30px', width: '30px', color: isMobile ? '#ffffff' : '#000000' }} />
+          <MoreVertIcon style={{color: isMobile ? '#ffffff' : '#000000' }} />
         </MenuButton>
 
         <Menu 
@@ -189,7 +147,6 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
             vertical: 'top',
             horizontal: 'right',
           }}
-          style={{ marginTop: '47px' }}
         >
           <MenuItem onClick={handleHelpClick}>Help</MenuItem>
         </Menu>

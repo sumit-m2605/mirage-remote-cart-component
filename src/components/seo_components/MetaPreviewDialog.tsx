@@ -51,7 +51,7 @@ const MetaPreviewDialog: React.FC<Props> = ({ open, onClose, metaTags }) => {
           multiline
           rows={15}
           disabled
-          novusSize="m"
+          novusSize="md"
           sx={{
             mt: 1,
             "& .MuiInputBase-root": {

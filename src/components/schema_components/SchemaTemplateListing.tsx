@@ -227,7 +227,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
                 placeholder="Search here"
                 value={searchText}
                 onChange={handleSearchChange}
-                novusSize="m"
+                novusSize="md"
                 fullWidth
               />
             </Box>
@@ -240,7 +240,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
                   label: filter.text
                 }))}
                 placeholder="Filter"
-                novusSize="m"
+                novusSize="md"
               />
             </FormControl>
           </Box>

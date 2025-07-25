@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Snackbar, Alert, Fab } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Box, Snackbar, Alert } from "@mui/material";
 import RemotePageHeader from "./commmon/RemotePageHeader";
-import MetaList from "./commmon/MetaList.tsx";
-import MetaDialog from "./commmon/MetaDialog.tsx";
-import ConfirmDialog from "./commmon/ConfirmDialog.tsx";
-import type { MetaTag } from "./commmon/MetaTags";
+import MetaList from "./meta_components/MetaList.tsx";
+import MetaDialog from "./meta_components/MetaDialog.tsx";
+import ConfirmDialog from "./meta_components/ConfirmDialog.tsx";
+import type { MetaTag } from "./meta_components/MetaTags.tsx";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton.tsx";
 import ShimmerLoader from "./commmon/ShimmerLoader";
 
@@ -137,6 +136,7 @@ const MetaTagsRemote: React.FC<Props> = ({
       className="page-container integration-container"
       display="flex"
       flexDirection="column"
+      bgcolor={"#F5F5F5"}
     >
       <RemotePageHeader
         title="Custom Meta Tags"
@@ -146,7 +146,7 @@ const MetaTagsRemote: React.FC<Props> = ({
         renderActions={
           <NovusButton
             variantType="primary"
-            novusSize="s"
+            novusSize="sm"
             onClick={openCreateDialog}
           >
             Add Meta Tag
@@ -154,34 +154,41 @@ const MetaTagsRemote: React.FC<Props> = ({
         }
       />
 
-      {loading ? (
-        <Box p={4}>
+      <Box
+        bgcolor={"#FFFFFF"}
+        borderRadius={"12px"}
+        border={"1px solid #FAFAFA"}
+        height={"fit-content"}
+        margin={'24px'}
+        flex={{ xs: "1 1 100%", md: "1 1 100%" }}
+      >
+        {loading ? (
           <ShimmerLoader height="200px" />
-        </Box>
-      ) : metaList.length === 0 ? (
-        <Box
-          p={4}
-          textAlign="center"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          gap={2}
-        >
-          <img
-            src="/public/admin/assets/admin/svgs/no_search_result_found.svg"
-            alt="No Results"
+        ) : metaList.length === 0 ? (
+          <Box
+            textAlign="center"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            gap={2}
+            minHeight="200px"
+          >
+            <img
+              src="/public/admin/assets/admin/svgs/no_search_result_found.svg"
+              alt="No Results"
+            />
+            No Custom Meta Tags
+          </Box>
+        ) : (
+          <MetaList
+            metaList={metaList}
+            onEdit={openEditDialog}
+            onDelete={openDeleteDialog}
+            onReorder={handleDragEnd}
           />
-          No Custom Meta Tags
-        </Box>
-      ) : (
-        <MetaList
-          metaList={metaList}
-          onEdit={openEditDialog}
-          onDelete={openDeleteDialog}
-          onReorder={handleDragEnd}
-        />
-      )}
+        )}
+      </Box>
 
       <MetaDialog
         open={editDialogOpen}
@@ -195,15 +202,6 @@ const MetaTagsRemote: React.FC<Props> = ({
         onClose={() => setConfirmDialogOpen(false)}
         onConfirm={handleDeleteMeta}
       />
-
-      <Fab
-        color="primary"
-        aria-label="add"
-        onClick={openCreateDialog}
-        sx={{ position: "fixed", bottom: 24, right: 24, zIndex: 1200 }}
-      >
-        <AddIcon />
-      </Fab>
 
       <Snackbar
         open={snackbar.open}

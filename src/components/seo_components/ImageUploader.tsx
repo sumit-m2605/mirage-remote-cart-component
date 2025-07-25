@@ -428,7 +428,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   placeholder="Enter image URL"
                   value={imageUrl}
                   onChange={handleUrlChange}
-                  novusSize="m"
+                  novusSize="md"
                   fullWidth
                 />
               </Box>
@@ -492,7 +492,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                       { value: "products", label: "Products" },
                     ]}
                     placeholder="Select Image Source"
-                    novusSize="m"
+                    novusSize="md"
                   />
                 </FormControl>
 
@@ -500,7 +500,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 <NovusInput
                   placeholder={`Search ${imageSource !== 'namespace_images' ? imageSource + ' ' : ''}image`}
                   onChange={(e) => handleGallerySearch(e.target.value)}
-                  novusSize="m"
+                  novusSize="md"
                   fullWidth
                   sx={{ mb: 2 }}
                 />
@@ -564,7 +564,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                       <Box display="flex" justifyContent="center" mt={2}>
                         <NovusButton
                           variantType="secondary"
-                          novusSize="s"
+                          novusSize="sm"
                           onClick={() => fetchGalleryImagesFromBackend("", false)}
                           disabled={galleryLoading}
                         >
