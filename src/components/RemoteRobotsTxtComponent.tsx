@@ -1,17 +1,15 @@
 // REMOTE COMPONENT: src/components/RemoteRobotsTxtComponent.tsx
 import React, { useEffect, useState } from "react";
-import root from 'window-or-global';
 import {
   Box,
-  Typography,
   Snackbar,
   Alert,
 } from "@mui/material";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton";
 import CodeEditor from "./commmon/CodeEditor";
-import AlertBox from "./commmon/AlertBox";
 import ShimmerLoader from "./commmon/ShimmerLoader";
+import InfoBox from "./commmon/InfoBox";
 
 interface Props {
   fetchRobotsTxt: () => Promise<string>;
@@ -88,6 +86,7 @@ const RobotsTxtRemote: React.FC<Props> = ({
       className="page-container integration-container"
       display="flex"
       flexDirection="column"
+      bgcolor={'##F5F5F5'}
     >
       <RemotePageHeader
         title="Edit Robots.txt"
@@ -113,30 +112,40 @@ const RobotsTxtRemote: React.FC<Props> = ({
 
       <Box
         display="flex"
-        flexDirection="column"
+        flexDirection="row"
         flex={1}
-        padding={2}
-        gap={2}
+        padding={'24px'}
+        gap={'20px'}
       >
-{/* 
-xxx
-        {console.log('root:', root)}
-        {console.log('root.env:', root.env)}
-        {console.log('root.env?.BROWSER_CONFIG:', root.env?.BROWSER_CONFIG)}
-        {root.env?.FYND_PLATFORM_DOMAIN || 'pppp'}
-   xxx */}
-        <AlertBox showCloseButton={false}>
-          A robots.txt file tells search engines which pages not to index. Learn more from Google Search docs.
-        </AlertBox>
-
-        <Box>
+        
+        <Box
+        bgcolor={'#FFFFFF'}
+        borderRadius={'12px'}
+        border={'1px solid #FAFAFA'}
+        padding={'24px'}
+        height={'fit-content'}
+        flex={{ xs: "1 1 100%", md: "0 1 70%" }}
+        >
           <CodeEditor
             value={robotsTxt}
             onChange={setRobotsTxt}
             placeholder="Paste robots.txt content here..."
             height="300px"
+            theme="light"
           />
         </Box>
+
+        <InfoBox 
+          title="What is Robot.txt?"
+          listItems={[
+            "A robots.txt file specifies the pages or files that a search engine crawler is allowed/prohibited to request from your site.",
+            "This is mainly used to avoid overloading your site with requests; however, it's not a mechanism of keeping your web page away from search engines, e.g. Google.",
+            "To keep a web page out of search engines, you should use noindex directives, or add a password protection to your page."
+          ]}
+          listStyle="bullet"
+          flex={{ xs: "1 1 100%", md: "0 1 30%" }}
+        />
+
       </Box>
 
       <Snackbar

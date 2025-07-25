@@ -3,7 +3,8 @@ import { Box, Typography } from '@mui/material';
 
 interface InfoBoxProps {
   title: string;
-  description: string;
+  description?: string;
+  children?: React.ReactNode;
   flex?: string | { xs?: string; sm?: string; md?: string; lg?: string };
   bgcolor?: string;
   borderRadius?: number;
@@ -12,40 +13,139 @@ interface InfoBoxProps {
   titleMarginBottom?: number;
   descriptionFontSize?: string;
   descriptionColor?: string;
+  listItems?: string[];
+  listStyle?: 'bullet' | 'number' | 'none';
 }
 
 const InfoBox: React.FC<InfoBoxProps> = ({
   title,
   description,
+  children,
   flex = { xs: "1 1 100%", md: "0 1 30%" },
-  bgcolor = "#f9f9f9",
-  borderRadius = 2,
-  boxShadow = 1,
-  titleFontWeight = 600,
-  titleMarginBottom = 1,
-  descriptionFontSize = "0.875rem",
-  descriptionColor = "text.secondary"
+  listItems = [],
+  listStyle = 'bullet'
 }) => {
+  const renderList = () => {
+    if (listItems.length === 0) return null;
+
+    const listStyleType = listStyle === 'bullet' ? 'disc' : listStyle === 'number' ? 'decimal' : 'none';
+    
+    return (
+      <Box component="ul" sx={{ 
+        display: 'flex',
+        gap: '16px',
+        flexDirection: 'column',
+        margin: 0, 
+        paddingLeft: listStyle === 'none' ? 0 : '20px',
+        listStyleType,
+        '& li': {
+          fontSize: '12px',
+          color: '#5A5A5A',
+          lineHeight: '16px',
+          marginBottom: '4px',
+          '&:last-child': {
+            marginBottom: 0
+          }
+        }
+      }}>
+        {listItems.map((item, index) => (
+          <Box component="li" key={index}>
+            {item}
+          </Box>
+        ))}
+      </Box>
+    );
+  };
+
   return (
     <Box flex={flex}>
       <Box 
-        p={2} 
-        bgcolor={bgcolor} 
-        borderRadius={borderRadius} 
-        boxShadow={boxShadow}
+        sx={{
+          display: 'flex',
+          width: 'auto',
+          padding: '16px 0',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: '16px',
+          borderRadius: '12px',
+          border: '1px solid #E0E0E0',
+          background: '#FAFAFA'
+        }}
       >
-        <Typography 
-          fontWeight={titleFontWeight} 
-          mb={titleMarginBottom}
+        {/* Title Section */}
+        <Box 
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '0 24px',
+            width: '100%'
+          }}
         >
-          {title}
-        </Typography>
-        <Typography 
-          fontSize={descriptionFontSize} 
-          color={descriptionColor}
+          <Typography 
+            sx={{
+              fontFamily: 'Inter',
+              fontWeight: 500,
+              fontSize: '14px',
+              lineHeight: '20px',
+              color: '##141414',
+              margin: 0
+            }}
+          >
+            {title}
+          </Typography>
+        </Box>
+
+        {/* Divider */}
+        <Box 
+          sx={{
+            width: '100%',
+            height: '0',
+            borderTop: '1px solid #E0E0E0'
+          }}
+        />
+
+        {/* Content Section */}
+        <Box 
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            padding: '0 24px',
+          }}
         >
-          {description}
-        </Typography>
+          {/* Description */}
+          {description && (
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <Typography 
+                sx={{
+                  fontFamily: 'Inter',
+                  fontWeight: 400,
+                  fontSize: '12px',
+                  lineHeight: '16px',
+                  color: '#5A5A5A',
+                  margin: 0
+                }}
+              >
+                {description}
+              </Typography>
+            </Box>
+          )}
+
+          {/* List */}
+          {listItems.length > 0 && (
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {renderList()}
+            </Box>
+          )}
+
+          {/* Custom Children */}
+          {children && (
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {children}
+            </Box>
+          )}
+        </Box>
       </Box>
     </Box>
   );

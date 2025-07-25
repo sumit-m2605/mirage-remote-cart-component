@@ -16,39 +16,44 @@ const colorMap = {
 // Figma spec: Sizes
 const sizeMap = {
   xs: {
-    padding: '4px 12px',
+    padding: '0px 12px',
     fontSize: '12px',
-    minHeight: '24px',
+    height: '24px',
+    lineHeight: '24px',
     spinnerSize: 16,
   },
-  s: {
-    padding: '4px 16px',
+  sm: {
+    padding: '0px 16px',
     fontSize: '12px',
-    minHeight: '32px',
+    height: '32px',
+    lineHeight: '32px',
     spinnerSize: 18,
   },
-  m: {
-    padding: '8px 24px',
+  md: {
+    padding: '0px 24px',
     fontSize: '14px',
-    minHeight: '40px',
+    height: '40px',
+    lineHeight: '40px',
     spinnerSize: 20,
   },
-  l: {
-    padding: '12px 32px',
+  lg: {
+    padding: '0px 32px',
     fontSize: '16px',
-    minHeight: '48px',
+    height: '48px',
+    lineHeight: '48px',
     spinnerSize: 22,
   },
   xl: {
-    padding: '16px 40px',
+    padding: '0px 40px',
     fontSize: '24px',
-    minHeight: '64px',
+    height: '64px',
+    lineHeight: '64px',
     spinnerSize: 24,
   },
 } as const;
 
 type Appearance = keyof typeof colorMap;
-type NovusSize = keyof typeof sizeMap;
+type NovusSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type VariantType = 'primary' | 'secondary' | 'tertiary';
 
 type StateType = 'normal' | 'hover' | 'pressed' | 'focused' | 'disabled' | 'loading';
@@ -70,9 +75,9 @@ const getGradient = (appearance: Appearance) => {
 const StyledNovusButton = styled(Button, {
   shouldForwardProp: (prop) =>
     prop !== 'variantType' && prop !== 'appearance' && prop !== 'novusSize' && prop !== 'loading',
-})<NovusButtonProps>(({ appearance = 'default', variantType = 'primary', novusSize = 'm', disabled, loading }) => {
+})<NovusButtonProps>(({ appearance = 'default', variantType = 'primary', novusSize = 'md', disabled, loading }) => {
   const color = colorMap[appearance] as string;
-  const sizeStyles = sizeMap[novusSize];
+  const sizeStyles = sizeMap[novusSize as keyof typeof sizeMap];
   const isGradient = appearance === 'ai';
   const borderRadius = '250px';
   const fontFamily = 'Inter, sans-serif';
@@ -90,7 +95,8 @@ const StyledNovusButton = styled(Button, {
     fontWeight,
     padding: sizeStyles.padding,
     fontSize: sizeStyles.fontSize,
-    minHeight: sizeStyles.minHeight,
+    height: sizeStyles.height,
+    lineHeight: sizeStyles.lineHeight,
     textTransform: 'none' as const,
     boxShadow: 'none',
     transition: 'background 0.2s, color 0.2s, border 0.2s',
@@ -99,25 +105,42 @@ const StyledNovusButton = styled(Button, {
     '& .MuiButton-startIcon, & .MuiButton-endIcon': {
       margin: 0,
     },
+    // Prevent focus from persisting after click
+    '&:focus:not(:focus-visible)': {
+      outline: 'none',
+    },
+    '&:focus-visible': {
+      outline: 'none',
+    },
   };
 
   // Variant styles
   if (variantType === 'primary') {
     return {
       ...shared,
-      background: isGradient ? getGradient(appearance) : color,
-      color: '#fff',
+      background: '#3535F3',
+      border: '1px solid #3535F3',
+      color: '#ffffff',
       '&:hover': {
-        background: isGradient ? getGradient(appearance) : hoverBg,
-        opacity: 0.9,
+        background: '#000093',
+        borderColor: '#000093',
+        color: '#ffffff',
       },
-      '&:active': {
-        background: isGradient ? getGradient(appearance) : pressedBg,
-        opacity: 0.8,
+      '&:active, &.Mui-active': {
+        background: '#00004C !important',
+        borderColor: '#00004C !important',
+        color: '#9999FF !important',
+      },
+      '&:focus': {
+        background: '#3535F3',
+        borderColor: '#000093',
+        color: '#00004C',
+        outline: 'none',
       },
       '&.Mui-disabled': {
-        background: isGradient ? getGradient(appearance) : color,
-        color: '#fff',
+        background: '#3535F3',
+        borderColor: '#3535F3',
+        color: '#ffffff',
         opacity: disabledOpacity,
       },
     };
@@ -126,22 +149,30 @@ const StyledNovusButton = styled(Button, {
   if (variantType === 'secondary') {
     return {
       ...shared,
-      background: '#fff',
-      border: `1px solid ${color}`,
-      color: color,
+      background: '#ffffff',
+      border: '1px solid #E0E0E0',
+      color: '#000093',
       '&:hover': {
-        background: '#f7f9ff',
-        borderColor: color,
+        background: '#E8E8FC',
+        borderColor: '#E0E0E0',
+        color: '#000093',
       },
-      '&:active': {
-        background: '#f0f0f0',
-        borderColor: color,
+      '&:active, &.Mui-active': {
+        backgroundColor: '#ADADFC !important',
+        borderColor: '#E0E0E0 !important',
+        color: '#00004C !important',
+      },
+      '&:focus': {
+        background: '#ffffff',
+        borderColor: '#000093',
+        color: '#00004C',
+        outline: 'none',
       },
       '&.Mui-disabled': {
-        background: '#fff',
-        borderColor: color,
-        color: color,
-        opacity: disabledOpacity,
+        background: '#F5F5F5',
+        borderColor: '#E0E0E0',
+        color: '#A0A0A0',
+        opacity: 1,
       },
     };
   }
@@ -154,7 +185,7 @@ const StyledNovusButton = styled(Button, {
     '&:hover': {
       background: '#f5f5f5',
     },
-    '&:active': {
+    '&:active, &.Mui-active': {
       background: '#ededed',
     },
     '&.Mui-disabled': {
@@ -166,23 +197,44 @@ const StyledNovusButton = styled(Button, {
 
 // Map Novus size to MUI Button size for accessibility (affects padding, icon size, etc.)
 const mapNovusToMuiSize = (novusSize: NovusSize): ButtonProps['size'] => {
-  if (novusSize === 'xs' || novusSize === 's') return 'small';
-  if (novusSize === 'm') return 'medium';
-  if (novusSize === 'l' || novusSize === 'xl') return 'large';
+  if (novusSize === 'xs' || novusSize === 'sm') return 'small';
+  if (novusSize === 'md') return 'medium';
+  if (novusSize === 'lg' || novusSize === 'xl') return 'large';
   return 'medium';
 };
 
 const NovusButton: React.FC<NovusButtonProps> = ({
   appearance = 'default',
   variantType = 'primary',
-  novusSize = 'm',
+  novusSize = 'md',
   loading = false,
   disabled,
   children,
+  onClick,
   ...props
 }) => {
-  const sizeStyles = sizeMap[novusSize];
+  const sizeStyles = sizeMap[novusSize as keyof typeof sizeMap];
   const muiSize = mapNovusToMuiSize(novusSize);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    // Call the original onClick if provided
+    if (onClick) {
+      onClick(event);
+    }
+    
+    // Remove focus after click using multiple methods
+    const button = event.currentTarget;
+    button.blur();
+    
+    // Force remove focus using document.activeElement
+    if (document.activeElement === button) {
+      (document.activeElement as HTMLElement).blur();
+    }
+    
+    // Also try to focus on body to ensure button loses focus
+    document.body.focus();
+  };
+
   return (
     <StyledNovusButton
       appearance={appearance}
@@ -190,6 +242,8 @@ const NovusButton: React.FC<NovusButtonProps> = ({
       novusSize={novusSize}
       size={muiSize}
       disabled={disabled || loading}
+      disableRipple
+      onClick={handleClick}
       {...props}
     >
       {loading ? (

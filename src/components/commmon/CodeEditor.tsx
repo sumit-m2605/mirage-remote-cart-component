@@ -10,6 +10,7 @@ interface CodeEditorProps {
   placeholder?: string;
   language?: 'json' | 'xml' | 'schema';
   readOnly?: boolean;
+  theme?: 'light' | 'dark';
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
@@ -19,6 +20,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   placeholder = '',
   language = 'json',
   readOnly = false,
+  theme = 'dark',
 }: CodeEditorProps) => {
   const extensions = language === 'json' || language === 'schema' ? [json()] : [xml()];
 
@@ -26,7 +28,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     <CodeMirror
       value={value}
       height={height}
-      theme="dark"
+      theme={theme}
       placeholder={placeholder}
       extensions={extensions}
       onChange={(val) => onChange(val)}
@@ -34,7 +36,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       basicSetup={{
         lineNumbers: true,
         foldGutter: true,
-        highlightActiveLine: true,
+        highlightActiveLine: false,
         lineWrapping: true,
       }}
     />
