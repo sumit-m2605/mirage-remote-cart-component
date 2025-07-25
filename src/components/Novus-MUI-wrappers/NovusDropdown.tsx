@@ -205,7 +205,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
     <Box
       sx={{
         width: '100%',
-        minWidth: '376px',
+        minWidth: 0,
       }}
     >
       {label && (
@@ -240,7 +240,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
         IconComponent={ChevronDownIcon}
         sx={{
           width: '100%',
-          minWidth: '376px',
+          minWidth: 0,
           opacity: disabled ? 0.6 : 1,
           '& .MuiOutlinedInput-root': {
             border: 'none !important',
@@ -338,8 +338,8 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
               borderRadius: '16px',
               boxShadow: '0px 4px 16px 0px #00000029',
               padding: '8px',
-              maxHeight: '296px',
-              height: '296px',
+              maxHeight: '250px',
+              height: 'fit-content',
               width: 'fit-content',
               minWidth: '100%',
               overflow: 'auto',

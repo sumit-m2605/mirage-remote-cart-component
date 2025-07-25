@@ -167,8 +167,12 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
   }
 
   return (
-    <Box>
-      <Box>
+    <Box sx={{ width: '100%', maxWidth: '100%' }}>
+      <Box sx={{ 
+        width: '100%', 
+        padding: 4, 
+        boxSizing: 'border-box'
+      }}>
         <Typography
           sx={{
             color: '#41434C',
@@ -176,14 +180,14 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             fontSize: '18px',
             lineHeight: '27px',
             textAlign: 'left',
-            mb: 3
+            mb: 4
           }}
         >
           Details
         </Typography>
 
         {/* Title Field */}
-        <Box sx={{ mb: 3 }}>
+        <Box sx={{ mb: 4, width: '100%', maxWidth: '100%' }}>
           <NovusInput
             label="Title"
             placeholder="Enter Title"
@@ -195,11 +199,12 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             helperText={data.title.showerror ? data.title.errortext : undefined}
             novusSize="m"
             required
+            fullWidth
           />
         </Box>
 
         {/* Description Field */}
-        <Box sx={{ mb: 3 }}>
+        <Box sx={{ mb: 4, width: '100%', maxWidth: '100%' }}>
           <NovusInput
             label={`Description ${data.description.value.length}/${MAX_DESCRIPTION_CHAR_LIMIT}`}
             placeholder="Enter description"
@@ -213,6 +218,7 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
             helperText={data.description.showerror ? data.description.errortext : undefined}
             novusSize="m"
             showCharacterCount
+            fullWidth
           />
         </Box>
       </Box>

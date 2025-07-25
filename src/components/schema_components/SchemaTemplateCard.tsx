@@ -13,6 +13,9 @@ interface SchemaTemplate {
   active: boolean;
   created_at: string;
   updated_at: string;
+  schema?: string;
+  page_type?: string;
+  target_json?: string | object;
 }
 
 interface SchemaTemplateCardProps {
@@ -25,6 +28,7 @@ const SchemaTemplateCard: React.FC<SchemaTemplateCardProps> = ({
   onEdit
 }) => {
   const handleClick = () => {
+    console.log('SchemaTemplateCard - template clicked:', template);
     onEdit(template);
   };
 

@@ -216,7 +216,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
     <Box
       sx={{
         width: '100%',
-        minWidth: '376px',
+        minWidth: 0,
       }}
     >
       {label && (
@@ -251,7 +251,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
         }}
         sx={{
           width: '100%',
-          minWidth: '376px',
+          minWidth: 0,
           opacity: disabled ? 0.6 : 1,
           '& .MuiOutlinedInput-root': {
             height: `${size.height}px !important`,

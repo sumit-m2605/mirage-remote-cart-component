@@ -53,6 +53,7 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
 
   useEffect(() => {
     if (initialData) {
+      console.log('SchemaTemplateMain - initialData received:', initialData);
       setSchemaTemplateData(initialData);
       // Set active state from initial data, default to true if not provided
       setIsActive(initialData.active !== false);
@@ -60,11 +61,11 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
   }, [initialData]);
 
   const handleVariablesSave = (data: any) => {
-    setSchemaTemplateData(prev => ({ ...prev, ...data }));
+    setSchemaTemplateData((prev: any) => ({ ...prev, ...data }));
   };
 
   const handleEditSave = (data: any) => {
-    setSchemaTemplateData(prev => ({ ...prev, ...data }));
+    setSchemaTemplateData((prev: any) => ({ ...prev, ...data }));
   };
 
   const handleSave = async () => {
@@ -152,7 +153,7 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
   );
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: '#f8f9fa', width: '100%' }}>
       <RemotePageHeader
         title={isEditMode ? 'Edit Schema' : 'Create Schema'}
         onBack={handleCancel}
@@ -166,20 +167,23 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
         className="main-layout"
         sx={{ 
           display: 'flex', 
-          gap: 4, 
-          padding: 3, 
+          gap: { xs: 3, md: 6 }, 
+          padding: { xs: 2, md: 4 }, 
           minHeight: 'calc(100vh - 80px)',
-          maxWidth: '100%',
-          overflow: 'auto'
+          width: '100%',
+          backgroundColor: '#f8f9fa',
+          flexDirection: { xs: 'column', lg: 'row' },
+          alignItems: 'flex-start',
+          boxSizing: 'border-box'
         }}
       >
         {/* Left Container - Variables */}
         <Box 
           className="left-container"
           sx={{ 
-            flex: '2 1 0%', 
+            flex: '1 1 0%', 
             minWidth: 0,
-            maxWidth: '100%'
+            width: '100%'
           }}
         >
           <SchemaTemplateVariables
@@ -197,9 +201,8 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
         <Box 
           className="right-container"
           sx={{ 
-            flex: '1 1 0%', 
-            minWidth: 320,
-            maxWidth: 450
+            flex: '0 0 auto', 
+            width: { xs: '100%', lg: 400 }
           }}
         >
           <SchemaTemplateEdit

@@ -35,6 +35,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         lineNumbers: true,
         foldGutter: true,
         highlightActiveLine: true,
+        lineWrapping: true,
       }}
     />
   );

@@ -21,6 +21,9 @@ interface SchemaTemplate {
   active: boolean;
   created_at: string;
   updated_at: string;
+  schema?: string;
+  page_type?: string;
+  target_json?: string | object;
 }
 
 interface PaginationData {
@@ -64,16 +67,18 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     };
   }, []);
 
-  const fetchTemplates = useCallback(async () => {
+  const fetchTemplates = useCallback(async (pageOverride?: number) => {
     if (!fetchSchemaTemplates) {
       return;
     }
 
     setLoading(true);
     try {
+      const currentPage = pageOverride || pagination.current;
+      
       const params: any = {
         page_size: pagination.limit,
-        page_no: pagination.current,
+        page_no: currentPage,
       };
 
       if (selectedFilter !== "all") {
@@ -93,35 +98,25 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
       setPagination((prev) => ({
         ...prev,
         total: responseData.page?.item_total || 0,
-        current: responseData.page?.current || 1,
+        current: responseData.page?.current || currentPage,
         limit: responseData.page?.size || 10,
       }));
       setError(false);
     } catch (err) {
       console.error("Error fetching templates:", err);
       setError(true);
+      setTemplates([]);
     } finally {
       setLoading(false);
     }
-  }, [
-    fetchSchemaTemplates,
-    pagination.limit,
-    pagination.current,
-    selectedFilter,
-    searchText,
-  ]);
-
-  useEffect(() => {
-    fetchTemplates();
-  }, [pagination.current, pagination.limit, selectedFilter]);
+  }, [fetchSchemaTemplates, pagination.limit, selectedFilter, searchText, pagination.current]);
 
   // Initial load
   useEffect(() => {
-    if (fetchSchemaTemplates) {
-      fetchTemplates();
-    }
-  }, [fetchSchemaTemplates]);
+    fetchTemplates();
+  }, []);
 
+  // Handle search changes with debouncing
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
   };
@@ -135,20 +130,29 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
-    setPagination((prev) => ({ ...prev, current: page }));
+    // Prevent unnecessary re-renders by checking if page actually changed
+    if (page !== pagination.current) {
+      setPagination((prev) => ({ ...prev, current: page }));
+      // Fetch templates for the new page immediately
+      fetchTemplates(page);
+    }
   };
 
+  // Debounced search effect
   const debouncedSearch = useCallback(
     debounce(() => {
       setPagination((prev) => ({ ...prev, current: 1 }));
-      fetchTemplates();
+      fetchTemplates(1);
     }, 500),
     [fetchTemplates]
   );
 
+  // Effect for search and filter changes
   useEffect(() => {
-    debouncedSearch();
-  }, [searchText, debouncedSearch]);
+    if (searchText !== "" || selectedFilter !== "all") {
+      debouncedSearch();
+    }
+  }, [searchText, selectedFilter, debouncedSearch]);
 
   const handleEditTemplate = (template: SchemaTemplate) => {
     onEditTemplate(template);
@@ -180,7 +184,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
   }
 
   return (
-    <Box sx={{ mt: 2.5 }}>
+    <Box sx={{ mt: 2.5 , pb: '20px !important'}}>
       {/* Search and Filter Section */}
       {(loading ||
         searchText !== "" ||
@@ -275,7 +279,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
 
       {/* Pagination */}
       {pagination.total > 0 && (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 5 , mb: 5 }}>
           <Pagination
             count={Math.ceil(pagination.total / pagination.limit)}
             page={pagination.current}
@@ -283,6 +287,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
             color="primary"
             showFirstButton
             showLastButton
+            disabled={loading}
           />
         </Box>
       )}

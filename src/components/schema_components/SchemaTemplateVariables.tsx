@@ -10,6 +10,35 @@ import type { SelectChangeEvent } from '@mui/material';
 import { NovusDropdown } from '../Novus-MUI-wrappers';
 import CodeEditor from '../commmon/CodeEditor';
 
+// Base64 decoding function
+const base64Decode = (encodedData: string): string => {
+  if (!encodedData || typeof encodedData !== 'string') {
+    return '';
+  }
+  
+  try {
+    // Check if the data looks like base64 (contains only base64 characters)
+    const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
+    if (!base64Regex.test(encodedData)) {
+      console.log('Data does not appear to be base64 encoded, returning as-is');
+      return encodedData;
+    }
+    
+    const binaryString = atob(encodedData);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    const decoded = new TextDecoder().decode(bytes);
+    console.log('Successfully decoded base64 data');
+    return decoded;
+  } catch (error) {
+    console.error('Error decoding base64:', error);
+    console.log('Returning original data as fallback');
+    return encodedData; // Return original if decoding fails
+  }
+};
+
 interface SchemaTemplateVariablesProps {
   isEditMode?: boolean;
   schemaId?: string;
@@ -28,6 +57,41 @@ const PAGE_TYPE_LIST = [
   { text: 'Blog', value: 'blog' },
   { text: 'Webpage', value: 'webpage' }
 ];
+
+// Helper function to normalize page type values
+const normalizePageType = (pageType: string): string => {
+  if (!pageType) return '';
+  
+  // Common variations that might be stored in the database
+  const variations: Record<string, string> = {
+    'Product': 'product',
+    'product': 'product',
+    'PRODUCT': 'product',
+    'Category': 'category',
+    'category': 'category',
+    'CATEGORY': 'category',
+    'Brand': 'brand',
+    'brand': 'brand',
+    'BRAND': 'brand',
+    'Collection': 'collection',
+    'collection': 'collection',
+    'COLLECTION': 'collection',
+    'Article': 'article',
+    'article': 'article',
+    'ARTICLE': 'article',
+    'Blog': 'blog',
+    'blog': 'blog',
+    'BLOG': 'blog',
+    'Webpage': 'webpage',
+    'webpage': 'webpage',
+    'WEBPAGE': 'webpage',
+    'WebPage': 'webpage',
+    'web_page': 'webpage',
+    'web-page': 'webpage'
+  };
+  
+  return variations[pageType] || pageType.toLowerCase();
+};
 
 const DEFAULT_SCHEMAS = {
   product: `{
@@ -125,14 +189,57 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
 
   useEffect(() => {
     if (initialData) {
+      console.log('SchemaTemplateVariables - initialData received:', initialData);
+      console.log('SchemaTemplateVariables - initialData.schema type:', typeof initialData.schema);
+      console.log('SchemaTemplateVariables - initialData.schema value:', initialData.schema);
+      console.log('SchemaTemplateVariables - initialData.page_type:', initialData.page_type);
+      console.log('SchemaTemplateVariables - initialData.target_json:', initialData.target_json);
+      
+      const rawPageTypeValue = initialData.page_type || '';
+      console.log('SchemaTemplateVariables - raw page_type value:', rawPageTypeValue);
+      
+      // Normalize the page type value
+      const normalizedPageType = normalizePageType(rawPageTypeValue);
+      console.log('SchemaTemplateVariables - normalized page_type value:', normalizedPageType);
+      
+      // Check if the normalized page_type value exists in PAGE_TYPE_LIST
+      const validPageType = PAGE_TYPE_LIST.find(option => option.value === normalizedPageType);
+      console.log('SchemaTemplateVariables - valid page type found:', validPageType);
+      
       setSelectedPageType({
-        value: initialData.page_type || '',
+        value: normalizedPageType,
         showerror: false,
         errortext: ''
       });
-      setSchemaData(initialData.schema || '');
-      setJsonData(initialData.target_json || '');
-      setRenderData(initialData.schema || '');
+      
+      // Decode schema data if it's base64 encoded
+      let decodedSchema = '';
+      if (initialData.schema) {
+        // Check if it's already valid JSON (not base64 encoded)
+        try {
+          JSON.parse(initialData.schema);
+          console.log('Schema appears to be already in JSON format');
+          decodedSchema = initialData.schema;
+        } catch {
+          // Not valid JSON, try base64 decoding
+          console.log('Schema is not valid JSON, attempting base64 decode');
+          decodedSchema = base64Decode(initialData.schema);
+        }
+      }
+      console.log('SchemaTemplateVariables - final schema:', decodedSchema);
+      setSchemaData(decodedSchema);
+      setRenderData(decodedSchema);
+      
+      // Handle target_json - it might be a string or object
+      let jsonDataToSet = '';
+      if (initialData.target_json) {
+        if (typeof initialData.target_json === 'string') {
+          jsonDataToSet = initialData.target_json;
+        } else {
+          jsonDataToSet = JSON.stringify(initialData.target_json, null, 2);
+        }
+      }
+      setJsonData(jsonDataToSet);
     }
   }, [initialData]);
 
@@ -258,14 +365,27 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
     );
   }
 
+  console.log('SchemaTemplateVariables - rendering with selectedPageType:', selectedPageType);
+  console.log('SchemaTemplateVariables - PAGE_TYPE_LIST:', PAGE_TYPE_LIST);
+  console.log('SchemaTemplateVariables - dropdown options:', PAGE_TYPE_LIST.map(pageType => ({
+    value: pageType.value,
+    label: pageType.text
+  })));
+  
+  // Check if the selected page type exists in the options
+  const matchingOption = PAGE_TYPE_LIST.find(option => option.value === selectedPageType.value);
+  console.log('SchemaTemplateVariables - matching option:', matchingOption);
+
   return (
-    <Box sx={{ backgroundColor: '#f8f9fa', padding: 0, width: '100%' }}>
+    <Box sx={{ width: '100%', maxWidth: '100%' }}>
       <Box sx={{ 
         width: '100%', 
-        padding: 3, 
-        border: '1px solid #f5f5f5', 
-        borderRadius: 1, 
-        backgroundColor: '#fff'
+        padding: 4, 
+        border: '1px solid #e0e0e0', 
+        borderRadius: 2, 
+        backgroundColor: '#fff',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+        boxSizing: 'border-box'
       }}>
         <Typography
           sx={{
@@ -274,7 +394,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
             fontSize: '18px',
             lineHeight: '27px',
             textAlign: 'left',
-            mb: 2
+            mb: 3
           }}
         >
           Select Page
@@ -306,18 +426,20 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
             fontSize: '18px',
             lineHeight: '27px',
             textAlign: 'left',
-            mb: 2
+            mb: 3
           }}
         >
           Schema
         </Typography>
 
         {/* Schema Editor */}
-        <Box sx={{ mb: 3 }}>
+        <Box sx={{ mb: 4, width: '100%' }}>
           <Box sx={{ 
             border: '1px solid #e0e0e0', 
-            borderRadius: 1, 
-            overflow: 'hidden'
+            borderRadius: 2, 
+            overflow: 'hidden',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+            width: '100%'
           }}>
             <CodeEditor
               value={schemaData}
@@ -331,17 +453,19 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
         {/* Preview Section */}
         <Box sx={{ 
           display: 'flex', 
-          gap: 2, 
+          gap: { xs: 2, md: 3 }, 
           flexWrap: 'wrap',
-          minHeight: 0
+          minHeight: 0,
+          width: '100%'
         }}>
           {/* Example JSON */}
           <Box sx={{ 
-            flex: '1 1 45%', 
-            minWidth: 300,
-            maxWidth: '100%'
+            flex: '1 1 48%', 
+            minWidth: { xs: '100%', md: 350 },
+            maxWidth: '100%',
+            width: '100%'
           }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
               <Typography
                 sx={{
                   color: '#41434C',
@@ -369,8 +493,10 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
             </Box>
             <Box sx={{ 
               border: '1px solid #e0e0e0', 
-              borderRadius: 1, 
-              overflow: 'hidden'
+              borderRadius: 2, 
+              overflow: 'hidden',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+              width: '100%'
             }}>
               <CodeEditor
                 value={jsonData}
@@ -388,9 +514,10 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
 
           {/* Preview */}
           <Box sx={{ 
-            flex: '1 1 45%', 
-            minWidth: 300,
-            maxWidth: '100%'
+            flex: '1 1 48%', 
+            minWidth: { xs: '100%', md: 350 },
+            maxWidth: '100%',
+            width: '100%'
           }}>
             <Typography
               sx={{
@@ -398,15 +525,17 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(({
                 fontWeight: 'bold',
                 fontSize: '18px',
                 lineHeight: '27px',
-                mb: 1
+                mb: 2
               }}
             >
               Preview
             </Typography>
             <Box sx={{ 
               border: '1px solid #e0e0e0', 
-              borderRadius: 1, 
-              overflow: 'hidden'
+              borderRadius: 2, 
+              overflow: 'hidden',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+              width: '100%'
             }}>
               <CodeEditor
                 value={renderData}
