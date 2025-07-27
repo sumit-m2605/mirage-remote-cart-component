@@ -3,31 +3,19 @@ import {
   Box,
   Typography,
   Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  IconButton,
-  Chip,
   Divider,
-  Grid,
   Card,
   CardMedia,
   CardContent,
   CircularProgress,
   FormControl,
-  InputLabel,
-  MenuItem,
 } from "@mui/material";
 import NovusSnackbar from "../Novus-MUI-wrappers/NovusSnackbar";
 import {
-  Add as AddIcon,
+  FileUpload as FileUploadIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
   CloudUpload as CloudUploadIcon,
-  Link as LinkIcon,
-  Crop as CropIcon,
-  Close as CloseIcon,
-  Search as SearchIcon,
 } from "@mui/icons-material";
 import { NovusInput, NovusDropdown } from "../Novus-MUI-wrappers";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
@@ -64,7 +52,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   fetchGalleryImages,
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [uploadMode, setUploadMode] = useState<"upload" | "url" | "gallery">("upload");
+  const [uploadMode, setUploadMode] = useState<"upload" | "url" | "gallery">(
+    "upload"
+  );
   const [imageUrl, setImageUrl] = useState(value);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -74,12 +64,21 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   const [galleryImages, setGalleryImages] = useState<any[]>([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [galleryError, setGalleryError] = useState("");
-  const [galleryPagination, setGalleryPagination] = useState({ page: 0, nextPage: 1, limit: 16 });
+  const [galleryPagination, setGalleryPagination] = useState({
+    page: 0,
+    nextPage: 1,
+    limit: 16,
+  });
   const [imageSource, setImageSource] = useState("namespace_images");
 
   // Load gallery images when dialog opens
   useEffect(() => {
-    if (dialogOpen && showGallery && fetchGalleryImages && galleryImages.length === 0) {
+    if (
+      dialogOpen &&
+      showGallery &&
+      fetchGalleryImages &&
+      galleryImages.length === 0
+    ) {
       fetchGalleryImagesFromBackend("", true);
     }
   }, [dialogOpen, showGallery, fetchGalleryImages]);
@@ -109,15 +108,17 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     if (!file) return;
 
     // Validate file type
-    const fileExtension = file.name.split('.').pop()?.toLowerCase();
-    if (!fileTypes.includes(fileExtension || '')) {
-      setError(`Invalid file type. Accepted types: ${fileTypes.join(', ')}`);
+    const fileExtension = file.name.split(".").pop()?.toLowerCase();
+    if (!fileTypes.includes(fileExtension || "")) {
+      setError(`Invalid file type. Accepted types: ${fileTypes.join(", ")}`);
       return;
     }
 
     // Validate file size
     if (file.size > maxSize * 1024) {
-      setError(`File size too large. Maximum size: ${formatBytes(maxSize * 1024)}`);
+      setError(
+        `File size too large. Maximum size: ${formatBytes(maxSize * 1024)}`
+      );
       return;
     }
 
@@ -163,15 +164,17 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     const files = event.dataTransfer.files;
     if (files.length > 0) {
       const file = files[0];
-      const fileExtension = file.name.split('.').pop()?.toLowerCase();
-      
-      if (!fileTypes.includes(fileExtension || '')) {
-        setError(`Invalid file type. Accepted types: ${fileTypes.join(', ')}`);
+      const fileExtension = file.name.split(".").pop()?.toLowerCase();
+
+      if (!fileTypes.includes(fileExtension || "")) {
+        setError(`Invalid file type. Accepted types: ${fileTypes.join(", ")}`);
         return;
       }
 
       if (file.size > maxSize * 1024) {
-        setError(`File size too large. Maximum size: ${formatBytes(maxSize * 1024)}`);
+        setError(
+          `File size too large. Maximum size: ${formatBytes(maxSize * 1024)}`
+        );
         return;
       }
 
@@ -193,9 +196,12 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   };
 
   // Fetch gallery images from backend
-  const fetchGalleryImagesFromBackend = async (searchText?: string, resetPagination = false) => {
+  const fetchGalleryImagesFromBackend = async (
+    searchText?: string,
+    resetPagination = false
+  ) => {
     if (!fetchGalleryImages || !namespace) {
-      console.warn('fetchGalleryImages function or namespace is required');
+      console.warn("fetchGalleryImages function or namespace is required");
       return;
     }
 
@@ -214,34 +220,34 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         page: resetPagination ? 1 : galleryPagination.page + 1,
         limit: galleryPagination.limit,
         source: imageSource, // Pass the current source
-        ...(searchText && { search: searchText })
+        ...(searchText && { search: searchText }),
       };
 
       const response = await fetchGalleryImages(namespace, params);
-      
+
       if (response?.data?.items) {
         const newImages = response.data.items.map((item: any) => ({
           text: item.file_name || item.name || item.text,
           secure_url: item.cdn?.url || item.secure_url || item.url,
           thumbnail_url: item.cdn?.url || item.secure_url || item.url,
-          ...item
+          ...item,
         }));
 
         if (resetPagination) {
           setGalleryImages(newImages);
         } else {
-          setGalleryImages(prev => [...prev, ...newImages]);
+          setGalleryImages((prev) => [...prev, ...newImages]);
         }
-        
-        setGalleryPagination(prev => ({
+
+        setGalleryPagination((prev) => ({
           ...prev,
           page: resetPagination ? 1 : prev.page + 1,
-          nextPage: response.data.nextPage
+          nextPage: response.data.nextPage,
         }));
       }
     } catch (err: any) {
-      console.error('Failed to fetch gallery images:', err);
-      setGalleryError(err.message || 'Failed to load images');
+      console.error("Failed to fetch gallery images:", err);
+      setGalleryError(err.message || "Failed to load images");
     } finally {
       setGalleryLoading(false);
     }
@@ -283,6 +289,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
             cursor: "pointer",
             position: "relative",
             overflow: "hidden",
+            borderRadius: "12px",
             "&:hover": {
               borderColor: "#1a1a8a",
             },
@@ -326,15 +333,25 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 height: "100%",
               }}
             >
-              <AddIcon sx={{ color: "#2E31BE", fontSize: 24, mb: 0.5 }} />
-              <Typography variant="caption" color="#5C5C5C">
+              <FileUploadIcon
+                sx={{ color: "#2E31BE", fontSize: 24, mb: 0.5 }}
+              />
+              <Typography
+                variant="caption"
+                sx={{
+                  color: "#000093",
+                  textAlign: "center",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                  lineHeight: "16px",
+                  letterSpacing: "0",
+                }}
+              >
                 Upload
               </Typography>
             </Box>
           )}
         </Box>
-
-       
       </Box>
 
       {/* Upload Dialog */}
@@ -345,30 +362,30 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         fullWidth
         PaperProps={{
           sx: {
-            borderRadius: '16px',
-            boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)',
-            maxHeight: '80vh'
-          }
+            borderRadius: "16px",
+            boxShadow: "0px 4px 16px 0px rgba(0, 0, 0, 0.16)",
+            maxHeight: "80vh",
+          },
         }}
       >
         {/* Header */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '12px 16px',
-            backgroundColor: '#F5F5F5',
-            borderBottom: '1px solid #E0E0E0'
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+            padding: "12px 16px",
+            backgroundColor: "#F5F5F5",
+            borderBottom: "1px solid #E0E0E0",
           }}
         >
           <Box sx={{ flex: 1 }}>
             <Box
               sx={{
                 fontWeight: 600,
-                fontSize: '18px',
-                color: '#141414'
+                fontSize: "18px",
+                color: "#141414",
               }}
             >
               Upload {label}
@@ -376,36 +393,36 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '12px'
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "12px",
             }}
           >
             <Box
               onClick={handleCloseDialog}
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '4px',
-                width: '24px',
-                height: '24px',
-                borderRadius: '250px',
-                cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)'
-                }
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                padding: "4px",
+                width: "24px",
+                height: "24px",
+                borderRadius: "250px",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                },
               }}
             >
               <Box
                 sx={{
-                  width: '16px',
-                  height: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
+                  width: "16px",
+                  height: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 ✕
@@ -417,12 +434,12 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         {/* Content */}
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '12px',
-            padding: '16px 20px',
-            backgroundColor: '#FFFFFF'
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "12px",
+            padding: "16px 20px",
+            backgroundColor: "#FFFFFF",
           }}
         >
           <Box display="flex" gap={3}>
@@ -432,7 +449,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
               <Box
                 sx={{
                   border: "2px dashed #ccc",
-                  borderRadius: 2,
+                  borderRadius: "12px",
                   p: 3,
                   textAlign: "center",
                   backgroundColor: "#fafafa",
@@ -468,7 +485,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   </Box>
                 ) : (
                   <Box>
-                    <CloudUploadIcon sx={{ fontSize: 48, color: "#666", mb: 2 }} />
+                    <CloudUploadIcon
+                      sx={{ fontSize: 48, color: "#666", mb: 2 }}
+                    />
                     <Typography variant="h6" mb={1}>
                       Drag and drop a {label} here
                     </Typography>
@@ -483,7 +502,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept={fileTypes.map(type => `.${type}`).join(",")}
+                  accept={fileTypes.map((type) => `.${type}`).join(",")}
                   onChange={handleFileSelect}
                   style={{ display: "none" }}
                 />
@@ -505,9 +524,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
               {/* Error Display */}
               {error && (
-                <Alert severity="error" sx={{ mt: 2 }}>
-                  {error}
-                </Alert>
+                <NovusSnackbar
+                  open={true}
+                  severity="error"
+                  message={error}
+                  closable={true}
+                  onClose={() => setError("")}
+                />
               )}
 
               {/* Loading Indicator */}
@@ -539,7 +562,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   Aspect ratio: {aspectRatio === "*" ? "Original" : aspectRatio}
                 </Typography>
                 <Typography variant="caption" color="#5C5C5C">
-                  Min dimensions: {minimumResolution.width} x {minimumResolution.height} px
+                  Min dimensions: {minimumResolution.width} x{" "}
+                  {minimumResolution.height} px
                 </Typography>
               </Box>
             </Box>
@@ -554,7 +578,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 <FormControl fullWidth size="small" sx={{ mb: 2 }}>
                   <NovusDropdown
                     value={imageSource}
-                    onChange={(e) => handleImageSourceChange(e.target.value as string)}
+                    onChange={(e) =>
+                      handleImageSourceChange(e.target.value as string)
+                    }
                     options={[
                       { value: "namespace_images", label: "My Images" },
                       { value: "brands", label: "Brands" },
@@ -568,17 +594,22 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
                 {/* Search Input */}
                 <NovusInput
-                  placeholder={`Search ${imageSource !== 'namespace_images' ? imageSource + ' ' : ''}image`}
+                  placeholder={`Search ${
+                    imageSource !== "namespace_images" ? imageSource + " " : ""
+                  }image`}
                   onChange={(e) => handleGallerySearch(e.target.value)}
                   novusSize="md"
                   fullWidth
-                  sx={{ mb: 2 }}
                 />
                 {/* Gallery Images */}
                 {galleryError && (
-                  <Alert severity="error" sx={{ mb: 2 }}>
-                    {galleryError}
-                  </Alert>
+                  <NovusSnackbar
+                    open={true}
+                    severity="error"
+                    message={galleryError}
+                    closable={true}
+                    onClose={() => setGalleryError("")}
+                  />
                 )}
 
                 {galleryLoading && galleryImages.length === 0 ? (
@@ -629,19 +660,23 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   </Box>
                 )}
 
-                                    {/* Load More Button */}
-                    {galleryPagination.nextPage && !galleryLoading && (
-                      <Box display="flex" justifyContent="center" mt={2}>
-                        <NovusButton
-                          variantType="secondary"
-                          novusSize="sm"
-                          onClick={() => fetchGalleryImagesFromBackend("", false)}
-                          disabled={galleryLoading}
-                        >
-                          {galleryLoading ? <CircularProgress size={16} /> : "Load More"}
-                        </NovusButton>
-                      </Box>
-                    )}
+                {/* Load More Button */}
+                {galleryPagination.nextPage && !galleryLoading && (
+                  <Box display="flex" justifyContent="center" mt={2}>
+                    <NovusButton
+                      variantType="secondary"
+                      novusSize="sm"
+                      onClick={() => fetchGalleryImagesFromBackend("", false)}
+                      disabled={galleryLoading}
+                    >
+                      {galleryLoading ? (
+                        <CircularProgress size={16} />
+                      ) : (
+                        "Load More"
+                      )}
+                    </NovusButton>
+                  </Box>
+                )}
               </Box>
             )}
           </Box>
@@ -650,24 +685,24 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         {/* Footer */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            alignSelf: 'stretch',
-            gap: '24px',
-            padding: '16px 24px',
-            backgroundColor: '#FFFFFF',
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            alignSelf: "stretch",
+            gap: "24px",
+            padding: "16px 24px",
+            backgroundColor: "#FFFFFF",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              gap: '12px'
+              display: "flex",
+              gap: "12px",
             }}
           >
             {value && (
-              <NovusButton 
-                onClick={handleDelete} 
+              <NovusButton
+                onClick={handleDelete}
                 variantType="secondary"
                 startIcon={<DeleteIcon />}
                 novusSize="sm"
@@ -675,10 +710,18 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 Delete
               </NovusButton>
             )}
-            <NovusButton onClick={handleCloseDialog} variantType="secondary" novusSize="sm">
+            <NovusButton
+              onClick={handleCloseDialog}
+              variantType="secondary"
+              novusSize="sm"
+            >
               Cancel
             </NovusButton>
-            <NovusButton onClick={handleSave} variantType="primary" novusSize="sm">
+            <NovusButton
+              onClick={handleSave}
+              variantType="primary"
+              novusSize="sm"
+            >
               {value ? "Update" : "Add"}
             </NovusButton>
           </Box>
@@ -697,4 +740,4 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   );
 };
 
-export default ImageUploader; 
+export default ImageUploader;

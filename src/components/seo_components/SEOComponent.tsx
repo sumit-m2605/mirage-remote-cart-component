@@ -4,11 +4,7 @@ import {
   Typography,
   Chip,
   Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   IconButton,
-  CircularProgress,
   FormControl,
   Divider,
 } from "@mui/material";
@@ -19,8 +15,8 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Visibility as VisibilityIcon,
-  AutoFixHigh as GenerateIcon,
-  Key as KeyIcon,
+  AutoAwesome as AutoAwesomeIcon,
+  EditNote as EditNoteIcon,
 } from "@mui/icons-material";
 
 // Import sub-components
@@ -235,6 +231,7 @@ const SEOComponent: React.FC<Props> = ({
   };
 
   // Chip management
+  // Fix the addChip function to handle "keywords" type properly
   const addChip = (event: React.KeyboardEvent, type: string) => {
     if (event.key === "Enter" || event.key === "Tab") {
       event.preventDefault();
@@ -242,7 +239,8 @@ const SEOComponent: React.FC<Props> = ({
       let currentTags: string[];
       let setTagsFunction: React.Dispatch<React.SetStateAction<string[]>>;
       
-      if (type === "title") {
+      // Map "keywords" to "title" since they both use the same tags state
+      if (type === "title" || type === "keywords") {
         currentTags = tags;
         setTagsFunction = setTags;
         if (currentTags.length > 5) return;
@@ -412,49 +410,27 @@ const SEOComponent: React.FC<Props> = ({
           />
           
           <Box display="flex" gap={1} mt={1}>
-            {generateTitleProgress ? (
-              <NovusButton
-                variantType="secondary"
-                novusSize="xs"
-                onClick={() => cancelGenerate("title", "")}
-                disabled={true}
-              >
-                <CircularProgress size={16} style={{ marginRight: '8px' }} />
-                Cancel
-              </NovusButton>
-            ) : (
-              <NovusButton
-                variantType="tertiary"
-                novusSize="xs"
-                onClick={() => generate("title", "")}
-              >
-                <GenerateIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-                Generate
-              </NovusButton>
-            )}
+            <NovusButton
+              variantType="tertiary"
+              novusSize="xs"
+              loading={generateTitleProgress}
+              onClick={() => generateTitleProgress ? cancelGenerate("title", "") : generate("title", "")}
+            >
+              <AutoAwesomeIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+              {generateTitleProgress ? 'Cancel' : 'Generate'}
+            </NovusButton>
             
             <Divider orientation="vertical" flexItem />
             
-            {generateTitleWithKeyWordProgress ? (
-              <NovusButton
-                variantType="secondary"
-                novusSize="xs"
-                onClick={() => cancelGenerate("title", "keyword")}
-                disabled={true}
-              >
-                <CircularProgress size={16} style={{ marginRight: '8px' }} />
-                Cancel
-              </NovusButton>
-            ) : (
-              <NovusButton
-                variantType="tertiary"
-                novusSize="xs"
-                onClick={() => setTitleDialogOpen(true)}
-              >
-                <KeyIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-                Generate Using Custom Keyword
-              </NovusButton>
-            )}
+            <NovusButton
+              variantType="tertiary"
+              novusSize="xs"
+              loading={generateTitleWithKeyWordProgress}
+              onClick={() => generateTitleWithKeyWordProgress ? cancelGenerate("title", "keyword") : setTitleDialogOpen(true)}
+            >
+              <EditNoteIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+              {generateTitleWithKeyWordProgress ? 'Cancel' : 'Generate Using Custom Keyword'}
+            </NovusButton>
           </Box>
         </Box>
 
@@ -481,49 +457,27 @@ const SEOComponent: React.FC<Props> = ({
           />
           
           <Box display="flex" gap={1} mt={1}>
-            {generateDescriptionProgress ? (
-              <NovusButton
-                variantType="secondary"
-                novusSize="xs"
-                onClick={() => cancelGenerate("description", "")}
-                disabled={true}
-              >
-                <CircularProgress size={16} style={{ marginRight: '8px' }} />
-                Cancel
-              </NovusButton>
-            ) : (
-              <NovusButton
-                variantType="tertiary"
-                novusSize="xs"
-                onClick={() => generate("description", "")}
-              >
-                <GenerateIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-                Generate
-              </NovusButton>
-            )}
+            <NovusButton
+              variantType="tertiary"
+              novusSize="xs"
+              loading={generateDescriptionProgress}
+              onClick={() => generateDescriptionProgress ? cancelGenerate("description", "") : generate("description", "")}
+            >
+              <AutoAwesomeIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+              {generateDescriptionProgress ? 'Cancel' : 'Generate'}
+            </NovusButton>
             
             <Divider orientation="vertical" flexItem />
             
-            {generateDescriptionWithKeyWordProgress ? (
-              <NovusButton
-                variantType="secondary"
-                novusSize="xs"
-                onClick={() => cancelGenerate("description", "keyword")}
-                disabled={true}
-              >
-                <CircularProgress size={16} style={{ marginRight: '8px' }} />
-                Cancel
-              </NovusButton>
-            ) : (
-              <NovusButton
-                variantType="tertiary"
-                novusSize="xs"
-                onClick={() => setDescriptionDialogOpen(true)}
-              >
-                <KeyIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-                Generate Using Custom Keyword
-              </NovusButton>
-            )}
+            <NovusButton
+              variantType="tertiary"
+              novusSize="xs"
+              loading={generateDescriptionWithKeyWordProgress}
+              onClick={() => generateDescriptionWithKeyWordProgress ? cancelGenerate("description", "keyword") : setDescriptionDialogOpen(true)}
+            >
+              <EditNoteIcon style={{ marginRight: '8px', fontSize: '16px' }} />
+              {generateDescriptionWithKeyWordProgress ? 'Cancel' : 'Generate Using Custom Keyword'}
+            </NovusButton>
           </Box>
         </Box>
 
@@ -919,25 +873,38 @@ const SEOComponent: React.FC<Props> = ({
                 p={1}
                 minHeight={120}
                 display="flex"
-                flexWrap="wrap"
+                flexDirection="column-reverse"
+                
                 gap={1}
               >
-                {tags.map((tag, index) => (
-                  <Chip
-                    key={index}
-                    label={tag}
-                    onDelete={() => removeChip(index, "title")}
-                    size="small"
+                {/* Chips container - fixed at top */}
+                <Box
+                  display="flex"
+                  flexWrap="wrap"
+                  gap={1}
+                  minHeight={0}
+                  flex={1}
+                >
+                  {tags.map((tag, index) => (
+                    <Chip
+                      key={index}
+                      label={tag}
+                      onDelete={() => removeChip(index, "title")}
+                      size="small"
+                    />
+                  ))}
+                </Box>
+                
+                {/* Input container - fixed at bottom */}
+                <Box>
+                  <NovusInput
+                    placeholder="Type a keyword and press enter"
+                    value={chipInput}
+                    onChange={(e) => setChipInput(e.target.value)}
+                    onKeyDown={(e) => addChip(e, "title")}
+                    novusSize="sm"
                   />
-                ))}
-                <NovusInput
-                  placeholder="Type a keyword and press enter"
-                  value={chipInput}
-                  onChange={(e) => setChipInput(e.target.value)}
-                  onKeyDown={(e) => addChip(e, "keywords")}
-                  novusSize="md"
-                  sx={{ mt: 1 }}
-                />
+                </Box>
               </Box>
             </Box>
           </Box>
@@ -1091,25 +1058,37 @@ const SEOComponent: React.FC<Props> = ({
                 p={1}
                 minHeight={120}
                 display="flex"
-                flexWrap="wrap"
+                flexDirection="column"
                 gap={1}
               >
-                {descriptionTags.map((tag, index) => (
-                  <Chip
-                    key={index}
-                    label={tag}
-                    onDelete={() => removeChip(index, "description")}
-                    size="small"
+                {/* Chips container - fixed at top */}
+                <Box
+                  display="flex"
+                  flexWrap="wrap"
+                  gap={1}
+                  minHeight={0}
+                  flex={1}
+                >
+                  {descriptionTags.map((tag, index) => (
+                    <Chip
+                      key={index}
+                      label={tag}
+                      onDelete={() => removeChip(index, "description")}
+                      size="small"
+                    />
+                  ))}
+                </Box>
+                
+                {/* Input container - fixed at bottom */}
+                <Box>
+                  <NovusInput
+                    placeholder="Type a keyword and press enter"
+                    value={chipInput}
+                    onChange={(e) => setChipInput(e.target.value)}
+                    onKeyDown={(e) => addChip(e, "description")}
+                    novusSize="sm"
                   />
-                ))}
-                <NovusInput
-                  placeholder="Type a keyword and press enter"
-                  value={chipInput}
-                  onChange={(e) => setChipInput(e.target.value)}
-                  onKeyDown={(e) => addChip(e, "description")}
-                  novusSize="sm"
-                  sx={{ mt: 1 }}
-                />
+                </Box>
               </Box>
             </Box>
           </Box>
