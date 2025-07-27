@@ -22,7 +22,7 @@
     "globalName": "reactRemote",
     "pluginVersion": "0.15.0",
     "prefetchInterface": false,
-    "publicPath": "https://mirage-remote-cart-component.onrender.com/"
+    "publicPath": "/"
   },
   "shared": [
     {
@@ -47,8 +47,14 @@
         }
       },
       "usedIn": [
+        "./CanonicalTagRemote",
         "./CartSettingsRemote",
         "./CartSettingsRemoteNovus",
+        "./SEODetailsRemote",
+        "./CustomMetaTagsRemote",
+        "./RobotsTxtRemote",
+        "./SchemaRemote",
+        "./SitemapRemote",
         "./define-element"
       ]
     },
@@ -89,7 +95,7 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/async/__federation_expose_define_element.baf41c1e.js"
+            "static/js/async/__federation_expose_define_element.492bfa0f.js"
           ],
           "async": []
         },
@@ -110,7 +116,7 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/async/__federation_expose_ReactComponent.771bf28d.js"
+            "static/js/async/__federation_expose_ReactComponent.39569f7e.js"
           ],
           "async": []
         },
@@ -133,9 +139,14 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/async/255.d4a8e6fb.js",
-            "static/js/async/237.a42b6005.js",
-            "static/js/async/__federation_expose_CartSettingsRemote.ad95bf5f.js"
+            "static/js/async/173.ec70d5c5.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/765.8a1ffe72.js",
+            "static/js/async/519.69b6264d.js",
+            "static/js/async/839.01ca2660.js",
+            "static/js/async/299.e7215b32.js",
+            "static/js/async/158.968fea71.js",
+            "static/js/async/__federation_expose_CartSettingsRemote.fdb7d72b.js"
           ],
           "async": []
         },
@@ -156,14 +167,185 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/async/255.d4a8e6fb.js",
-            "static/js/async/522.f2e0e7ab.js",
-            "static/js/async/__federation_expose_CartSettingsRemoteNovus.a025aba9.js"
+            "static/js/async/173.ec70d5c5.js",
+            "static/js/async/765.8a1ffe72.js",
+            "static/js/async/145.5c1c534e.js",
+            "static/js/async/__federation_expose_CartSettingsRemoteNovus.b7b774ab.js"
           ],
           "async": []
         },
         "css": {
           "sync": [],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./RobotsTxtRemote",
+      "id": "reactRemote:RobotsTxtRemote",
+      "name": "RobotsTxtRemote",
+      "requires": [
+        "react"
+      ],
+      "file": "src/components/RemoteRobotsTxtComponent.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/173.ec70d5c5.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/765.8a1ffe72.js",
+            "static/js/async/839.01ca2660.js",
+            "static/js/async/330.1bd0f50d.js",
+            "static/js/async/__federation_expose_RobotsTxtRemote.333ceb39.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./CustomMetaTagsRemote",
+      "id": "reactRemote:CustomMetaTagsRemote",
+      "name": "CustomMetaTagsRemote",
+      "requires": [
+        "react"
+      ],
+      "file": "src/components/RemoteMetaTagsComponent.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/173.ec70d5c5.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/765.8a1ffe72.js",
+            "static/js/async/519.69b6264d.js",
+            "static/js/async/839.01ca2660.js",
+            "static/js/async/330.1bd0f50d.js",
+            "static/js/async/299.e7215b32.js",
+            "static/js/async/46.c57a2e5b.js",
+            "static/js/async/158.968fea71.js",
+            "static/js/async/__federation_expose_CustomMetaTagsRemote.da30e670.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./CanonicalTagRemote",
+      "id": "reactRemote:CanonicalTagRemote",
+      "name": "CanonicalTagRemote",
+      "requires": [
+        "react"
+      ],
+      "file": "src/components/RemoteCanonicalComponent.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/173.ec70d5c5.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/765.8a1ffe72.js",
+            "static/js/async/519.69b6264d.js",
+            "static/js/async/__federation_expose_CanonicalTagRemote.06d2739d.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./SitemapRemote",
+      "id": "reactRemote:SitemapRemote",
+      "name": "SitemapRemote",
+      "requires": [
+        "react"
+      ],
+      "file": "src/components/RemoteSiteMapComponent.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/173.ec70d5c5.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/765.8a1ffe72.js",
+            "static/js/async/519.69b6264d.js",
+            "static/js/async/839.01ca2660.js",
+            "static/js/async/330.1bd0f50d.js",
+            "static/js/async/__federation_expose_SitemapRemote.9809b8b6.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./SEODetailsRemote",
+      "id": "reactRemote:SEODetailsRemote",
+      "name": "SEODetailsRemote",
+      "requires": [
+        "react"
+      ],
+      "file": "src/components/RemoteDetailsComponent.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/173.ec70d5c5.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/765.8a1ffe72.js",
+            "static/js/async/519.69b6264d.js",
+            "static/js/async/839.01ca2660.js",
+            "static/js/async/299.e7215b32.js",
+            "static/js/async/801.78403df4.js",
+            "static/js/async/152.c3e2b72d.js",
+            "static/js/async/158.968fea71.js",
+            "static/js/async/__federation_expose_SEODetailsRemote.e89e560e.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [],
+          "async": []
+        }
+      }
+    },
+    {
+      "path": "./SchemaRemote",
+      "id": "reactRemote:SchemaRemote",
+      "name": "SchemaRemote",
+      "requires": [
+        "react"
+      ],
+      "file": "src/components/RemoteSchemaComponent.tsx",
+      "assets": {
+        "js": {
+          "sync": [
+            "static/js/async/173.ec70d5c5.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/519.69b6264d.js",
+            "static/js/async/839.01ca2660.js",
+            "static/js/async/330.1bd0f50d.js",
+            "static/js/async/299.e7215b32.js",
+            "static/js/async/801.78403df4.js",
+            "static/js/async/211.f635f2b7.js",
+            "static/js/async/158.968fea71.js",
+            "static/js/async/__federation_expose_SchemaRemote.363012ab.js"
+          ],
+          "async": []
+        },
+        "css": {
+          "sync": [
+            "static/css/async/__federation_expose_SchemaRemote.04dbe64d.css"
+          ],
           "async": []
         }
       }
