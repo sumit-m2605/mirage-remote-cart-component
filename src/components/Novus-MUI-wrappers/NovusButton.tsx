@@ -169,7 +169,6 @@ const StyledNovusButton = styled(Button, {
         background: "#ffffff",
         border: "1px solid #E0E0E0",
         color: "#000093",
-        borderRadius: "12px",
         textDecoration: "none !important",
         "&:hover": {
           background: "#E8E8FC",
