@@ -19,6 +19,7 @@ interface ImageUploaderProps {
     fileName?: string;
     showGallery?: boolean;
     fetchGalleryImages?: (namespace: string, params: any) => Promise<any>;
+    uploadImage?: (file: File) => Promise<string>;
 }
 declare const ImageUploader: React.FC<ImageUploaderProps>;
 export default ImageUploader;

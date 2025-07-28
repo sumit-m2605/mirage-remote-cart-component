@@ -4,10 +4,11 @@ interface RemoteSchemaComponentProps {
     createSchemaTemplate?: (data: any) => Promise<any>;
     updateSchemaTemplate?: (id: string, data: any) => Promise<any>;
     deleteSchemaTemplate?: (id: string) => Promise<any>;
+    getDefaultSEOSchema?: (pageType: string) => Promise<any>;
     onCancel?: () => void;
     showSnackbar?: (message: string, type: 'success' | 'error') => void;
     helpSlug?: string;
     helpDocsURLs?: Record<string, string>;
 }
-declare const RemoteSchemaComponent: ({ fetchSchemaTemplates, fetchSchemaTemplate, createSchemaTemplate, updateSchemaTemplate, deleteSchemaTemplate, onCancel, showSnackbar, helpSlug, helpDocsURLs }: RemoteSchemaComponentProps) => import("react/jsx-runtime").JSX.Element | null;
+declare const RemoteSchemaComponent: ({ fetchSchemaTemplates, fetchSchemaTemplate, createSchemaTemplate, updateSchemaTemplate, deleteSchemaTemplate, getDefaultSEOSchema, onCancel, showSnackbar, helpSlug, helpDocsURLs }: RemoteSchemaComponentProps) => import("react/jsx-runtime").JSX.Element | null;
 export default RemoteSchemaComponent;

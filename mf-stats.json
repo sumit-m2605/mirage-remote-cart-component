@@ -47,10 +47,10 @@
         }
       },
       "usedIn": [
+        "./SEODetailsRemote",
         "./CanonicalTagRemote",
         "./CartSettingsRemote",
         "./CartSettingsRemoteNovus",
-        "./SEODetailsRemote",
         "./CustomMetaTagsRemote",
         "./RobotsTxtRemote",
         "./SchemaRemote",
@@ -308,7 +308,7 @@
             "static/js/async/801.78403df4.js",
             "static/js/async/152.c3e2b72d.js",
             "static/js/async/158.968fea71.js",
-            "static/js/async/__federation_expose_SEODetailsRemote.e89e560e.js"
+            "static/js/async/__federation_expose_SEODetailsRemote.2fc2212e.js"
           ],
           "async": []
         },
@@ -338,7 +338,7 @@
             "static/js/async/801.78403df4.js",
             "static/js/async/211.f635f2b7.js",
             "static/js/async/158.968fea71.js",
-            "static/js/async/__federation_expose_SchemaRemote.363012ab.js"
+            "static/js/async/__federation_expose_SchemaRemote.0795e6f1.js"
           ],
           "async": []
         },
