@@ -168,7 +168,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
               onChange={setContent}
               height="345px"
               placeholder="Enter meta tag content..."
-              theme="light"
+              theme="dark"
             />
           </Box>
         </Box>

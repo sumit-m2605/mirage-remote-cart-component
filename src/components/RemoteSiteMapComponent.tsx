@@ -163,7 +163,7 @@ const SitemapRemote: React.FC<Props> = ({
             onChange={setContent}
             placeholder="Paste sitemap.xml content here..."
             height="300px"
-            theme="light"
+            theme="dark"
           />
         </Box>
 

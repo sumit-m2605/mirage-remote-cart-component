@@ -454,6 +454,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                 onChange={handleSchemaEdit}
                 height="300px"
                 language="schema"
+                theme="dark"
               />
             </Box>
           </Box>
@@ -528,6 +529,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                   onChange={handleJsonEdit}
                   height="300px"
                   language="json"
+                  theme="dark"
                 />
               </Box>
               {isJsonValueError && !isJsonEditorError && (
@@ -574,6 +576,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                   height="300px"
                   language="json"
                   readOnly={true}
+                  theme="dark"
                 />
               </Box>
             </Box>

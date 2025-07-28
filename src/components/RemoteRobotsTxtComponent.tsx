@@ -130,7 +130,7 @@ const RobotsTxtRemote: React.FC<Props> = ({
             onChange={setRobotsTxt}
             placeholder="Paste robots.txt content here..."
             height="300px"
-            theme="light"
+            theme="dark"
           />
         </Box>
 
