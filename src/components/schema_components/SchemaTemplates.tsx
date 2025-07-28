@@ -22,12 +22,7 @@ const SchemaTemplates: React.FC<SchemaTemplatesProps> = ({
   fetchSchemaTemplates
 }) => {
   const renderActions = () => (
-    <NovusButton
-      variantType="secondary"
-      onClick={onCreateTemplate}
-    >
-      Create
-    </NovusButton>
+    <></>
   );
 
   return (
