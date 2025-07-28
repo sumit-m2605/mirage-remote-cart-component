@@ -507,6 +507,7 @@ const SEOComponent: React.FC<Props> = ({
               fileName="Social Media"
               showGallery={true}
               fetchGalleryImages={handleFetchGalleryImages}
+              uploadImage={uploadImage}
             />
           </Box>
         )}

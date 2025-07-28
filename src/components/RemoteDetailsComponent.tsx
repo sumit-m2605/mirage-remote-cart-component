@@ -192,8 +192,47 @@ const DetailsRemote: React.FC<Props> = ({
     }
   };
 
-  const handleSEOUpdate = (data: SEOData) => {
+  const handleSEOUpdate = async (data: SEOData) => {
+    const previousImageUrl = seoData.image_url;
+    console.log('handleSEOUpdate called with:', data);
+    console.log('Previous image URL:', previousImageUrl);
+    console.log('New image URL:', data.image_url);
+    
     setSeoData(data);
+    
+    // Auto-save when image is uploaded and changed
+    if (data.image_url && 
+        data.image_url !== previousImageUrl && 
+        data.image_url.trim() !== '') {
+      console.log('Auto-saving image upload...');
+      try {
+        const updateData = {
+          details: {
+            title: data.title,
+            description: data.description,
+            image_url: data.image_url,
+          },
+          sitemap: data.sitemap,
+        };
+        console.log('Sending update data:', updateData);
+        
+        const response = await updateSEO(updateData);
+        console.log('Update response:', response);
+        
+        setSnackbar({
+          open: true,
+          message: "Image uploaded and saved successfully",
+          success: true,
+        });
+      } catch (error: any) {
+        console.error('Failed to save image:', error);
+        setSnackbar({
+          open: true,
+          message: `Failed to save image: ${error?.message || 'Unknown error'}`,
+          success: false,
+        });
+      }
+    }
   };
 
   const showSnackbar = (message: string, type: "success" | "error") => {

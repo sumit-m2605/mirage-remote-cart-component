@@ -9,6 +9,7 @@ interface RemoteSchemaComponentProps {
   createSchemaTemplate?: (data: any) => Promise<any>;
   updateSchemaTemplate?: (id: string, data: any) => Promise<any>;
   deleteSchemaTemplate?: (id: string) => Promise<any>;
+  getDefaultSEOSchema?: (pageType: string) => Promise<any>;
   onCancel?: () => void;
   showSnackbar?: (message: string, type: 'success' | 'error') => void;
   helpSlug?: string;
@@ -21,6 +22,7 @@ const RemoteSchemaComponent = ({
   createSchemaTemplate,
   updateSchemaTemplate,
   deleteSchemaTemplate,
+  getDefaultSEOSchema,
   onCancel,
   showSnackbar,
   helpSlug = 'seo',
@@ -137,6 +139,7 @@ const RemoteSchemaComponent = ({
         fetchSchemaTemplate={fetchSchemaTemplate}
         createSchemaTemplate={createSchemaTemplate}
         updateSchemaTemplate={updateSchemaTemplate}
+        getDefaultSEOSchema={getDefaultSEOSchema}
         showSnackbar={showSnackbar}
       />
     );
@@ -155,6 +158,7 @@ const RemoteSchemaComponent = ({
         fetchSchemaTemplate={fetchSchemaTemplate}
         createSchemaTemplate={createSchemaTemplate}
         updateSchemaTemplate={updateSchemaTemplate}
+        getDefaultSEOSchema={getDefaultSEOSchema}
         showSnackbar={showSnackbar}
       />
     );

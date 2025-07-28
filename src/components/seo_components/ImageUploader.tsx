@@ -34,6 +34,7 @@ interface ImageUploaderProps {
   fileName?: string;
   showGallery?: boolean;
   fetchGalleryImages?: (namespace: string, params: any) => Promise<any>;
+  uploadImage?: (file: File) => Promise<string>;
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({
@@ -50,6 +51,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   fileName = "Image",
   showGallery = true,
   fetchGalleryImages,
+  uploadImage,
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [uploadMode, setUploadMode] = useState<"upload" | "url" | "gallery">(
@@ -125,14 +127,27 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     setLoading(true);
     setError("");
 
-    // Simulate file upload (replace with actual upload logic)
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      setImageUrl(result);
-      setLoading(false);
-    };
-    reader.readAsDataURL(file);
+    // Use uploadImage function if provided, otherwise fallback to data URL
+    if (uploadImage) {
+      uploadImage(file)
+        .then((uploadedUrl) => {
+          setImageUrl(uploadedUrl);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError(error.message || "Failed to upload image");
+          setLoading(false);
+        });
+    } else {
+      // Fallback to data URL for testing
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setImageUrl(result);
+        setLoading(false);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -181,13 +196,27 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       setLoading(true);
       setError("");
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setImageUrl(result);
-        setLoading(false);
-      };
-      reader.readAsDataURL(file);
+      // Use uploadImage function if provided, otherwise fallback to data URL
+      if (uploadImage) {
+        uploadImage(file)
+          .then((uploadedUrl) => {
+            setImageUrl(uploadedUrl);
+            setLoading(false);
+          })
+          .catch((error) => {
+            setError(error.message || "Failed to upload image");
+            setLoading(false);
+          });
+      } else {
+        // Fallback to data URL for testing
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const result = e.target?.result as string;
+          setImageUrl(result);
+          setLoading(false);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 
@@ -282,7 +311,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
             width: 100,
             height: 100,
             border: "1px dashed #2E31BE",
-            borderRadius: 1,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
