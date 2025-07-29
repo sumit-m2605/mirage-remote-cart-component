@@ -21,7 +21,7 @@ const COLORS = {
   
   // Background colors
   BACKGROUND_WHITE: "#FFFFFF",
-  BACKGROUND_TRANSPARENT: "transparent",
+  BACKGROUND_TRANSPARENT: "#FFFFFF",
   
   // Helper text colors
   HELPER_DEFAULT: "#000000A6",
@@ -29,7 +29,7 @@ const COLORS = {
   HELPER_SUCCESS: "#135610",
   
   // Required indicator
-  REQUIRED: "#F50031",
+  REQUIRED: "#000000A6",
 } as const;
 
 const NovusLabel = styled(Typography)({
@@ -53,6 +53,7 @@ export interface NovusInputProps
 
 const NovusInputField = styled(TextField)<TextFieldProps>(() => ({
   "& .MuiOutlinedInput-root": {
+    backgroundColor: COLORS.BACKGROUND_WHITE,
     display: "flex",
     alignItems: "center",
     boxSizing: "border-box !important",

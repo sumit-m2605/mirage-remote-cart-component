@@ -357,7 +357,6 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
             height: 200,
           }}
         >
-          <Typography>Loading...</Typography>
         </Box>
       );
     }
@@ -398,9 +397,8 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
           <Typography
             sx={{
               color: "#41434C",
-              fontWeight: "bold",
-              fontSize: "18px",
-              lineHeight: "27px",
+              fontWeight: "500",
+              fontSize: "16px",
               textAlign: "left",
             }}
           >
@@ -429,9 +427,8 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
           <Typography
             sx={{
               color: "#41434C",
-              fontWeight: "bold",
-              fontSize: "18px",
-              lineHeight: "27px",
+              fontWeight: "500",
+              fontSize: "16px",
               textAlign: "left",
             }}
           >
@@ -469,6 +466,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
               width: "100%",
               overflow: "hidden",
               boxSizing: "border-box",
+              alignItems: "flex-start",
             }}
           >
             {/* Example JSON */}
@@ -479,6 +477,8 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                 maxWidth: "100%",
                 width: "100%",
                 overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <Box
@@ -492,9 +492,9 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                 <Typography
                   sx={{
                     color: "#41434C",
-                    fontWeight: "bold",
-                    fontSize: "18px",
-                    lineHeight: "27px",
+                    fontWeight: "500",
+                    fontSize: "16px",
+                    textAlign: "left",
                   }}
                 >
                   Example JSON
@@ -522,6 +522,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                   boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
                   width: "100%",
                   minWidth: 0,
+                  flex: 1,
                 }}
               >
                 <CodeEditor
@@ -547,14 +548,16 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                 maxWidth: "100%",
                 width: "100%",
                 overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <Typography
                 sx={{
                   color: "#41434C",
-                  fontWeight: "bold",
-                  fontSize: "18px",
-                  lineHeight: "27px",
+                  fontWeight: "500",
+                  fontSize: "16px",
+                  textAlign: "left",
                   mb: 2,
                 }}
               >
@@ -568,6 +571,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                   boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
                   width: "100%",
                   minWidth: 0,
+                  flex: 1,
                 }}
               >
                 <CodeEditor

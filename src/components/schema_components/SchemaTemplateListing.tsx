@@ -193,7 +193,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
   }
 
   return (
-    <Box sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
+    <Box sx={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
       {/* Search and Filter Section */}
       {(loading ||
         searchText !== "" ||
@@ -208,6 +208,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
             padding: "24px",
             boxSizing: "border-box",
             gap: "16px",
+            flexShrink: 0,
           }}
         >
           <NovusInput
@@ -237,13 +238,14 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
         </Box>
       )}
 
-      {/* Templates List */}
+      {/* Templates List - Scrollable */}
       <Box
         sx={{
           flex: 1,
           overflow: "auto",
-          padding: "0 24px 24px 24px",
+          padding: "0 24px 0 24px",
           boxSizing: "border-box",
+          minHeight: 0,
         }}
       >
         {templates.length > 0 ? (
@@ -277,22 +279,47 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
             No results found
           </Box>
         ) : null}
+      </Box>
 
-        {/* Pagination */}
+              {/* Pagination - Fixed at bottom */}
         {pagination.total > 0 && (
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 5, mb: 2 }}>
+          <Box sx={{ 
+            display: "flex", 
+            justifyContent: "center", 
+            padding: "16px 24px 24px 24px",
+            flexShrink: 0,
+          }}>
             <Pagination
               count={Math.ceil(pagination.total / pagination.limit)}
               page={pagination.current}
               onChange={handlePageChange}
-              color="primary"
               showFirstButton
               showLastButton
               disabled={loading}
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  color: '#666666',
+                  '&:hover': {
+                    backgroundColor: '#F5F5F5',
+                  },
+                  '&.Mui-selected': {
+                    backgroundColor: '#2C4BFF',
+                    color: '#FFFFFF',
+                    '&:hover': {
+                      backgroundColor: '#2C4BFF',
+                    },
+                  },
+                  '&.Mui-disabled': {
+                    color: '#CCCCCC',
+                  },
+                },
+                '& .MuiPaginationItem-icon': {
+                  color: '#666666',
+                },
+              }}
             />
           </Box>
         )}
-      </Box>
     </Box>
   );
 };

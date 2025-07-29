@@ -46,6 +46,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           foldGutter: true,
           highlightActiveLine: false,
         }}
+        style={{
+          fontSize: '12px',
+        }}
       />
     </Box>
   );

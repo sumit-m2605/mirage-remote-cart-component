@@ -75,17 +75,17 @@ const RobotsTxtRemote: React.FC<Props> = ({
 
   if (loading)
     return (
-      <Box p={4}>
+      <Box p={{ xs: 2, sm: 3, md: 4 }}>
         <ShimmerLoader height="200px" />
       </Box>
     );
 
   return (
     <Box
-      className="page-container integration-container"
       display="flex"
       flexDirection="column"
-      bgcolor={'##F5F5F5'}
+      bgcolor={'#F5F5F5'}
+      height="100%"
     >
       <RemotePageHeader
         title="Edit Robots.txt"
@@ -114,19 +114,26 @@ const RobotsTxtRemote: React.FC<Props> = ({
 
       <Box
         display="flex"
-        flexDirection="row"
+        flexDirection={{ xs: 'column', md: 'row' }}
         flex={1}
-        padding={'24px'}
-        gap={'20px'}
+        padding={{ xs: '16px', sm: '20px', md: '24px' }}
+        gap={{ xs: '16px', sm: '18px', md: '20px' }}
+        overflow="auto"
+        minHeight={0}
       >
         
         <Box
         bgcolor={'#FFFFFF'}
-        borderRadius={'12px'}
+        borderRadius={{ xs: '8px', sm: '10px', md: '12px' }}
         border={'1px solid #FAFAFA'}
-        padding={'24px'}
+        padding={{ xs: '16px', sm: '20px', md: '24px' }}
         height={'fit-content'}
         flex={{ xs: "1 1 100%", md: "0 1 70%" }}
+        sx={{
+          '& .CodeMirror': {
+            height: { xs: '250px', sm: '280px', md: '300px' } as any,
+          }
+        }}
         >
           <CodeEditor
             value={robotsTxt}

@@ -374,7 +374,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
               border: `1px solid ${COLORS.BACKGROUND_WHITE}`,
               borderRadius: novusSize === 'sm' ? '6px' : novusSize === 'md' ? '8px' : '12px',
               boxShadow: `0px 4px 16px 0px ${COLORS.SHADOW}`,
-              padding: '8px',
+              padding: '4px',
               maxHeight: '250px',
               height: 'fit-content',
               width: 'fit-content',
@@ -387,15 +387,19 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
                 width: '100%',
               },
               '& .MuiMenuItem-root': {
-                fontFamily: '"Inter", sans-serif',
-                fontSize: '16px',
-                lineHeight: '1.5em',
+                fontFamily: '"Inter", sans-serif !important',
+                fontSize: '12px !important',
+                lineHeight: '1.5em !important',
                 fontWeight: 400,
                 color: COLORS.TEXT_PRIMARY,
                 borderRadius: '8px',
-                minHeight: '36px !important',
+                minHeight: '28px !important',
                 width: '100% !important',
                 minWidth: '100% !important',
+                '& .MuiTypography-root': {
+                  fontSize: '12px !important',
+                  lineHeight: '1.5em !important',
+                },
                 '&:hover': {
                   backgroundColor: COLORS.BACKGROUND_HOVER,
                 },
@@ -467,7 +471,10 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
                 </Box>
               )}
               <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
-                <Typography sx={{ color: option.disabled ? COLORS.TEXT_DISABLED : COLORS.TEXT_PRIMARY }}>
+                <Typography sx={{ 
+                  color: option.disabled ? COLORS.TEXT_DISABLED : COLORS.TEXT_PRIMARY,
+                  fontSize: '12px !important',
+                }}>
                   {option.label}
                 </Typography>
                 {option.secondaryText && (

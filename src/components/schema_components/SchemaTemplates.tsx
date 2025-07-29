@@ -36,7 +36,13 @@ const SchemaTemplates: React.FC<SchemaTemplatesProps> = ({
   );
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
+    <Box sx={{ 
+      display: "flex",
+      flexDirection: "column",
+      bgcolor: "#F5F5F5",
+      height: "100%",
+      minHeight: "100%",
+    }}>
       <RemotePageHeader
         title="Schema"
         onBack={onBack}
@@ -51,18 +57,19 @@ const SchemaTemplates: React.FC<SchemaTemplatesProps> = ({
           display: "flex",
           flexDirection: "column",
           padding: "24px",
-          overflow: "hidden",
+          overflow: "auto",
         }}
       >
         {/* Main Content - Only Listing */}
         <Box
           sx={{
-            backgroundColor: "#ffffff",
+            backgroundColor: "#FFFFFF",
             display: "flex",
             flexDirection: "column",
             flex: 1,
             borderRadius: "12px",
-            overflow: "hidden",
+            overflow: "auto",
+            minHeight: 0,
           }}
         >
           <SchemaTemplateListing

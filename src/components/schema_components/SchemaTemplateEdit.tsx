@@ -202,7 +202,7 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
 
         {/* Description Field */}
           <NovusInput
-            label={`Description ${data.description.value.length}/${MAX_DESCRIPTION_CHAR_LIMIT}`}
+            label={`Description`}
             placeholder="Enter description"
             value={data.description.value}
             onChange={(e) => handleFieldChange('description', e.target.value)}

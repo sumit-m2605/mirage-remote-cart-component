@@ -134,10 +134,10 @@ const MetaTagsRemote: React.FC<Props> = ({
 
   return (
     <Box
-      className="page-container integration-container"
       display="flex"
       flexDirection="column"
       bgcolor={"#F5F5F5"}
+      height="100%"
     >
       <RemotePageHeader
         title="Custom Meta Tags"
@@ -159,9 +159,12 @@ const MetaTagsRemote: React.FC<Props> = ({
         bgcolor={"#FFFFFF"}
         borderRadius={"12px"}
         border={"1px solid #FAFAFA"}
-        height={"fit-content"}
-        margin={'24px'}
-        flex={{ xs: "1 1 100%", md: "1 1 100%" }}
+        margin={"24px"}
+        flex={1}
+        minHeight={0}
+        overflow="hidden"
+        display="flex"
+        flexDirection="column"
       >
         {loading ? (
           <ShimmerLoader height="200px" />
@@ -173,7 +176,7 @@ const MetaTagsRemote: React.FC<Props> = ({
             alignItems="center"
             justifyContent="center"
             gap={2}
-            minHeight="200px"
+            flex={1}
           >
             <img
               src="/public/admin/assets/admin/svgs/no_search_result_found.svg"
@@ -182,12 +185,14 @@ const MetaTagsRemote: React.FC<Props> = ({
             No Custom Meta Tags
           </Box>
         ) : (
-          <MetaList
-            metaList={metaList}
-            onEdit={openEditDialog}
-            onDelete={openDeleteDialog}
-            onReorder={handleDragEnd}
-          />
+          <Box flex={1} overflow="auto">
+            <MetaList
+              metaList={metaList}
+              onEdit={openEditDialog}
+              onDelete={openDeleteDialog}
+              onReorder={handleDragEnd}
+            />
+          </Box>
         )}
       </Box>
 

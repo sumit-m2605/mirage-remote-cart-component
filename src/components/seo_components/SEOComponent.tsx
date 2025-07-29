@@ -1102,7 +1102,6 @@ const SEOComponent: React.FC<Props> = ({
             <NovusButton
               variantType="primary"
               novusSize="sm"
-              padding="0px 0px !important"
               onClick={() => {
                 generate("title", "keyword");
                 setTitleDialogOpen(false);

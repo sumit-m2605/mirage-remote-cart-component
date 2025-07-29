@@ -12,6 +12,26 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { styled } from '@mui/material/styles';
 
+// Color constants
+const COLORS = {
+  BACKGROUND: '#ffffff',
+  TEXT_PRIMARY: '#141414',
+  TEXT_SECONDARY: '#000000',
+  TEXT_WHITE: '#ffffff',
+  BORDER_SHADOW: 'rgba(0, 0, 0, 0.1)',
+  MENU_BACKGROUND: '#FFFFFF',
+  MENU_BORDER: '#FFFFFF',
+  MENU_SHADOW: '0px 4px 16px 0px rgba(0, 0, 0, 0.24), 0px 0px 8px 0px rgba(255, 255, 255, 0.3)',
+  MENU_ITEM_TEXT: '#141414',
+  MENU_ITEM_HOVER: '#F5F5F5',
+  MENU_ITEM_SELECTED_BG: '#F0F0FF',
+  MENU_ITEM_SELECTED_TEXT: '#000093',
+  MENU_ITEM_SELECTED_HOVER: '#E8E8FC',
+  MENU_ITEM_DISABLED: '#A0AEC0',
+  SCROLLBAR_THUMB: '#D4D4D4',
+  SCROLLBAR_THUMB_HOVER: '#B8B8B8',
+} as const;
+
 interface RemotePageHeaderProps {
   title: string;
   onBack: () => void;
@@ -28,8 +48,8 @@ const PageHeaderContainer = styled(Box)(() => ({
   position: 'sticky',
   top: 0,
   zIndex: 6,
-  backgroundColor: '#ffffff',
-  boxShadow: '0 1px 0px 0 rgba(0, 0, 0, 0.1)',
+  backgroundColor: COLORS.BACKGROUND,
+  boxShadow: `0 1px 0px 0 ${COLORS.BORDER_SHADOW}`,
   display: 'flex',
   flexDirection: 'column',
   padding: '16px 24px',
@@ -49,8 +69,8 @@ const BackButtonTitle = styled(Box)(() => ({
 }));
 
 const PageTitle = styled(Typography)(() => ({
-  color: '#141414',
-  height: '32px',
+  color: COLORS.TEXT_PRIMARY,
+  height: 'auto',
   fontSize: '24px',
   fontWeight: '600',
   display: 'flex',
@@ -132,7 +152,7 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
         </PageSlot>
 
         <MenuButton onClick={handleMenuClick}>
-          <MoreVertIcon style={{color: isMobile ? '#ffffff' : '#000000' }} />
+          <MoreVertIcon/>
         </MenuButton>
 
         <Menu 
@@ -149,10 +169,10 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
           }}
           PaperProps={{
             sx: {
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #FFFFFF',
+              backgroundColor: COLORS.MENU_BACKGROUND,
+              border: `1px solid ${COLORS.MENU_BORDER}`,
               borderRadius: '8px',
-              boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.24), 0px 0px 8px 0px rgba(255, 255, 255, 0.3)',
+              boxShadow: COLORS.MENU_SHADOW,
               padding: '4px',
               maxHeight: '250px',
               height: 'fit-content',
@@ -166,30 +186,34 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
                 width: '100%',
               },
               '& .MuiMenuItem-root': {
-                fontFamily: '"Inter", sans-serif',
-                fontSize: '16px',
-                lineHeight: '1.5em',
+                fontFamily: '"Inter", sans-serif !important',
+                fontSize: '12px !important',
+                lineHeight: '1.5em !important',
                 fontWeight: 400,
-                color: '#141414',
+                color: COLORS.MENU_ITEM_TEXT,
                 padding: '8px 12px',
                 borderRadius: '8px',
                 margin: '2px 0',
                 minHeight: 'auto',
-                height: '40px',
+                height: '32px',
                 width: '100% !important',
                 minWidth: '100% !important',
+                '& .MuiTypography-root': {
+                  fontSize: '12px !important',
+                  lineHeight: '1.5em !important',
+                },
                 '&:hover': {
-                  backgroundColor: '#F5F5F5',
+                  backgroundColor: COLORS.MENU_ITEM_HOVER,
                 },
                 '&.Mui-selected': {
-                  backgroundColor: '#F0F0FF',
-                  color: '#000093',
+                  backgroundColor: COLORS.MENU_ITEM_SELECTED_BG,
+                  color: COLORS.MENU_ITEM_SELECTED_TEXT,
                   '&:hover': {
-                    backgroundColor: '#E8E8FC',
+                    backgroundColor: COLORS.MENU_ITEM_SELECTED_HOVER,
                   },
                 },
                 '&.Mui-disabled': {
-                  color: '#A0AEC0',
+                  color: COLORS.MENU_ITEM_DISABLED,
                 },
               },
               // Scrollbar styling
@@ -200,13 +224,13 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
                 background: 'transparent',
               },
               '&::-webkit-scrollbar-thumb': {
-                background: '#D4D4D4',
+                background: COLORS.SCROLLBAR_THUMB,
                 borderRadius: '250px',
                 width: '4px !important',
                 height: '280px',
               },
               '&::-webkit-scrollbar-thumb:hover': {
-                background: '#B8B8B8',
+                background: COLORS.SCROLLBAR_THUMB_HOVER,
               },
             },
           }}

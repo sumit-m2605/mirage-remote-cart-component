@@ -58,7 +58,6 @@ const CanonicalTagRemote: React.FC<Props> = ({
 
   return (
     <Box
-      className="page-container integration-container"
       display="flex"
       flexDirection="column"
     >
