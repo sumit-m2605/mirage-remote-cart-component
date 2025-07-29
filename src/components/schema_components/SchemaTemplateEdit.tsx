@@ -176,9 +176,8 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
         <Typography
           sx={{
             color: '#41434C',
-            fontWeight: 'bold',
-            fontSize: '18px',
-            lineHeight: '27px',
+            fontWeight: '500',
+            fontSize: '16px',
             textAlign: 'left',
           }}
         >

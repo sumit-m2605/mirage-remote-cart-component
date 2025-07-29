@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Box,
   FormControl,
@@ -147,21 +147,28 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
     }
   };
 
-  // Debounced search effect
-  const debouncedSearch = useCallback(
-    debounce(() => {
-      setPagination((prev) => ({ ...prev, current: 1 }));
-      fetchTemplates(1);
-    }, 500),
-    [fetchTemplates]
-  );
-
+  // Debounced search effect - use ref to prevent recreation
+  const debouncedSearchRef = useRef<NodeJS.Timeout | null>(null);
+  
   // Effect for search and filter changes
   useEffect(() => {
-    if (searchText !== "" || selectedFilter !== "all") {
-      debouncedSearch();
+    // Clear previous timeout
+    if (debouncedSearchRef.current) {
+      clearTimeout(debouncedSearchRef.current);
     }
-  }, [searchText, selectedFilter, debouncedSearch]);
+    
+    // Set new timeout
+    debouncedSearchRef.current = setTimeout(() => {
+      setPagination((prev) => ({ ...prev, current: 1 }));
+      fetchTemplates(1);
+    }, 500);
+    
+    return () => {
+      if (debouncedSearchRef.current) {
+        clearTimeout(debouncedSearchRef.current);
+      }
+    };
+  }, [searchText, selectedFilter, fetchTemplates]);
 
   const handleEditTemplate = (template: SchemaTemplate) => {
     onEditTemplate(template);
@@ -195,48 +202,43 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
   return (
     <Box sx={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
       {/* Search and Filter Section */}
-      {(loading ||
-        searchText !== "" ||
-        selectedFilter !== "all" ||
-        templates.length > 0) && (
-        <Box
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+          padding: "24px",
+          boxSizing: "border-box",
+          gap: "16px",
+          flexShrink: 0,
+        }}
+      >
+        <NovusInput
+          placeholder="Search here"
+          value={searchText}
+          onChange={handleSearchChange}
+          novusSize="md"
+          fullWidth
+        />
+        <FormControl
           sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-            padding: "24px",
-            boxSizing: "border-box",
-            gap: "16px",
+            minWidth: 120,
             flexShrink: 0,
           }}
         >
-          <NovusInput
-            placeholder="Search here"
-            value={searchText}
-            onChange={handleSearchChange}
+          <NovusDropdown
+            value={selectedFilter}
+            onChange={handleFilterChange}
+            options={PAGE_FILTERS.map((filter) => ({
+              value: filter.value,
+              label: filter.text,
+            }))}
+            placeholder="Filter"
             novusSize="md"
-            fullWidth
           />
-          <FormControl
-            sx={{
-              minWidth: 120,
-              flexShrink: 0,
-            }}
-          >
-            <NovusDropdown
-              value={selectedFilter}
-              onChange={handleFilterChange}
-              options={PAGE_FILTERS.map((filter) => ({
-                value: filter.value,
-                label: filter.text,
-              }))}
-              placeholder="Filter"
-              novusSize="md"
-            />
-          </FormControl>
-        </Box>
-      )}
+        </FormControl>
+      </Box>
 
       {/* Templates List - Scrollable */}
       <Box
@@ -286,7 +288,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
           <Box sx={{ 
             display: "flex", 
             justifyContent: "center", 
-            padding: "16px 24px 24px 24px",
+            padding: "24px",
             flexShrink: 0,
           }}>
             <Pagination

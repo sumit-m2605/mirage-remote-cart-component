@@ -397,7 +397,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
                 width: '100% !important',
                 minWidth: '100% !important',
                 '& .MuiTypography-root': {
-                  fontSize: '12px !important',
+                  fontSize: '14px !important',
                   lineHeight: '1.5em !important',
                 },
                 '&:hover': {

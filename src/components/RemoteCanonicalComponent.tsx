@@ -70,47 +70,100 @@ const CanonicalTagRemote: React.FC<Props> = ({
           <NovusToggle
             label={enabled ? "Canonical Enabled" : "Canonical Disabled"}
             labelPosition="right"
-            labelColor={enabled ? "#3f51b5" : "#9b9b9b"}
             checked={enabled}
             onChange={handleToggle}
           />
         }
       />
 
-      <Box bgcolor="#fff" m={3} p={3} borderRadius={'12px'}>
-        <Typography
-          className="contain-heading"
-          fontWeight={700}
-          fontSize={14}
-          mb={2}
+      <Box 
+        sx={{
+          display: 'flex',
+          width: 'auto',
+          padding: '16px 0',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: '16px',
+          borderRadius: '12px',
+          border: '1px solid #E0E0E0',
+          background: '#FAFAFA',
+          margin: '24px',
+        }}
+      >
+        {/* Title Section */}
+        <Box 
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '0 24px',
+            width: '100%'
+          }}
         >
-          What is a self-canonical tag?
-        </Typography>
-        <Typography
-          className="contain-desc"
-          fontSize={13}
-          color="#9b9b9b"
-          mb={3}
+          <Typography 
+            sx={{
+              fontFamily: 'Inter',
+              fontWeight: 500,
+              fontSize: '14px',
+              lineHeight: '20px',
+              color: '#141414',
+              margin: 0
+            }}
+          >
+            What is a self-canonical tag?
+          </Typography>
+        </Box>
+
+        {/* Divider */}
+        <Box 
+          sx={{
+            width: '100%',
+            height: '0',
+            borderTop: '1px solid #E0E0E0'
+          }}
+        />
+
+        {/* Content Section */}
+        <Box 
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            padding: '0 24px',
+          }}
         >
-          A canonical tag is a way of telling search engines that a specific URL
-          represents the master copy of a page. A self-referential canonical tag
-          is a tag that is defined on the main version of the page; irrespective
-          of duplicate pages elsewhere.
-        </Typography>
-        <Typography
-          className="contain-heading top"
-          fontWeight={700}
-          fontSize={14}
-          mb={2}
-        >
-          How to enable self-canonical tags for my Sales Channel website?
-        </Typography>
-        <Typography className="contain-desc" fontSize={13} color="#9b9b9b">
-          You can enable self-canonical tags on all pages of the Sales Channel
-          website by activating the toggle above. Once enabled it will add
-          self-reference canonical tags on all pages. In other words, for URL X,
-          it will put the tag pointing to X on URL X.
-        </Typography>
+          <Typography 
+            sx={{
+              fontFamily: 'Inter',
+              fontWeight: 400,
+              fontSize: '12px',
+              lineHeight: '16px',
+              color: '#5A5A5A',
+              margin: 0
+            }}
+          >
+            A canonical tag is a way of telling search engines that a specific URL
+            represents the master copy of a page. A self-referential canonical tag
+            is a tag that is defined on the main version of the page; irrespective
+            of duplicate pages elsewhere.
+          </Typography>
+
+          <Typography 
+            sx={{
+              fontFamily: 'Inter',
+              fontWeight: 400,
+              fontSize: '12px',
+              lineHeight: '16px',
+              color: '#5A5A5A',
+              margin: 0
+            }}
+          >
+            You can enable self-canonical tags on all pages of the Sales Channel
+            website by activating the toggle above. Once enabled it will add
+            self-reference canonical tags on all pages. In other words, for URL X,
+            it will put the tag pointing to X on URL X.
+          </Typography>
+        </Box>
       </Box>
 
       <NovusSnackbar
