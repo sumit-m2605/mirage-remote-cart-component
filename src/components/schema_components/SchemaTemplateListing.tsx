@@ -149,19 +149,31 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
 
   // Debounced search effect - use ref to prevent recreation
   const debouncedSearchRef = useRef<NodeJS.Timeout | null>(null);
+  const prevSearchRef = useRef({ searchText, selectedFilter });
   
   // Effect for search and filter changes
   useEffect(() => {
-    // Clear previous timeout
-    if (debouncedSearchRef.current) {
-      clearTimeout(debouncedSearchRef.current);
+    // Only trigger search if search text or filter actually changed
+    const hasSearchChanged = 
+      prevSearchRef.current.searchText !== searchText || 
+      prevSearchRef.current.selectedFilter !== selectedFilter;
+    
+    if (hasSearchChanged) {
+      // Clear previous timeout
+      if (debouncedSearchRef.current) {
+        clearTimeout(debouncedSearchRef.current);
+      }
+      
+      // Set new timeout
+      debouncedSearchRef.current = setTimeout(() => {
+        // Only reset to page 1 for search/filter changes, not for pagination
+        setPagination((prev) => ({ ...prev, current: 1 }));
+        fetchTemplates(1);
+      }, 500);
     }
     
-    // Set new timeout
-    debouncedSearchRef.current = setTimeout(() => {
-      setPagination((prev) => ({ ...prev, current: 1 }));
-      fetchTemplates(1);
-    }, 500);
+    // Update previous values
+    prevSearchRef.current = { searchText, selectedFilter };
     
     return () => {
       if (debouncedSearchRef.current) {
