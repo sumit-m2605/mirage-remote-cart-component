@@ -1,7 +1,7 @@
 import React from "react";
 import type { ButtonProps } from "@mui/material";
 declare const colorMap: {
-    default: string;
+    default: "#3535F3";
     contrast: string;
     positive: string;
     negative: string;
@@ -16,6 +16,7 @@ interface NovusButtonProps extends Omit<ButtonProps, "size"> {
     variantType?: VariantType;
     novusSize?: NovusSize;
     loading?: boolean;
+    padding?: string;
 }
 declare const NovusButton: React.FC<NovusButtonProps>;
 export default NovusButton;
