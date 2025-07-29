@@ -195,7 +195,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
           <NovusButton 
             variantType="secondary" 
             onClick={onClose}
-            novusSize="sm"
+            novusSize="md"
           >
             Cancel
           </NovusButton>
@@ -203,7 +203,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
             variantType="primary"
             onClick={handleSave}
             disabled={!name || !content}
-            novusSize="sm"
+            novusSize="md"
           >
             Save
           </NovusButton>

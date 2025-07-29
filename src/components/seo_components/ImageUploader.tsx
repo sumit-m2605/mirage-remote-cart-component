@@ -597,7 +597,14 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
             </Box>
 
             {/* Separator */}
-            {showGallery && <Divider orientation="vertical" flexItem />}
+            {showGallery && <Divider orientation="vertical" 
+            sx={{
+              width: "1px",
+              height: "16px !important",
+              backgroundColor: "#E0E0E0",
+              alignSelf: "center",
+            }}
+            />}
 
             {/* Right Panel - Gallery */}
             {showGallery && (

@@ -17,6 +17,30 @@ import {
 } from '@mui/icons-material';
 import type { SnackbarProps } from '@mui/material';
 
+// Color variables
+const COLORS = {
+  // Background colors
+  BACKGROUND_DARK: "#141414",
+  BACKGROUND_HOVER: "rgba(255, 255, 255, 0.1)",
+  
+  // Text colors
+  TEXT_WHITE: "rgba(250, 250, 250, 1)",
+  
+  // Icon colors
+  ICON_SUCCESS: "#25AB21",
+  ICON_ERROR: "#FF3B3B",
+  ICON_WARNING: "#FF7F00",
+  ICON_INFO: "#2196F3",
+  
+  // Close button colors
+  CLOSE_BUTTON: "#FAFAFA",
+  CLOSE_BUTTON_OPACITY: 0.7,
+  
+  // Shadow colors
+  SHADOW_DARK: "rgba(0, 0, 0, 0.24)",
+  SHADOW_LIGHT: "rgba(255, 255, 255, 0.3)",
+} as const;
+
 type SnackbarSeverityType = 'success' | 'error' | 'warning' | 'info';
 
 interface NovusSnackbarProps extends Omit<SnackbarProps, 'message'> {
@@ -34,15 +58,15 @@ interface NovusSnackbarProps extends Omit<SnackbarProps, 'message'> {
 const getSnackbarIcon = (severity: SnackbarSeverityType) => {
   switch (severity) {
     case 'success':
-      return <CheckCircle sx={{ fontSize: '24px', color: '#25AB21' }} />;
+      return <CheckCircle sx={{ fontSize: '24px', color: COLORS.ICON_SUCCESS }} />;
     case 'error':
-      return <Error sx={{ fontSize: '24px', color: '#FF3B3B' }} />;
+      return <Error sx={{ fontSize: '24px', color: COLORS.ICON_ERROR }} />;
     case 'warning':
-      return <Warning sx={{ fontSize: '24px', color: '#FF7F00' }} />;
+      return <Warning sx={{ fontSize: '24px', color: COLORS.ICON_WARNING }} />;
     case 'info':
-      return <Info sx={{ fontSize: '24px', color: '#2196F3' }} />;
+      return <Info sx={{ fontSize: '24px', color: COLORS.ICON_INFO }} />;
     default:
-      return <CheckCircle sx={{ fontSize: '24px', color: '#25AB21' }} />;
+      return <CheckCircle sx={{ fontSize: '24px', color: COLORS.ICON_SUCCESS }} />;
   }
 };
 
@@ -53,10 +77,10 @@ const StyledSnackbarContent = styled(Box)({
   alignItems: 'center',
   gap: '8px',
   padding: '12px',
-  backgroundColor: '#141414',
-  border: '1px solid #141414',
+  backgroundColor: COLORS.BACKGROUND_DARK,
+  border: `1px solid ${COLORS.BACKGROUND_DARK}`,
   borderRadius: '12px',
-  boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.24), 0px 0px 8px 0px rgba(255, 255, 255, 0.3)',
+  boxShadow: `0px 4px 16px 0px ${COLORS.SHADOW_DARK}, 0px 0px 8px 0px ${COLORS.SHADOW_LIGHT}`,
   maxWidth: '299px',
   minWidth: '280px',
   position: 'relative',
@@ -81,7 +105,7 @@ const StyledSnackbarContent = styled(Box)({
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: 1.4285714285714286,
-    color: 'rgba(250, 250, 250, 1)',
+    color: COLORS.TEXT_WHITE,
     textAlign: 'left',
   },
 
@@ -93,13 +117,13 @@ const StyledSnackbarContent = styled(Box)({
     minWidth: 'auto',
     width: '24px',
     height: '24px',
-    color: '#FAFAFA',
-    opacity: 0.7,
+    color: COLORS.CLOSE_BUTTON,
+    opacity: COLORS.CLOSE_BUTTON_OPACITY,
     transition: 'opacity 0.2s ease',
 
     '&:hover': {
       opacity: 1,
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      backgroundColor: COLORS.BACKGROUND_HOVER,
     },
   },
 });

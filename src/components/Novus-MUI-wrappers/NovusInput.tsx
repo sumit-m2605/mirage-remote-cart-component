@@ -2,12 +2,42 @@ import React from "react";
 import { TextField, styled, Box, Typography } from "@mui/material";
 import type { TextFieldProps } from "@mui/material";
 
+// Color variables
+const COLORS = {
+  // Border colors
+  BORDER_DEFAULT: "#E0E0E0",
+  BORDER_HOVER: "#CBD5E0",
+  BORDER_FOCUSED: "#000093",
+  BORDER_ERROR: "#F50031",
+  BORDER_SUCCESS: "#25AB21",
+  
+  // Text colors
+  TEXT_PRIMARY: "#141414",
+  TEXT_SECONDARY: "#000000A6",
+  TEXT_DISABLED: "#A0AEC0",
+  TEXT_LABEL: "#A6A6A6",
+  TEXT_ICON: "#A6A6A6",
+  TEXT_PLACEHOLDER: "#A6A6A6",
+  
+  // Background colors
+  BACKGROUND_WHITE: "#FFFFFF",
+  BACKGROUND_TRANSPARENT: "transparent",
+  
+  // Helper text colors
+  HELPER_DEFAULT: "#000000A6",
+  HELPER_ERROR: "#660014",
+  HELPER_SUCCESS: "#135610",
+  
+  // Required indicator
+  REQUIRED: "#F50031",
+} as const;
+
 const NovusLabel = styled(Typography)({
   fontFamily: '"Inter", sans-serif',
   fontSize: "14px",
   fontWeight: 400,
   lineHeight: "20px",
-  color: "rgba(0, 0, 0, 0.65)",
+  color: COLORS.TEXT_LABEL,
 });
 
 export interface NovusInputProps
@@ -26,17 +56,17 @@ const NovusInputField = styled(TextField)<TextFieldProps>(() => ({
     display: "flex",
     alignItems: "center",
     boxSizing: "border-box !important",
-    border: "1px solid #E0E0E0",
-    borderRadius: "16px !important",
+    border: `1px solid ${COLORS.BORDER_DEFAULT}`,
+    borderRadius: "8px !important",
     padding: 0,
     "&:hover": {
-      borderColor: "#CBD5E0",
+      borderColor: COLORS.BORDER_HOVER,
     },
     "&.Mui-focused": {
-      borderColor: "#000093",
+      borderColor: COLORS.BORDER_FOCUSED,
     },
     "&.Mui-error": {
-      borderColor: "#F50031",
+      borderColor: COLORS.BORDER_ERROR,
     },
   },
   "& .MuiInputBase-input": {
@@ -45,7 +75,7 @@ const NovusInputField = styled(TextField)<TextFieldProps>(() => ({
     margin: 0,
     border: "none",
     outline: "none",
-    background: "transparent",
+    background: COLORS.BACKGROUND_TRANSPARENT,
     height: "100% !important",
     width: "100%",
     display: "flex",
@@ -58,11 +88,12 @@ const NovusInputField = styled(TextField)<TextFieldProps>(() => ({
     padding: "12px !important",
     alignItems: "flex-start",
     overflow: "auto",
+    borderRadius: "8px !important",
     "&::-webkit-resizer": {
       borderWidth: "8px",
       borderStyle: "solid",
-      borderColor: "transparent #E0E0E0 #E0E0E0 transparent",
-      backgroundColor: "transparent",
+      borderColor: `transparent ${COLORS.BORDER_DEFAULT} ${COLORS.BORDER_DEFAULT} transparent`,
+      backgroundColor: COLORS.BACKGROUND_TRANSPARENT,
     },
   },
   "& .MuiOutlinedInput-notchedOutline": {
@@ -77,9 +108,9 @@ const NovusInputField = styled(TextField)<TextFieldProps>(() => ({
     fontSize: 12,
     lineHeight: "16px",
     fontFamily: '"Inter", sans-serif',
-    color: "#000000A6", // Default color
+    color: COLORS.HELPER_DEFAULT,
     "&.Mui-error": {
-      color: "#660014", // Error color
+      color: COLORS.HELPER_ERROR,
     },
   },
 }));
@@ -126,16 +157,16 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
 
   // Get helper text color based on variant
   const getHelperTextColor = () => {
-    if (isError) return "#660014";
-    if (isSuccess) return "#135610";
-    return "#000000A6";
+    if (isError) return COLORS.HELPER_ERROR;
+    if (isSuccess) return COLORS.HELPER_SUCCESS;
+    return COLORS.HELPER_DEFAULT;
   };
 
   // Get border color based on variant
   const getBorderColor = () => {
-    if (isError) return "#F50031";
-    if (isSuccess) return "#25AB21";
-    return "#E0E0E0";
+    if (isError) return COLORS.BORDER_ERROR;
+    if (isSuccess) return COLORS.BORDER_SUCCESS;
+    return COLORS.BORDER_DEFAULT;
   };
 
   // Determine wrapper width behavior
@@ -149,8 +180,8 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
       case "sm":
         return {
           "& .MuiOutlinedInput-root": {
-            padding: "8px 12px", // Spacing + Padding/4 (4+4=8) top/bottom, Spacing + Padding/8 (4+8=12) left/right
-            borderRadius: "6px", // BorderRadius/Core/6
+            padding: "8px 12px",
+            borderRadius: "6px",
             height: "32px",
             minHeight: "32px",
             maxHeight: "32px",
@@ -170,8 +201,8 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
       case "md":
         return {
           "& .MuiOutlinedInput-root": {
-            padding: "12px 12px", // Spacing + Padding/8 (4+8=12) top/bottom, Padding/12 left/right
-            borderRadius: "8px", // BorderRadius/Component/Input field S
+            padding: "12px 12px",
+            borderRadius: "8px",
             height: "40px",
             minHeight: "40px",
             maxHeight: "40px",
@@ -191,8 +222,8 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
       case "lg":
         return {
           "& .MuiOutlinedInput-root": {
-            padding: "16px 12px", // Spacing + Padding/12 (4+12=16) top/bottom, Padding/12 left/right
-            borderRadius: "12px", // BorderRadius/Component/Input field L
+            padding: "16px 12px",
+            borderRadius: "12px",
             height: "48px",
             minHeight: "48px",
             maxHeight: "48px",
@@ -232,7 +263,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: "4px" }}>
             {label && <NovusLabel>{label}</NovusLabel>}
-            {required && <NovusLabel sx={{ color: "#F50031" }}>*</NovusLabel>}
+            {required && <NovusLabel sx={{ color: COLORS.REQUIRED }}>*</NovusLabel>}
             {showHelpIcon && (
               <Box
                 sx={{
@@ -247,7 +278,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
                 <Typography
                   sx={{
                     fontSize: "14px",
-                    color: "rgba(0, 0, 0, 0.65)",
+                    color: COLORS.TEXT_LABEL,
                     fontWeight: 400,
                   }}
                 >
@@ -261,7 +292,7 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
               sx={{
                 fontSize: "14px",
                 fontWeight: 400,
-                color: "rgba(0, 0, 0, 0.65)",
+                color: COLORS.TEXT_LABEL,
                 fontFamily: '"Inter", sans-serif',
               }}
             >
@@ -299,7 +330,6 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
             margin: "0px !important",
             marginTop: "4px !important",
           },
-          // Only apply these overrides for multiline inputs
           ...(props.multiline && {
             "& .MuiOutlinedInput-root": {
               height: "auto !important",

@@ -94,12 +94,15 @@ const RobotsTxtRemote: React.FC<Props> = ({
         helpDocsURLs={helpDocsURLs}
         renderActions={
           <>
-            <NovusButton variantType="secondary" novusSize="sm" onClick={handleReset}>
+            <NovusButton 
+              variantType="secondary" 
+              novusSize="md" 
+              onClick={handleReset}>
               Reset
             </NovusButton>
             <NovusButton
               variantType="primary"
-              novusSize="sm"
+              novusSize="md"
               onClick={handleSave}
               disabled={saving}
             >

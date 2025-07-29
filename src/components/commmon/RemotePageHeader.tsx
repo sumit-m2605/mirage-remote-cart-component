@@ -147,6 +147,69 @@ const RemotePageHeader: React.FC<RemotePageHeaderProps> = ({
             vertical: 'top',
             horizontal: 'right',
           }}
+          PaperProps={{
+            sx: {
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #FFFFFF',
+              borderRadius: '8px',
+              boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.24), 0px 0px 8px 0px rgba(255, 255, 255, 0.3)',
+              padding: '4px',
+              maxHeight: '250px',
+              height: 'fit-content',
+              width: 'fit-content',
+              minWidth: '120px',
+              overflow: 'auto',
+              margin: '4px 0px',
+              '& .MuiList-root': {
+                paddingTop: '0 !important',
+                paddingBottom: '0 !important',
+                width: '100%',
+              },
+              '& .MuiMenuItem-root': {
+                fontFamily: '"Inter", sans-serif',
+                fontSize: '16px',
+                lineHeight: '1.5em',
+                fontWeight: 400,
+                color: '#141414',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                margin: '2px 0',
+                minHeight: 'auto',
+                height: '40px',
+                width: '100% !important',
+                minWidth: '100% !important',
+                '&:hover': {
+                  backgroundColor: '#F5F5F5',
+                },
+                '&.Mui-selected': {
+                  backgroundColor: '#F0F0FF',
+                  color: '#000093',
+                  '&:hover': {
+                    backgroundColor: '#E8E8FC',
+                  },
+                },
+                '&.Mui-disabled': {
+                  color: '#A0AEC0',
+                },
+              },
+              // Scrollbar styling
+              '&::-webkit-scrollbar': {
+                width: '8px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: 'transparent',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: '#D4D4D4',
+                borderRadius: '250px',
+                width: '4px !important',
+                height: '280px',
+              },
+              '&::-webkit-scrollbar-thumb:hover': {
+                background: '#B8B8B8',
+              },
+            },
+          }}
         >
           <MenuItem onClick={handleHelpClick}>Help</MenuItem>
         </Menu>

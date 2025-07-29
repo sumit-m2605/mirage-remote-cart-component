@@ -134,14 +134,14 @@ const ConfirmDialog: React.FC<Props> = ({ open, onClose, onConfirm }) => {
           <NovusButton 
             onClick={onClose} 
             variantType="secondary"
-            novusSize="sm"
+            novusSize="md"
           >
             Cancel
           </NovusButton>
           <NovusButton 
             onClick={onConfirm}
             variantType="primary"
-            novusSize="sm"
+            novusSize="md"
             sx={{
               backgroundColor: '#F50031',
               borderColor: '#F50031',

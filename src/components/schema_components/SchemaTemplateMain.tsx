@@ -129,23 +129,18 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
   const renderActions = () => (
     <Box className="header-actions">
       <Box className="active-toggle-container">
-        <Typography
-          className={`active-label ${!isActive ? 'disabled' : ''}`}
-        >
-          Active
-        </Typography>
         <NovusToggle
           checked={isActive}
           onChange={(e) => setIsActive(e.target.checked)}
-          label=""
+          label="Active"
           labelPosition="left"
         />
       </Box>
       <NovusButton
-        variantType="secondary"
+        variantType="primary"
         onClick={handleSave}
         disabled={pageLoading}
-        novusSize="sm"
+        novusSize="md"
       >
         {pageLoading ? 'Saving...' : (isEditMode ? 'Save' : 'Create')}
       </NovusButton>

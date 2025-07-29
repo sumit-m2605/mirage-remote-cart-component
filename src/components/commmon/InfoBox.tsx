@@ -36,7 +36,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({
         gap: '16px',
         flexDirection: 'column',
         margin: 0, 
-        paddingLeft: listStyle === 'none' ? 0 : '20px',
+        paddingLeft: listStyle === 'none' ? 0 : '17px',
         listStyleType,
         '& li': {
           fontSize: '12px',

@@ -1,16 +1,53 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Select, 
   MenuItem, 
-  FormControl, 
   styled, 
   Box, 
-  Typography,
-  Chip
-} from '@mui/material';
+  Typography} from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
 import { KeyboardArrowDown as ChevronDownIcon } from '@mui/icons-material';
 import type { SelectProps } from '@mui/material';
+
+// Color variables
+const COLORS = {
+  // Border colors
+  BORDER_DEFAULT: "#E0E0E0",
+  BORDER_HOVER: "#CBD5E0",
+  BORDER_FOCUSED: "#000093",
+  BORDER_ERROR: "#F50031",
+  BORDER_SUCCESS: "#25AB21",
+  
+  // Text colors
+  TEXT_PRIMARY: "#141414",
+  TEXT_SECONDARY: "#000000A6",
+  TEXT_DISABLED: "#A0AEC0",
+  TEXT_LABEL: "#A6A6A6",
+  TEXT_ICON: "#A6A6A6",
+  TEXT_PLACEHOLDER: "#A6A6A6",
+  
+  // Background colors
+  BACKGROUND_WHITE: "#FFFFFF",
+  BACKGROUND_HOVER: "#F5F5F5",
+  BACKGROUND_SELECTED: "#F0F0FF",
+  BACKGROUND_SELECTED_HOVER: "#E8E8FC",
+  
+  // Helper text colors
+  HELPER_DEFAULT: "#000000A6",
+  HELPER_ERROR: "#660014",
+  HELPER_SUCCESS: "#135610",
+  
+  // Required indicator
+  REQUIRED: "#F50031",
+  
+  // Scrollbar colors
+  SCROLLBAR_TRACK: "transparent",
+  SCROLLBAR_THUMB: "#D4D4D4",
+  SCROLLBAR_THUMB_HOVER: "#B8B8B8",
+  
+  // Shadow
+  SHADOW: "#00000029",
+} as const;
 
 // Novus Label component styled according to Figma
 const NovusLabel = styled(Typography)({
@@ -18,7 +55,7 @@ const NovusLabel = styled(Typography)({
   fontSize: '14px',
   fontWeight: 400,
   lineHeight: '20px',
-  color: 'rgba(0, 0, 0, 0.65)',
+  color: COLORS.TEXT_LABEL,
 });
 
 // Novus Dropdown styled component based on Figma design - EXACTLY like NovusInput
@@ -27,17 +64,17 @@ const NovusDropdownField = styled(Select)<SelectProps>(() => ({
     display: 'flex',
     alignItems: 'center',
     boxSizing: 'border-box !important',
-    border: '1px solid #E0E0E0 !important',
+    border: `1px solid ${COLORS.BORDER_DEFAULT} !important`,
     borderRadius: '16px !important',
     padding: 0,
     '&:hover': {
-      borderColor: '#CBD5E0 !important',
+      borderColor: `${COLORS.BORDER_HOVER} !important`,
     },
     '&.Mui-focused': {
-      borderColor: '#000093 !important',
+      borderColor: `${COLORS.BORDER_FOCUSED} !important`,
     },
     '&.Mui-error': {
-      borderColor: '#F50031 !important',
+      borderColor: `${COLORS.BORDER_ERROR} !important`,
     },
   },
   '& .MuiSelect-select': {
@@ -57,7 +94,7 @@ const NovusDropdownField = styled(Select)<SelectProps>(() => ({
     borderRadius: '16px !important',
   },
   '& .MuiSelect-icon': {
-    color: 'rgba(0, 0, 0, 0.65)',
+    color: COLORS.TEXT_ICON,
     fontSize: '24px',
   },
   '& .MuiFormHelperText-root': {
@@ -65,9 +102,9 @@ const NovusDropdownField = styled(Select)<SelectProps>(() => ({
     fontSize: 12,
     lineHeight: '16px',
     fontFamily: '"Inter", sans-serif',
-    color: '#000000A6', // Default color
+    color: COLORS.HELPER_DEFAULT,
     '&.Mui-error': {
-      color: '#660014', // Error color
+      color: COLORS.HELPER_ERROR,
     },
   },
 }));
@@ -113,16 +150,16 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
 
   // Get helper text color based on variant
   const getHelperTextColor = () => {
-    if (isError) return '#660014';
-    if (isSuccess) return '#135610';
-    return '#000000A6';
+    if (isError) return COLORS.HELPER_ERROR;
+    if (isSuccess) return COLORS.HELPER_SUCCESS;
+    return COLORS.HELPER_DEFAULT;
   };
 
   // Get border color based on variant
   const getBorderColor = () => {
-    if (isError) return '#F50031';
-    if (isSuccess) return '#25AB21';
-    return '#E0E0E0';
+    if (isError) return COLORS.BORDER_ERROR;
+    if (isSuccess) return COLORS.BORDER_SUCCESS;
+    return COLORS.BORDER_DEFAULT;
   };
 
   // Map novusSize to exact Figma specifications - EXACTLY like NovusInput
@@ -211,7 +248,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
       {label && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px', mb: '4px' }}>
           <NovusLabel>{label}</NovusLabel>
-          {required && <NovusLabel sx={{ color: '#F50031' }}>*</NovusLabel>}
+          {required && <NovusLabel sx={{ color: COLORS.REQUIRED }}>*</NovusLabel>}
           {showHelpIcon && (
             <Box
               sx={{
@@ -223,7 +260,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
                 cursor: 'pointer',
               }}
             >
-              <Typography sx={{ fontSize: '12px', color: 'rgba(0, 0, 0, 0.65)' }}>?</Typography>
+              <Typography sx={{ fontSize: '12px', color: COLORS.TEXT_LABEL }}>?</Typography>
             </Box>
           )}
         </Box>
@@ -281,39 +318,39 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
             height: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
             minHeight: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
             maxHeight: novusSize === 'sm' ? '32px !important' : novusSize === 'md' ? '40px !important' : '48px !important',
-            border: '1px solid #E0E0E0 !important',
+            border: `1px solid ${COLORS.BORDER_DEFAULT} !important`,
             '&:hover': {
-              borderColor: '#CBD5E0 !important',
+              borderColor: `${COLORS.BORDER_HOVER} !important`,
             },
             '&:focus': {
-              borderColor: '#000093 !important',
+              borderColor: `${COLORS.BORDER_FOCUSED} !important`,
             },
             ...(isError && {
-              borderColor: '#F50031 !important',
+              borderColor: `${COLORS.BORDER_ERROR} !important`,
               '&:hover': {
-                borderColor: '#F50031 !important',
+                borderColor: `${COLORS.BORDER_ERROR} !important`,
               },
               '&:focus': {
-                borderColor: '#F50031 !important',
+                borderColor: `${COLORS.BORDER_ERROR} !important`,
               },
             }),
             ...(isSuccess && {
-              borderColor: '#25AB21 !important',
+              borderColor: `${COLORS.BORDER_SUCCESS} !important`,
               '&:hover': {
-                borderColor: '#25AB21 !important',
+                borderColor: `${COLORS.BORDER_SUCCESS} !important`,
               },
               '&:focus': {
-                borderColor: '#25AB21 !important',
+                borderColor: `${COLORS.BORDER_SUCCESS} !important`,
               },
             }),
           },
           '&.Mui-focused .MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input': {
-            borderColor: isOpen ? '#000093 !important' : '#E0E0E0 !important',
+            borderColor: isOpen ? `${COLORS.BORDER_FOCUSED} !important` : `${COLORS.BORDER_DEFAULT} !important`,
             ...(isError && {
-              borderColor: isOpen ? '#F50031 !important' : '#F50031 !important',
+              borderColor: isOpen ? `${COLORS.BORDER_ERROR} !important` : `${COLORS.BORDER_ERROR} !important`,
             }),
             ...(isSuccess && {
-              borderColor: isOpen ? '#25AB21 !important' : '#25AB21 !important',
+              borderColor: isOpen ? `${COLORS.BORDER_SUCCESS} !important` : `${COLORS.BORDER_SUCCESS} !important`,
             }),
           },
           '& .MuiFormHelperText-root': {
@@ -333,10 +370,10 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
           },
           PaperProps: {
             sx: {
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #FFFFFF',
-              borderRadius: '16px',
-              boxShadow: '0px 4px 16px 0px #00000029',
+              backgroundColor: COLORS.BACKGROUND_WHITE,
+              border: `1px solid ${COLORS.BACKGROUND_WHITE}`,
+              borderRadius: novusSize === 'sm' ? '6px' : novusSize === 'md' ? '8px' : '12px',
+              boxShadow: `0px 4px 16px 0px ${COLORS.SHADOW}`,
               padding: '8px',
               maxHeight: '250px',
               height: 'fit-content',
@@ -354,44 +391,40 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
                 fontSize: '16px',
                 lineHeight: '1.5em',
                 fontWeight: 400,
-                color: '#141414',
-                padding: '8px 12px',
+                color: COLORS.TEXT_PRIMARY,
                 borderRadius: '8px',
-                margin: '2px 0',
-                minHeight: 'auto',
-                height: '56px',
+                minHeight: '36px !important',
                 width: '100% !important',
                 minWidth: '100% !important',
                 '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  backgroundColor: COLORS.BACKGROUND_HOVER,
                 },
                 '&.Mui-selected': {
-                  backgroundColor: 'rgba(0, 0, 147, 0.08)',
-                  color: '#000093',
+                  backgroundColor: COLORS.BACKGROUND_SELECTED,
+                  color: COLORS.BORDER_FOCUSED,
                   '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 147, 0.12)',
+                    backgroundColor: COLORS.BACKGROUND_SELECTED_HOVER,
                   },
                 },
                 '&.Mui-disabled': {
-                  color: 'rgba(0, 0, 0, 0.38)',
+                  color: COLORS.TEXT_DISABLED,
                 },
               },
               // Scrollbar styling
-                              '&::-webkit-scrollbar': {
-                  width: '8px',
-                },
+              '&::-webkit-scrollbar': {
+                width: '8px',
+              },
               '&::-webkit-scrollbar-track': {
-                background: 'transparent',
+                background: COLORS.SCROLLBAR_TRACK,
               },
               '&::-webkit-scrollbar-thumb': {
-                background: 'rgba(20, 20, 20, 0.15)',
+                background: COLORS.SCROLLBAR_THUMB,
                 borderRadius: '250px',
-                width: '8px',
+                width: '4px',
                 height: '280px',
-                margin: '4px 2px',
               },
               '&::-webkit-scrollbar-thumb:hover': {
-                background: 'rgba(20, 20, 20, 0.25)',
+                background: COLORS.SCROLLBAR_THUMB_HOVER,
               },
             },
           },
@@ -405,7 +438,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
                   {selectedOption.icon}
                 </Box>
               )}
-              <Typography sx={{ color: '#141414', fontSize: 'inherit' }}>
+              <Typography sx={{ color: COLORS.TEXT_PRIMARY, fontSize: 'inherit' }}>
                 {selectedOption?.label || placeholder}
               </Typography>
             </Box>
@@ -423,7 +456,6 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
               width: '100% !important',
               minWidth: '100% !important',
               padding: '8px 12px !important',
-              height: '56px !important',
               borderRadius: '8px !important',
               margin: '2px 0 !important',
             }}
@@ -435,14 +467,14 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
                 </Box>
               )}
               <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
-                <Typography sx={{ color: option.disabled ? '#A0AEC0' : '#141414' }}>
+                <Typography sx={{ color: option.disabled ? COLORS.TEXT_DISABLED : COLORS.TEXT_PRIMARY }}>
                   {option.label}
                 </Typography>
                 {option.secondaryText && (
                   <Typography sx={{ 
                     fontSize: '12px', 
                     lineHeight: '1.3333333333333333em',
-                    color: 'rgba(0, 0, 0, 0.65)',
+                    color: COLORS.TEXT_SECONDARY,
                     marginTop: '2px'
                   }}>
                     {option.secondaryText}

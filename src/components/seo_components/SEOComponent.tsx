@@ -93,12 +93,23 @@ const SEOComponent: React.FC<Props> = ({
   const [tags, setTags] = useState<string[]>([]);
   const [descriptionTags, setDescriptionTags] = useState<string[]>([]);
   const [generateTitleProgress, setGenerateTitleProgress] = useState(false);
-  const [generateTitleWithKeyWordProgress, setGenerateTitleWithKeyWordProgress] = useState(false);
-  const [generateDescriptionProgress, setGenerateDescriptionProgress] = useState(false);
-  const [generateDescriptionWithKeyWordProgress, setGenerateDescriptionWithKeyWordProgress] = useState(false);
+  const [
+    generateTitleWithKeyWordProgress,
+    setGenerateTitleWithKeyWordProgress,
+  ] = useState(false);
+  const [generateDescriptionProgress, setGenerateDescriptionProgress] =
+    useState(false);
+  const [
+    generateDescriptionWithKeyWordProgress,
+    setGenerateDescriptionWithKeyWordProgress,
+  ] = useState(false);
   const [priority, setPriority] = useState(value.sitemap?.priority || 0.5);
-  const [frequency, setFrequency] = useState(value.sitemap?.frequency || "never");
-  const [canonicalUrlPath, setCanonicalUrlPath] = useState(value.canonical_url || "");
+  const [frequency, setFrequency] = useState(
+    value.sitemap?.frequency || "never"
+  );
+  const [canonicalUrlPath, setCanonicalUrlPath] = useState(
+    value.canonical_url || ""
+  );
   const [canonicalUrlDomain, setCanonicalUrlDomain] = useState("");
 
   // Dialog states
@@ -111,37 +122,48 @@ const SEOComponent: React.FC<Props> = ({
 
   // Priority and frequency options
   const priorityOptions = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
-  const frequencyOptions = ["never", "yearly", "monthly", "weekly", "daily", "hourly", "always"];
-
-
+  const frequencyOptions = [
+    "never",
+    "yearly",
+    "monthly",
+    "weekly",
+    "daily",
+    "hourly",
+    "always",
+  ];
 
   // Computed values
-  const titlePreview = value.title && value.title.length > 80 
-    ? value.title.substr(0, 79) + "…" 
-    : value.title;
+  const titlePreview =
+    value.title && value.title.length > 80
+      ? value.title.substr(0, 79) + "…"
+      : value.title;
 
-  const descriptionPreview = value.description && value.description.length > 400 
-    ? value.description.substr(0, 399) + "…" 
-    : value.description;
+  const descriptionPreview =
+    value.description && value.description.length > 400
+      ? value.description.substr(0, 399) + "…"
+      : value.description;
 
   const imagePreview = value.image_url;
 
   // Update SEO data
-  const updateSEO = useCallback((data: Partial<SEOData>) => {
-    onUpdate({
-      title: value.title,
-      description: value.description,
-      image_url: value.image_url,
-      breadcrumbs: value.breadcrumbs || [],
-      sitemap: {
-        priority,
-        frequency,
-      },
-      meta_tags: value.meta_tags || [],
-      canonical_url: value.canonical_url,
-      ...data,
-    });
-  }, [value, priority, frequency, onUpdate]);
+  const updateSEO = useCallback(
+    (data: Partial<SEOData>) => {
+      onUpdate({
+        title: value.title,
+        description: value.description,
+        image_url: value.image_url,
+        breadcrumbs: value.breadcrumbs || [],
+        sitemap: {
+          priority,
+          frequency,
+        },
+        meta_tags: value.meta_tags || [],
+        canonical_url: value.canonical_url,
+        ...data,
+      });
+    },
+    [value, priority, frequency, onUpdate]
+  );
 
   // Generate SEO content
   const generate = async (type: string, key: string) => {
@@ -161,7 +183,10 @@ const SEOComponent: React.FC<Props> = ({
     };
 
     if (!body.text) {
-      showSnackbar("Please provide the required text to generate SEO content", "error");
+      showSnackbar(
+        "Please provide the required text to generate SEO content",
+        "error"
+      );
       return;
     }
 
@@ -182,7 +207,7 @@ const SEOComponent: React.FC<Props> = ({
 
     try {
       const res = await generateSEO(body, type);
-      
+
       if (type === "title") {
         updateSEO({ title: res.data.title || null });
         showSnackbar("Generation successful", "success");
@@ -235,10 +260,10 @@ const SEOComponent: React.FC<Props> = ({
   const addChip = (event: React.KeyboardEvent, type: string) => {
     if (event.key === "Enter" || event.key === "Tab") {
       event.preventDefault();
-      
+
       let currentTags: string[];
       let setTagsFunction: React.Dispatch<React.SetStateAction<string[]>>;
-      
+
       // Map "keywords" to "title" since they both use the same tags state
       if (type === "title" || type === "keywords") {
         currentTags = tags;
@@ -297,7 +322,7 @@ const SEOComponent: React.FC<Props> = ({
   };
 
   const getTagInString = (arr: Array<{ key: string; value: string }> = []) => {
-    const str = arr.map(item => `${item.key}="${item.value}"`).join(" ");
+    const str = arr.map((item) => `${item.key}="${item.value}"`).join(" ");
     return `<meta ${str}></meta>`;
   };
 
@@ -322,7 +347,9 @@ const SEOComponent: React.FC<Props> = ({
     updateSEO({ title: event.target.value });
   };
 
-  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     updateSEO({ description: event.target.value });
   };
 
@@ -349,28 +376,41 @@ const SEOComponent: React.FC<Props> = ({
   // Wrapper function to handle different image sources
   const handleFetchGalleryImages = async (namespace: string, params: any) => {
     const { source, ...otherParams } = params;
-    
+
     switch (source) {
-      case 'namespace_images':
-        return fetchGalleryImages ? await fetchGalleryImages(namespace, otherParams) : null;
-      case 'brands':
+      case "namespace_images":
+        return fetchGalleryImages
+          ? await fetchGalleryImages(namespace, otherParams)
+          : null;
+      case "brands":
         return fetchBrandImages ? await fetchBrandImages(otherParams) : null;
-      case 'collections':
-        return fetchCollectionImages ? await fetchCollectionImages(otherParams) : null;
-      case 'products':
-        return fetchProductImages ? await fetchProductImages(otherParams) : null;
+      case "collections":
+        return fetchCollectionImages
+          ? await fetchCollectionImages(otherParams)
+          : null;
+      case "products":
+        return fetchProductImages
+          ? await fetchProductImages(otherParams)
+          : null;
       default:
-        return fetchGalleryImages ? await fetchGalleryImages(namespace, otherParams) : null;
+        return fetchGalleryImages
+          ? await fetchGalleryImages(namespace, otherParams)
+          : null;
     }
   };
 
   return (
-    <Box className="seo-container" display="flex" flexDirection="column" gap={3}>
+    <Box
+      className="seo-container"
+      display="flex"
+      flexDirection="column"
+      gap={3}
+    >
       {/* SEO Section */}
       <Box
-        bgcolor={'#FFFFFF'}
-        borderRadius={'12px'}
-        border={'1px solid #FAFAFA'}
+        bgcolor={"#FFFFFF"}
+        borderRadius={"12px"}
+        border={"1px solid #FAFAFA"}
         display="flex"
         flexDirection="column"
       >
@@ -379,147 +419,228 @@ const SEOComponent: React.FC<Props> = ({
           display="flex"
           alignItems="center"
           gap={1}
-          padding={'16px 24px'}
-          borderBottom={'1px solid #E0E0E0'}
+          padding={"16px 24px"}
+          borderBottom={"1px solid #E0E0E0"}
         >
-          <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+          <Typography
+            variant="h6"
+            fontWeight={500}
+            fontSize="16px"
+            color="#141414"
+          >
             SEO
           </Typography>
         </Box>
 
         {/* Content */}
-        <Box padding={'24px'} display="flex" flexDirection="column" gap={3}>
-        {/* Title Input */}
-        <Box>
-          <NovusInput
-            label="Title"
-            value={value.title}
-            onChange={handleTitleChange}
-            placeholder="Add title here"
-            disabled={generateTitleProgress || generateTitleWithKeyWordProgress}
-            maxLength={400}
-            helperText={
-              value.title && value.title.length > 0
-                ? value.title.length > 44 && value.title.length < 61
-                  ? "Recommended: Keep SEO title between 45-60 characters"
-                  : "Recommended: Keep SEO title between 45-60 characters"
-                : ""
-            }
-            novusSize="md"
-            showCharacterCount
-          />
-          
-          <Box display="flex" gap={1} mt={1}>
-            <NovusButton
-              variantType="tertiary"
-              novusSize="xs"
-              loading={generateTitleProgress}
-              onClick={() => generateTitleProgress ? cancelGenerate("title", "") : generate("title", "")}
-            >
-              <AutoAwesomeIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-              {generateTitleProgress ? 'Cancel' : 'Generate'}
-            </NovusButton>
-            
-            <Divider orientation="vertical" flexItem />
-            
-            <NovusButton
-              variantType="tertiary"
-              novusSize="xs"
-              loading={generateTitleWithKeyWordProgress}
-              onClick={() => generateTitleWithKeyWordProgress ? cancelGenerate("title", "keyword") : setTitleDialogOpen(true)}
-            >
-              <EditNoteIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-              {generateTitleWithKeyWordProgress ? 'Cancel' : 'Generate Using Custom Keyword'}
-            </NovusButton>
-          </Box>
-        </Box>
-
-        {/* Description Input */}
-        <Box>
-          <NovusInput
-            label="Description"
-            value={value.description}
-            onChange={handleDescriptionChange}
-            placeholder="Enter description here"
-            multiline
-            rows={4}
-            disabled={generateDescriptionProgress || generateDescriptionWithKeyWordProgress}
-            maxLength={600}
-            helperText={
-              value.description && value.description.length > 0
-                ? value.description.length <= 160
-                  ? "Recommended: Keep SEO description under 160 characters for best results on search engines"
-                  : "Recommended limit exceeded - this may impact your SEO"
-                : ""
-            }
-            novusSize="md"
-            showCharacterCount
-          />
-          
-          <Box display="flex" gap={1} mt={1}>
-            <NovusButton
-              variantType="tertiary"
-              novusSize="xs"
-              loading={generateDescriptionProgress}
-              onClick={() => generateDescriptionProgress ? cancelGenerate("description", "") : generate("description", "")}
-            >
-              <AutoAwesomeIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-              {generateDescriptionProgress ? 'Cancel' : 'Generate'}
-            </NovusButton>
-            
-            <Divider orientation="vertical" flexItem />
-            
-            <NovusButton
-              variantType="tertiary"
-              novusSize="xs"
-              loading={generateDescriptionWithKeyWordProgress}
-              onClick={() => generateDescriptionWithKeyWordProgress ? cancelGenerate("description", "keyword") : setDescriptionDialogOpen(true)}
-            >
-              <EditNoteIcon style={{ marginRight: '8px', fontSize: '16px' }} />
-              {generateDescriptionWithKeyWordProgress ? 'Cancel' : 'Generate Using Custom Keyword'}
-            </NovusButton>
-          </Box>
-        </Box>
-
-        {/* Social Media Image Uploader */}
-        {showImageUploader && (
+        <Box padding={"24px"} display="flex" flexDirection="column" gap={3}>
+          {/* Title Input */}
           <Box>
-            <Typography variant="subtitle2" color="#9b9b9b" mb={1}>
-              Social Media Image
-            </Typography>
-            <ImageUploader
-              value={value.image_url}
-              onChange={handleImageChange}
-              onDelete={() => handleImageChange("")}
-              label="social media image"
-              aspectRatio="*"
-              minimumResolution={{
-                width: 200,
-                height: 200
-              }}
-              maximumResolution={{
-                width: 2400,
-                height: 1200
-              }}
-              maxSize={2048}
-              fileTypes={["png", "jpeg", "webp", "bmp"]}
-              namespace="misc"
-              fileName="Social Media"
-              showGallery={true}
-              fetchGalleryImages={handleFetchGalleryImages}
-              uploadImage={uploadImage}
+            <NovusInput
+              label="Title"
+              value={value.title}
+              onChange={handleTitleChange}
+              placeholder="Add title here"
+              disabled={
+                generateTitleProgress || generateTitleWithKeyWordProgress
+              }
+              maxLength={400}
+              helperText={
+                value.title && value.title.length > 0
+                  ? value.title.length > 44 && value.title.length < 61
+                    ? "Recommended: Keep SEO title between 45-60 characters"
+                    : "Recommended: Keep SEO title between 45-60 characters"
+                  : ""
+              }
+              novusSize="md"
+              showCharacterCount
             />
+
+            <Box display="flex" gap={"8px"} mt={1} alignItems="center">
+              <NovusButton
+                variantType="tertiary"
+                novusSize="xs"
+                padding="0px 0px !important"
+                loading={generateTitleProgress}
+                onClick={() =>
+                  generateTitleProgress
+                    ? cancelGenerate("title", "")
+                    : generate("title", "")
+                }
+              >
+                <Box display="flex" alignItems="center" gap={"4px"}>
+                  <AutoAwesomeIcon style={{ fontSize: "16px" }} />
+                  {generateTitleProgress ? "Cancel" : "Generate"}
+                </Box>
+              </NovusButton>
+
+              <Divider
+                orientation="vertical"
+                sx={{
+                  width: "1px",
+                  height: "16px !important",
+                  backgroundColor: "#E0E0E0",
+                  alignSelf: "center",
+                }}
+              />
+
+              <NovusButton
+                variantType="tertiary"
+                novusSize="xs"
+                padding="0px 0px !important"
+                loading={generateTitleWithKeyWordProgress}
+                onClick={() =>
+                  generateTitleWithKeyWordProgress
+                    ? cancelGenerate("title", "keyword")
+                    : setTitleDialogOpen(true)
+                }
+              >
+                <Box display="flex" alignItems="center" gap={"4px"}>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2.62998 4.67084C3.36331 4.67084 8.40331 4.60417 8.73665 4.67084C9.46998 4.80417 9.46998 5.87084 8.73665 6.00417H2.56331C1.76331 5.80417 1.82998 4.7375 2.62998 4.67084ZM2.62998 11.3308H13.3166C14.1166 11.1975 14.1766 10.1975 13.3833 9.9975H2.56331C1.76331 10.1975 1.82998 11.1975 2.62998 11.3308ZM13.3833 12.6642H2.62998C1.83665 12.7975 1.83665 13.8642 2.62998 13.9975H13.3833C14.1766 13.8642 14.1766 12.7975 13.3833 12.6642ZM13.45 7.3375H2.62998C1.83665 7.5375 1.83665 8.47084 2.56331 8.67084H13.45C14.1833 8.47084 14.1833 7.5375 13.45 7.3375ZM10.67 4.2975C11.19 4.4975 11.5966 4.9175 11.7766 5.4375L11.9566 5.94417C11.99 6.04417 12.1433 6.04417 12.1766 5.94417L12.3566 5.4375C12.5366 4.9175 12.9433 4.4975 13.4633 4.2975L13.93 4.1175C14.03 4.0775 14.03 3.94417 13.93 3.90417L13.4633 3.72417C12.9433 3.52417 12.5366 3.10417 12.3566 2.58417L12.1766 2.0775C12.1433 1.9775 11.99 1.9775 11.9566 2.0775L11.7766 2.58417C11.5966 3.10417 11.19 3.52417 10.67 3.72417L10.2033 3.90417C10.1033 3.94417 10.1033 4.0775 10.2033 4.1175L10.67 4.2975Z"
+                      fill="#000093"
+                    />
+                  </svg>{" "}
+                  {generateTitleWithKeyWordProgress
+                    ? "Cancel"
+                    : "Generate Using Custom Keyword"}
+                </Box>
+              </NovusButton>
+            </Box>
           </Box>
-        )}
+
+          {/* Description Input */}
+          <Box>
+            <NovusInput
+              label="Description"
+              value={value.description}
+              onChange={handleDescriptionChange}
+              placeholder="Enter description here"
+              multiline
+              rows={4}
+              disabled={
+                generateDescriptionProgress ||
+                generateDescriptionWithKeyWordProgress
+              }
+              maxLength={600}
+              helperText={
+                value.description && value.description.length > 0
+                  ? value.description.length <= 160
+                    ? "Recommended: Keep SEO description under 160 characters for best results on search engines"
+                    : "Recommended limit exceeded - this may impact your SEO"
+                  : ""
+              }
+              novusSize="md"
+              showCharacterCount
+            />
+
+            <Box display="flex" gap={"8px"} mt={1} alignItems="center">
+              <NovusButton
+                variantType="tertiary"
+                novusSize="xs"
+                padding="0px 0px !important"
+                loading={generateDescriptionProgress}
+                onClick={() =>
+                  generateDescriptionProgress
+                    ? cancelGenerate("description", "")
+                    : generate("description", "")
+                }
+              >
+                <Box display="flex" alignItems="center" gap={"4px"}>
+                  <AutoAwesomeIcon style={{ fontSize: "16px" }} />
+                  {generateDescriptionProgress ? "Cancel" : "Generate"}
+                </Box>
+              </NovusButton>
+
+              <Divider
+                orientation="vertical"
+                sx={{
+                  width: "1px",
+                  height: "16px !important",
+                  backgroundColor: "#E0E0E0",
+                  alignSelf: "center",
+                }}
+              />
+
+              <NovusButton
+                variantType="tertiary"
+                novusSize="xs"
+                padding="0px 0px !important"
+                loading={generateDescriptionWithKeyWordProgress}
+                onClick={() =>
+                  generateDescriptionWithKeyWordProgress
+                    ? cancelGenerate("description", "keyword")
+                    : setDescriptionDialogOpen(true)
+                }
+              >
+                <Box display="flex" alignItems="center" gap={"4px"}>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2.62998 4.67084C3.36331 4.67084 8.40331 4.60417 8.73665 4.67084C9.46998 4.80417 9.46998 5.87084 8.73665 6.00417H2.56331C1.76331 5.80417 1.82998 4.7375 2.62998 4.67084ZM2.62998 11.3308H13.3166C14.1166 11.1975 14.1766 10.1975 13.3833 9.9975H2.56331C1.76331 10.1975 1.82998 11.1975 2.62998 11.3308ZM13.3833 12.6642H2.62998C1.83665 12.7975 1.83665 13.8642 2.62998 13.9975H13.3833C14.1766 13.8642 14.1766 12.7975 13.3833 12.6642ZM13.45 7.3375H2.62998C1.83665 7.5375 1.83665 8.47084 2.56331 8.67084H13.45C14.1833 8.47084 14.1833 7.5375 13.45 7.3375ZM10.67 4.2975C11.19 4.4975 11.5966 4.9175 11.7766 5.4375L11.9566 5.94417C11.99 6.04417 12.1433 6.04417 12.1766 5.94417L12.3566 5.4375C12.5366 4.9175 12.9433 4.4975 13.4633 4.2975L13.93 4.1175C14.03 4.0775 14.03 3.94417 13.93 3.90417L13.4633 3.72417C12.9433 3.52417 12.5366 3.10417 12.3566 2.58417L12.1766 2.0775C12.1433 1.9775 11.99 1.9775 11.9566 2.0775L11.7766 2.58417C11.5966 3.10417 11.19 3.52417 10.67 3.72417L10.2033 3.90417C10.1033 3.94417 10.1033 4.0775 10.2033 4.1175L10.67 4.2975Z"
+                      fill="#000093"
+                    />
+                  </svg>
+
+                  {generateDescriptionWithKeyWordProgress
+                    ? "Cancel"
+                    : "Generate Using Custom Keyword"}
+                </Box>
+              </NovusButton>
+            </Box>
+          </Box>
+
+          {/* Social Media Image Uploader */}
+          {showImageUploader && (
+            <Box>
+              <Typography variant="subtitle2" color="#9b9b9b" mb={1}>
+                Social Media Image
+              </Typography>
+              <ImageUploader
+                value={value.image_url}
+                onChange={handleImageChange}
+                onDelete={() => handleImageChange("")}
+                label="social media image"
+                aspectRatio="*"
+                minimumResolution={{
+                  width: 200,
+                  height: 200,
+                }}
+                maximumResolution={{
+                  width: 2400,
+                  height: 1200,
+                }}
+                maxSize={2048}
+                fileTypes={["png", "jpeg", "webp", "bmp"]}
+                namespace="misc"
+                fileName="Social Media"
+                showGallery={true}
+                fetchGalleryImages={handleFetchGalleryImages}
+                uploadImage={uploadImage}
+              />
+            </Box>
+          )}
         </Box>
       </Box>
 
       {/* Preview Section */}
       {(titlePreview || descriptionPreview) && (
         <Box
-          bgcolor={'#FFFFFF'}
-          borderRadius={'12px'}
-          border={'1px solid #FAFAFA'}
+          bgcolor={"#FFFFFF"}
+          borderRadius={"12px"}
+          border={"1px solid #FAFAFA"}
           display="flex"
           flexDirection="column"
         >
@@ -528,21 +649,36 @@ const SEOComponent: React.FC<Props> = ({
             display="flex"
             alignItems="center"
             gap={1}
-            padding={'16px 24px'}
-            borderBottom={'1px solid #E0E0E0'}
+            padding={"16px 24px"}
+            borderBottom={"1px solid #E0E0E0"}
           >
-            <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+            <Typography
+              variant="h6"
+              fontWeight={500}
+              fontSize="16px"
+              color="#141414"
+            >
               Preview
             </Typography>
           </Box>
 
           {/* Content */}
-          <Box padding={'16px'} border={'1px solid #E0E0E0'} borderRadius={'12px'} margin={'24px'}>
+          <Box
+            padding={"16px"}
+            border={"1px solid #E0E0E0"}
+            borderRadius={"12px"}
+            margin={"24px"}
+          >
             <Box fontFamily="arial, sans-serif">
               <Typography
                 variant="h6"
                 color="#1a0dab"
-                sx={{ fontSize: 18, fontWeight: 400, lineHeight: 1.44, margin: 0 }}
+                sx={{
+                  fontSize: 18,
+                  fontWeight: 400,
+                  lineHeight: 1.44,
+                  margin: 0,
+                }}
               >
                 {titlePreview || "Title"}
               </Typography>
@@ -586,9 +722,9 @@ const SEOComponent: React.FC<Props> = ({
       {/* Breadcrumbs Section */}
       {breadcrumbEnabled && (
         <Box
-          bgcolor={'#FFFFFF'}
-          borderRadius={'12px'}
-          border={'1px solid #FAFAFA'}
+          bgcolor={"#FFFFFF"}
+          borderRadius={"12px"}
+          border={"1px solid #FAFAFA"}
           display="flex"
           flexDirection="column"
         >
@@ -597,16 +733,21 @@ const SEOComponent: React.FC<Props> = ({
             display="flex"
             alignItems="center"
             gap={1}
-            padding={'16px 24px'}
-            borderBottom={'1px solid #E0E0E0'}
+            padding={"16px 24px"}
+            borderBottom={"1px solid #E0E0E0"}
           >
-            <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+            <Typography
+              variant="h6"
+              fontWeight={500}
+              fontSize="16px"
+              color="#141414"
+            >
               Breadcrumbs
             </Typography>
           </Box>
 
           {/* Content */}
-          <Box padding={'24px'} display="flex" flexDirection="column" gap={2}>
+          <Box padding={"24px"} display="flex" flexDirection="column" gap={2}>
             {(value.breadcrumbs || []).map((breadcrumb, index) => (
               <BreadcrumbBuilder
                 key={index}
@@ -631,9 +772,9 @@ const SEOComponent: React.FC<Props> = ({
       {/* Sitemap Section */}
       {sitemapEnabled && (
         <Box
-          bgcolor={'#FFFFFF'}
-          borderRadius={'12px'}
-          border={'1px solid #FAFAFA'}
+          bgcolor={"#FFFFFF"}
+          borderRadius={"12px"}
+          border={"1px solid #FAFAFA"}
           display="flex"
           flexDirection="column"
         >
@@ -642,22 +783,30 @@ const SEOComponent: React.FC<Props> = ({
             display="flex"
             alignItems="center"
             gap={1}
-            padding={'16px 24px'}
-            borderBottom={'1px solid #E0E0E0'}
+            padding={"16px 24px"}
+            borderBottom={"1px solid #E0E0E0"}
           >
-            <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+            <Typography
+              variant="h6"
+              fontWeight={500}
+              fontSize="16px"
+              color="#141414"
+            >
               Sitemap
             </Typography>
           </Box>
 
           {/* Content */}
-          <Box padding={'24px'} display="flex" flexDirection="row" gap={3}>
+          <Box padding={"24px"} display="flex" flexDirection="row" gap={3}>
             <FormControl sx={{ minWidth: 200 }}>
               <NovusDropdown
                 label="Priority"
                 value={priority}
                 onChange={handlePriorityChange}
-                options={priorityOptions.map(option => ({ value: option, label: option.toString() }))}
+                options={priorityOptions.map((option) => ({
+                  value: option,
+                  label: option.toString(),
+                }))}
                 placeholder="Select priority"
                 novusSize="md"
               />
@@ -667,7 +816,10 @@ const SEOComponent: React.FC<Props> = ({
                 label="Frequency"
                 value={frequency}
                 onChange={handleFrequencyChange}
-                options={frequencyOptions.map(option => ({ value: option, label: option }))}
+                options={frequencyOptions.map((option) => ({
+                  value: option,
+                  label: option,
+                }))}
                 placeholder="Select frequency"
                 novusSize="md"
               />
@@ -679,9 +831,9 @@ const SEOComponent: React.FC<Props> = ({
       {/* Meta Tags Section */}
       {metaTagsEnabled && (
         <Box
-          bgcolor={'#FFFFFF'}
-          borderRadius={'12px'}
-          border={'1px solid #FAFAFA'}
+          bgcolor={"#FFFFFF"}
+          borderRadius={"12px"}
+          border={"1px solid #FAFAFA"}
           display="flex"
           flexDirection="column"
         >
@@ -690,10 +842,15 @@ const SEOComponent: React.FC<Props> = ({
             display="flex"
             alignItems="center"
             justifyContent="space-between"
-            padding={'16px 24px'}
-            borderBottom={'1px solid #E0E0E0'}
+            padding={"16px 24px"}
+            borderBottom={"1px solid #E0E0E0"}
           >
-            <Typography variant="h6" fontWeight={500} fontSize="16px" color="#141414">
+            <Typography
+              variant="h6"
+              fontWeight={500}
+              fontSize="16px"
+              color="#141414"
+            >
               Meta Tags
             </Typography>
             <Box display="flex" gap={1}>
@@ -716,7 +873,7 @@ const SEOComponent: React.FC<Props> = ({
           </Box>
 
           {/* Content */}
-          <Box padding={'24px'} display="flex" flexDirection="column" gap={2}>
+          <Box padding={"24px"} display="flex" flexDirection="column" gap={2}>
             {(value.meta_tags || []).map((metaTag, index) => (
               <Box
                 key={index}
@@ -730,7 +887,13 @@ const SEOComponent: React.FC<Props> = ({
                 bgcolor="#FAFAFA"
               >
                 <Box>
-                  <Typography variant="subtitle1" mb={1} fontWeight={500} fontSize="16px" color="#141414">
+                  <Typography
+                    variant="subtitle1"
+                    mb={1}
+                    fontWeight={500}
+                    fontSize="16px"
+                    color="#141414"
+                  >
                     {metaTag.title}
                   </Typography>
                   <Typography variant="body2" color="#9b9b9b" fontSize="11px">
@@ -760,39 +923,39 @@ const SEOComponent: React.FC<Props> = ({
       )}
 
       {/* Dialogs */}
-      
+
       {/* Title Keywords Dialog */}
-      <Dialog 
-        open={titleDialogOpen} 
-        onClose={() => setTitleDialogOpen(false)} 
-        maxWidth="sm" 
+      <Dialog
+        open={titleDialogOpen}
+        onClose={() => setTitleDialogOpen(false)}
+        maxWidth="sm"
         fullWidth
         PaperProps={{
           sx: {
-            borderRadius: '16px',
-            boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)',
-            maxHeight: '80vh'
-          }
+            borderRadius: "16px",
+            boxShadow: "0px 4px 16px 0px rgba(0, 0, 0, 0.16)",
+            maxHeight: "80vh",
+          },
         }}
       >
         {/* Header */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '12px 16px',
-            backgroundColor: '#F5F5F5',
-            borderBottom: '1px solid #E0E0E0'
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+            padding: "12px 16px",
+            backgroundColor: "#F5F5F5",
+            borderBottom: "1px solid #E0E0E0",
           }}
         >
           <Box sx={{ flex: 1 }}>
             <Box
               sx={{
                 fontWeight: 600,
-                fontSize: '18px',
-                color: '#141414'
+                fontSize: "18px",
+                color: "#141414",
               }}
             >
               Custom Keywords
@@ -800,36 +963,36 @@ const SEOComponent: React.FC<Props> = ({
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '12px'
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "12px",
             }}
           >
             <Box
               onClick={() => setTitleDialogOpen(false)}
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '4px',
-                width: '24px',
-                height: '24px',
-                borderRadius: '250px',
-                cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)'
-                }
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                padding: "4px",
+                width: "24px",
+                height: "24px",
+                borderRadius: "250px",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                },
               }}
             >
               <Box
                 sx={{
-                  width: '16px',
-                  height: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
+                  width: "16px",
+                  height: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 ✕
@@ -841,24 +1004,25 @@ const SEOComponent: React.FC<Props> = ({
         {/* Content */}
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '12px',
-            padding: '16px 20px',
-            backgroundColor: '#FFFFFF'
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "12px",
+            padding: "16px 20px",
+            backgroundColor: "#FFFFFF",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignSelf: 'stretch',
-              gap: '24px'
+              display: "flex",
+              flexDirection: "column",
+              alignSelf: "stretch",
+              gap: "24px",
             }}
           >
             <Typography variant="body2" color="text.secondary">
-              You can enter up to 6 custom keywords to help the system generate best description for you
+              You can enter up to 6 custom keywords to help the system generate
+              best description for you
             </Typography>
             <Box>
               <Box display="flex" justifyContent="space-between" mb={1}>
@@ -875,7 +1039,6 @@ const SEOComponent: React.FC<Props> = ({
                 minHeight={120}
                 display="flex"
                 flexDirection="column-reverse"
-                
                 gap={1}
               >
                 {/* Chips container - fixed at top */}
@@ -895,7 +1058,7 @@ const SEOComponent: React.FC<Props> = ({
                     />
                   ))}
                 </Box>
-                
+
                 {/* Input container - fixed at bottom */}
                 <Box>
                   <NovusInput
@@ -914,27 +1077,32 @@ const SEOComponent: React.FC<Props> = ({
         {/* Footer */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            alignSelf: 'stretch',
-            gap: '24px',
-            padding: '16px 24px',
-            backgroundColor: '#FFFFFF',
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            alignSelf: "stretch",
+            gap: "24px",
+            padding: "16px 24px",
+            backgroundColor: "#FFFFFF",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              gap: '12px'
+              display: "flex",
+              gap: "12px",
             }}
           >
-            <NovusButton variantType="secondary" novusSize="sm" onClick={() => setTitleDialogOpen(false)}>
+            <NovusButton
+              variantType="secondary"
+              novusSize="sm"
+              onClick={() => setTitleDialogOpen(false)}
+            >
               Cancel
             </NovusButton>
             <NovusButton
               variantType="primary"
               novusSize="sm"
+              padding="0px 0px !important"
               onClick={() => {
                 generate("title", "keyword");
                 setTitleDialogOpen(false);
@@ -947,37 +1115,37 @@ const SEOComponent: React.FC<Props> = ({
       </Dialog>
 
       {/* Description Keywords Dialog */}
-      <Dialog 
-        open={descriptionDialogOpen} 
-        onClose={() => setDescriptionDialogOpen(false)} 
-        maxWidth="sm" 
+      <Dialog
+        open={descriptionDialogOpen}
+        onClose={() => setDescriptionDialogOpen(false)}
+        maxWidth="sm"
         fullWidth
         PaperProps={{
           sx: {
-            borderRadius: '16px',
-            boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)',
-            maxHeight: '80vh'
-          }
+            borderRadius: "16px",
+            boxShadow: "0px 4px 16px 0px rgba(0, 0, 0, 0.16)",
+            maxHeight: "80vh",
+          },
         }}
       >
         {/* Header */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '12px 16px',
-            backgroundColor: '#F5F5F5',
-            borderBottom: '1px solid #E0E0E0'
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+            padding: "12px 16px",
+            backgroundColor: "#F5F5F5",
+            borderBottom: "1px solid #E0E0E0",
           }}
         >
           <Box sx={{ flex: 1 }}>
             <Box
               sx={{
                 fontWeight: 600,
-                fontSize: '18px',
-                color: '#141414'
+                fontSize: "18px",
+                color: "#141414",
               }}
             >
               Custom Keywords
@@ -985,36 +1153,36 @@ const SEOComponent: React.FC<Props> = ({
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '12px'
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "12px",
             }}
           >
             <Box
               onClick={() => setDescriptionDialogOpen(false)}
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '4px',
-                width: '24px',
-                height: '24px',
-                borderRadius: '250px',
-                cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)'
-                }
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                padding: "4px",
+                width: "24px",
+                height: "24px",
+                borderRadius: "250px",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                },
               }}
             >
               <Box
                 sx={{
-                  width: '16px',
-                  height: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
+                  width: "16px",
+                  height: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 ✕
@@ -1026,24 +1194,25 @@ const SEOComponent: React.FC<Props> = ({
         {/* Content */}
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '12px',
-            padding: '16px 20px',
-            backgroundColor: '#FFFFFF'
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "12px",
+            padding: "16px 20px",
+            backgroundColor: "#FFFFFF",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignSelf: 'stretch',
-              gap: '24px'
+              display: "flex",
+              flexDirection: "column",
+              alignSelf: "stretch",
+              gap: "24px",
             }}
           >
             <Typography variant="body2" color="text.secondary">
-              You can enter up to 8 custom keywords to help the system generate best description for you
+              You can enter up to 8 custom keywords to help the system generate
+              best description for you
             </Typography>
             <Box>
               <Box display="flex" justifyContent="space-between" mb={1}>
@@ -1079,7 +1248,7 @@ const SEOComponent: React.FC<Props> = ({
                     />
                   ))}
                 </Box>
-                
+
                 {/* Input container - fixed at bottom */}
                 <Box>
                   <NovusInput
@@ -1098,22 +1267,26 @@ const SEOComponent: React.FC<Props> = ({
         {/* Footer */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            alignSelf: 'stretch',
-            gap: '24px',
-            padding: '16px 24px',
-            backgroundColor: '#FFFFFF',
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            alignSelf: "stretch",
+            gap: "24px",
+            padding: "16px 24px",
+            backgroundColor: "#FFFFFF",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              gap: '12px'
+              display: "flex",
+              gap: "12px",
             }}
           >
-            <NovusButton variantType="secondary" novusSize="sm" onClick={() => setDescriptionDialogOpen(false)}>
+            <NovusButton
+              variantType="secondary"
+              novusSize="sm"
+              onClick={() => setDescriptionDialogOpen(false)}
+            >
               Cancel
             </NovusButton>
             <NovusButton
@@ -1158,4 +1331,4 @@ const SEOComponent: React.FC<Props> = ({
   );
 };
 
-export default SEOComponent; 
+export default SEOComponent;

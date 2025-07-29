@@ -147,7 +147,7 @@ const MetaTagsRemote: React.FC<Props> = ({
         renderActions={
           <NovusButton
             variantType="primary"
-            novusSize="sm"
+            novusSize="md"
             onClick={openCreateDialog}
           >
             Add Meta Tag

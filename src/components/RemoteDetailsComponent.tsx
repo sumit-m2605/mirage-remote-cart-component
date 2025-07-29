@@ -278,8 +278,8 @@ const DetailsRemote: React.FC<Props> = ({
         helpDocsURLs={helpDocsURLs}
         renderActions={
           <NovusButton
-            variantType="secondary"
-            novusSize="sm"
+            variantType="primary"
+            novusSize="md"
             onClick={handleSave}
             disabled={saving}
           >

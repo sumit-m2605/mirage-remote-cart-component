@@ -3,9 +3,44 @@ import { Button, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import type { ButtonProps } from "@mui/material";
 
+// Color variables
+const COLORS = {
+  // Primary colors
+  PRIMARY_DEFAULT: "#3535F3",
+  PRIMARY_HOVER: "#000093",
+  PRIMARY_ACTIVE: "#00004C",
+  PRIMARY_FOCUS: "#000093",
+  
+  // Secondary colors
+  SECONDARY_BACKGROUND: "#ffffff",
+  SECONDARY_BORDER: "#E0E0E0",
+  SECONDARY_TEXT: "#000093",
+  SECONDARY_HOVER_BG: "#E8E8FC",
+  SECONDARY_ACTIVE_BG: "#ADADFC",
+  SECONDARY_ACTIVE_TEXT: "#00004C",
+  SECONDARY_DISABLED_BG: "#F5F5F5",
+  SECONDARY_DISABLED_TEXT: "#A0A0A0",
+  
+  // Tertiary colors
+  TERTIARY_BACKGROUND: "#ffffff",
+  TERTIARY_TEXT: "#000093",
+  TERTIARY_HOVER_TEXT: "#00004C",
+  TERTIARY_ACTIVE_TEXT: "#010029",
+  TERTIARY_DISABLED_TEXT: "#ADADFC",
+  
+  // Common colors
+  WHITE: "#ffffff",
+  BLACK: "#000000",
+  DISABLED_OPACITY: 0.3,
+  
+  // Text colors
+  TEXT_WHITE: "#ffffff",
+  TEXT_DISABLED: "#9999FF",
+} as const;
+
 // Figma spec: Appearances (colors)
 const colorMap = {
-  default: "#3535F3",
+  default: COLORS.PRIMARY_DEFAULT,
   contrast: "#2C4BFF",
   positive: "#25AB21",
   negative: "#F50031",
@@ -56,27 +91,15 @@ type Appearance = keyof typeof colorMap;
 type NovusSize = "xs" | "sm" | "md" | "lg" | "xl";
 type VariantType = "primary" | "secondary" | "tertiary";
 
-type StateType =
-  | "normal"
-  | "hover"
-  | "pressed"
-  | "focused"
-  | "disabled"
-  | "loading";
 
 interface NovusButtonProps extends Omit<ButtonProps, "size"> {
   appearance?: Appearance;
   variantType?: VariantType;
   novusSize?: NovusSize;
   loading?: boolean;
+  padding?: string;
 }
 
-const getGradient = (appearance: Appearance) => {
-  if (appearance === "ai") {
-    return colorMap.ai;
-  }
-  return undefined;
-};
 
 const StyledNovusButton = styled(Button, {
   shouldForwardProp: (prop) =>
@@ -89,27 +112,23 @@ const StyledNovusButton = styled(Button, {
     appearance = "default",
     variantType = "primary",
     novusSize = "md",
-    disabled,
-    loading,
+    padding,
   }) => {
     const color = colorMap[appearance] as string;
     const sizeStyles = sizeMap[novusSize as keyof typeof sizeMap];
-    const isGradient = appearance === "ai";
     const borderRadius = "250px";
     const fontFamily = "Inter, sans-serif";
     const fontWeight = 500;
 
-    // State colors
-    const hoverBg = appearance === "default" ? "#2C4BFF" : color;
-    const pressedBg = appearance === "default" ? "#000093" : color;
-    const disabledOpacity = 0.3;
+    // Use custom padding if provided, otherwise use size-based padding
+    const buttonPadding = padding || sizeStyles.padding;
 
     // Shared styles
     const shared = {
       borderRadius,
       fontFamily,
       fontWeight,
-      padding: sizeStyles.padding,
+      padding: buttonPadding,
       fontSize: sizeStyles.fontSize,
       height: sizeStyles.height,
       lineHeight: sizeStyles.lineHeight,
@@ -134,31 +153,31 @@ const StyledNovusButton = styled(Button, {
     if (variantType === "primary") {
       return {
         ...shared,
-        background: "#3535F3",
-        border: "1px solid #3535F3",
-        color: "#ffffff",
+        background: COLORS.PRIMARY_DEFAULT,
+        border: `1px solid ${COLORS.PRIMARY_DEFAULT}`,
+        color: COLORS.TEXT_WHITE,
         textDecoration: "none !important",
         "&:hover": {
-          background: "#000093",
-          borderColor: "#000093",
-          color: "#ffffff",
+          background: COLORS.PRIMARY_HOVER,
+          borderColor: COLORS.PRIMARY_HOVER,
+          color: COLORS.TEXT_WHITE,
         },
         "&:active, &.Mui-active": {
-          background: "#00004C !important",
-          borderColor: "#00004C !important",
-          color: "#9999FF !important",
+          background: `${COLORS.PRIMARY_ACTIVE} !important`,
+          borderColor: `${COLORS.PRIMARY_ACTIVE} !important`,
+          color: `${COLORS.TEXT_DISABLED} !important`,
         },
         "&:focus": {
-          background: "#3535F3",
-          borderColor: "#000093",
-          color: "#00004C",
+          background: COLORS.PRIMARY_DEFAULT,
+          borderColor: COLORS.PRIMARY_FOCUS,
+          color: COLORS.PRIMARY_ACTIVE,
           outline: "none",
         },
         "&.Mui-disabled": {
-          background: "#3535F3",
-          borderColor: "#3535F3",
-          color: "#ffffff",
-          opacity: disabledOpacity,
+          background: COLORS.PRIMARY_DEFAULT,
+          borderColor: COLORS.PRIMARY_DEFAULT,
+          color: COLORS.TEXT_WHITE,
+          opacity: COLORS.DISABLED_OPACITY,
         },
       };
     }
@@ -166,30 +185,30 @@ const StyledNovusButton = styled(Button, {
     if (variantType === "secondary") {
       return {
         ...shared,
-        background: "#ffffff",
-        border: "1px solid #E0E0E0",
-        color: "#000093",
+        background: COLORS.SECONDARY_BACKGROUND,
+        border: `1px solid ${COLORS.SECONDARY_BORDER}`,
+        color: COLORS.SECONDARY_TEXT,
         textDecoration: "none !important",
         "&:hover": {
-          background: "#E8E8FC",
-          borderColor: "#E0E0E0",
-          color: "#000093",
+          background: COLORS.SECONDARY_HOVER_BG,
+          borderColor: COLORS.SECONDARY_BORDER,
+          color: COLORS.SECONDARY_TEXT,
         },
         "&:active, &.Mui-active": {
-          backgroundColor: "#ADADFC !important",
-          borderColor: "#E0E0E0 !important",
-          color: "#00004C !important",
+          backgroundColor: `${COLORS.SECONDARY_ACTIVE_BG} !important`,
+          borderColor: `${COLORS.SECONDARY_BORDER} !important`,
+          color: `${COLORS.SECONDARY_ACTIVE_TEXT} !important`,
         },
         "&:focus": {
-          background: "#ffffff",
-          borderColor: "#000093",
-          color: "#00004C",
+          background: COLORS.SECONDARY_BACKGROUND,
+          borderColor: COLORS.SECONDARY_TEXT,
+          color: COLORS.SECONDARY_ACTIVE_TEXT,
           outline: "none",
         },
         "&.Mui-disabled": {
-          background: "#F5F5F5",
-          borderColor: "#E0E0E0",
-          color: "#A0A0A0",
+          background: COLORS.SECONDARY_DISABLED_BG,
+          borderColor: COLORS.SECONDARY_BORDER,
+          color: COLORS.SECONDARY_DISABLED_TEXT,
           opacity: 1,
         },
       };
@@ -198,30 +217,30 @@ const StyledNovusButton = styled(Button, {
     // Tertiary
     return {
       ...shared,
-      background: "#ffffff",
-      border: "1px solid #ffffff",
-      color: "#000093",
+      background: COLORS.TERTIARY_BACKGROUND,
+      border: `1px solid ${COLORS.TERTIARY_BACKGROUND}`,
+      color: COLORS.TERTIARY_TEXT,
       "&:hover": {
-        background: "#ffffff",
-        borderColor: "#ffffff",
-        color: "rgba(0,0,76,1)",
+        background: COLORS.TERTIARY_BACKGROUND,
+        borderColor: COLORS.TERTIARY_BACKGROUND,
+        color: COLORS.TERTIARY_HOVER_TEXT,
         textDecoration: "underline !important",
       },
       "&:active, &.Mui-active": {
-        backgroundColor: "#ffffff !important",
-        borderColor: "#ffffff !important",
-        color: "rgba(1,0,41,1) !important",
+        backgroundColor: `${COLORS.TERTIARY_BACKGROUND} !important`,
+        borderColor: `${COLORS.TERTIARY_BACKGROUND} !important`,
+        color: `${COLORS.TERTIARY_ACTIVE_TEXT} !important`,
       },
       "&:focus": {
-        background: "#ffffff",
-        borderColor: "#000093",
-        color: "#000093",
+        background: COLORS.TERTIARY_BACKGROUND,
+        borderColor: COLORS.TERTIARY_TEXT,
+        color: COLORS.TERTIARY_TEXT,
         outline: "none",
       },
       "&.Mui-disabled": {
-        background: "#ffffff",
-        borderColor: "#ffffff",
-        color: "rgba(173,173,252,1)",
+        background: COLORS.TERTIARY_BACKGROUND,
+        borderColor: COLORS.TERTIARY_BACKGROUND,
+        color: COLORS.TERTIARY_DISABLED_TEXT,
         opacity: 1,
       },
     };
@@ -244,6 +263,7 @@ const NovusButton: React.FC<NovusButtonProps> = ({
   disabled,
   children,
   onClick,
+  padding,
   ...props
 }) => {
   const sizeStyles = sizeMap[novusSize as keyof typeof sizeMap];
@@ -277,6 +297,7 @@ const NovusButton: React.FC<NovusButtonProps> = ({
       disabled={disabled || loading}
       disableRipple
       onClick={handleClick}
+      padding={padding}
       {...props}
     >
       {loading ? (
