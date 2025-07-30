@@ -37,8 +37,8 @@
         "js": {
           "async": [],
           "sync": [
-            "remoteEntry.js",
-            "static/js/510.b2d434bd.js"
+            "static/js/101.b034452e.js",
+            "remoteEntry.js"
           ]
         },
         "css": {
@@ -52,7 +52,6 @@
         "./CartSettingsRemote",
         "./CartSettingsRemoteNovus",
         "./CustomMetaTagsRemote",
-        "./ReactComponent",
         "./RobotsTxtRemote",
         "./SchemaRemote",
         "./SitemapRemote",
@@ -71,8 +70,8 @@
         "js": {
           "async": [],
           "sync": [
-            "remoteEntry.js",
-            "static/js/510.b2d434bd.js"
+            "static/js/101.b034452e.js",
+            "remoteEntry.js"
           ]
         },
         "css": {
@@ -96,7 +95,7 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/async/__federation_expose_define_element.07b8efb7.js"
+            "static/js/async/__federation_expose_define_element.492bfa0f.js"
           ],
           "async": []
         },
@@ -112,14 +111,12 @@
       "path": "./ReactComponent",
       "id": "reactRemote:ReactComponent",
       "name": "ReactComponent",
-      "requires": [
-        "react"
-      ],
+      "requires": [],
       "file": "src/components/RemoteReactComponent.tsx",
       "assets": {
         "js": {
           "sync": [
-            "static/js/async/__federation_expose_ReactComponent.8407797b.js"
+            "static/js/async/__federation_expose_ReactComponent.39569f7e.js"
           ],
           "async": []
         },
@@ -142,15 +139,13 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/543.fb0ad622.js",
-            "static/js/async/790.cb77e894.js",
-            "static/js/async/712.495c7b1e.js",
-            "static/js/async/765.e95e61f7.js",
-            "static/js/519.497dd120.js",
-            "static/js/async/839.a0b70919.js",
-            "static/js/async/299.a7df8eef.js",
-            "static/js/async/158.6bf708f0.js",
-            "static/js/async/__federation_expose_CartSettingsRemote.655d34aa.js"
+            "static/js/async/907.e6b88678.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/519.68d751a6.js",
+            "static/js/async/839.01ca2660.js",
+            "static/js/async/299.1527c7ff.js",
+            "static/js/async/357.cf282e40.js",
+            "static/js/async/__federation_expose_CartSettingsRemote.77a791b5.js"
           ],
           "async": []
         },
@@ -171,11 +166,9 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/543.fb0ad622.js",
-            "static/js/async/790.cb77e894.js",
-            "static/js/async/765.e95e61f7.js",
+            "static/js/async/907.e6b88678.js",
             "static/js/async/145.5c1c534e.js",
-            "static/js/async/__federation_expose_CartSettingsRemoteNovus.b8fa7443.js"
+            "static/js/async/__federation_expose_CartSettingsRemoteNovus.3d454b1e.js"
           ],
           "async": []
         },
@@ -196,13 +189,11 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/543.fb0ad622.js",
-            "static/js/async/790.cb77e894.js",
-            "static/js/async/712.495c7b1e.js",
-            "static/js/async/765.e95e61f7.js",
-            "static/js/async/839.a0b70919.js",
+            "static/js/async/907.e6b88678.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/839.01ca2660.js",
             "static/js/async/330.1bd0f50d.js",
-            "static/js/async/__federation_expose_RobotsTxtRemote.320c11a5.js"
+            "static/js/async/__federation_expose_RobotsTxtRemote.67f7c8a2.js"
           ],
           "async": []
         },
@@ -223,17 +214,15 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/543.fb0ad622.js",
-            "static/js/async/790.cb77e894.js",
-            "static/js/async/712.495c7b1e.js",
-            "static/js/async/765.e95e61f7.js",
-            "static/js/519.497dd120.js",
-            "static/js/async/839.a0b70919.js",
+            "static/js/async/907.e6b88678.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/519.68d751a6.js",
+            "static/js/async/839.01ca2660.js",
             "static/js/async/330.1bd0f50d.js",
-            "static/js/async/299.a7df8eef.js",
-            "static/js/async/46.a12ad684.js",
-            "static/js/async/158.6bf708f0.js",
-            "static/js/async/__federation_expose_CustomMetaTagsRemote.680ae0b7.js"
+            "static/js/async/299.1527c7ff.js",
+            "static/js/async/46.c57a2e5b.js",
+            "static/js/async/357.cf282e40.js",
+            "static/js/async/__federation_expose_CustomMetaTagsRemote.8a9a04bb.js"
           ],
           "async": []
         },
@@ -254,12 +243,10 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/543.fb0ad622.js",
-            "static/js/async/790.cb77e894.js",
-            "static/js/async/712.495c7b1e.js",
-            "static/js/async/765.e95e61f7.js",
-            "static/js/519.497dd120.js",
-            "static/js/async/__federation_expose_CanonicalTagRemote.1ea0aaf7.js"
+            "static/js/async/907.e6b88678.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/519.68d751a6.js",
+            "static/js/async/__federation_expose_CanonicalTagRemote.14a944b1.js"
           ],
           "async": []
         },
@@ -280,14 +267,12 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/543.fb0ad622.js",
-            "static/js/async/790.cb77e894.js",
-            "static/js/async/712.495c7b1e.js",
-            "static/js/async/765.e95e61f7.js",
-            "static/js/519.497dd120.js",
-            "static/js/async/839.a0b70919.js",
+            "static/js/async/907.e6b88678.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/519.68d751a6.js",
+            "static/js/async/839.01ca2660.js",
             "static/js/async/330.1bd0f50d.js",
-            "static/js/async/__federation_expose_SitemapRemote.4ea8de1d.js"
+            "static/js/async/__federation_expose_SitemapRemote.850a91c3.js"
           ],
           "async": []
         },
@@ -308,17 +293,15 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/543.fb0ad622.js",
-            "static/js/async/790.cb77e894.js",
-            "static/js/async/712.495c7b1e.js",
-            "static/js/async/765.e95e61f7.js",
-            "static/js/519.497dd120.js",
-            "static/js/async/839.a0b70919.js",
-            "static/js/async/299.a7df8eef.js",
-            "static/js/async/801.eef8b2c0.js",
-            "static/js/async/204.1da817ef.js",
-            "static/js/async/158.6bf708f0.js",
-            "static/js/async/__federation_expose_SEODetailsRemote.479c7bc2.js"
+            "static/js/async/907.e6b88678.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/519.68d751a6.js",
+            "static/js/async/839.01ca2660.js",
+            "static/js/async/299.1527c7ff.js",
+            "static/js/async/801.78403df4.js",
+            "static/js/async/454.b2b28ccb.js",
+            "static/js/async/357.cf282e40.js",
+            "static/js/async/__federation_expose_SEODetailsRemote.0bb6c03b.js"
           ],
           "async": []
         },
@@ -339,17 +322,16 @@
       "assets": {
         "js": {
           "sync": [
-            "static/js/543.fb0ad622.js",
-            "static/js/async/790.cb77e894.js",
-            "static/js/async/712.495c7b1e.js",
-            "static/js/519.497dd120.js",
-            "static/js/async/839.a0b70919.js",
+            "static/js/async/907.e6b88678.js",
+            "static/js/async/712.a1c80e0d.js",
+            "static/js/async/519.68d751a6.js",
+            "static/js/async/839.01ca2660.js",
             "static/js/async/330.1bd0f50d.js",
-            "static/js/async/299.a7df8eef.js",
-            "static/js/async/801.eef8b2c0.js",
-            "static/js/async/211.37bad70c.js",
-            "static/js/async/158.6bf708f0.js",
-            "static/js/async/__federation_expose_SchemaRemote.14eb936b.js"
+            "static/js/async/299.1527c7ff.js",
+            "static/js/async/801.78403df4.js",
+            "static/js/async/545.ec0825b7.js",
+            "static/js/async/357.cf282e40.js",
+            "static/js/async/__federation_expose_SchemaRemote.c6651bcb.js"
           ],
           "async": []
         },
