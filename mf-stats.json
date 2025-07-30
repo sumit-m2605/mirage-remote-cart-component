@@ -47,10 +47,10 @@
         }
       },
       "usedIn": [
-        "./SEODetailsRemote",
         "./CanonicalTagRemote",
         "./CartSettingsRemote",
         "./CartSettingsRemoteNovus",
+        "./SEODetailsRemote",
         "./CustomMetaTagsRemote",
         "./RobotsTxtRemote",
         "./SchemaRemote",
@@ -301,7 +301,7 @@
             "static/js/async/801.78403df4.js",
             "static/js/async/454.b2b28ccb.js",
             "static/js/async/357.cf282e40.js",
-            "static/js/async/__federation_expose_SEODetailsRemote.0bb6c03b.js"
+            "static/js/async/__federation_expose_SEODetailsRemote.f8c0b92b.js"
           ],
           "async": []
         },
