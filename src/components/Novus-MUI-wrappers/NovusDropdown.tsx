@@ -279,6 +279,10 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
           width: '100%',
           minWidth: 0,
           opacity: disabled ? 0.6 : 1,
+          "& .MuiSelect-icon": {
+            color: '#A6A6A6',
+            fontSize: "24px",
+          },
           '& .MuiOutlinedInput-root': {
             border: 'none !important',
             borderRadius: '0 !important',

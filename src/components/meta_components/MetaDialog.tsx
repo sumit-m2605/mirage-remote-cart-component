@@ -157,7 +157,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
                   fontWeight: 400,
                   fontSize: '14px',
                   lineHeight: '1.429',
-                  color: '#141414'
+                  color: '#A6A6A6'
                 }}
               >
                 Content

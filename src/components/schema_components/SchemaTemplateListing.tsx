@@ -12,6 +12,7 @@ import ShimmerLoader from "../commmon/ShimmerLoader";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SearchIcon from '@mui/icons-material/Search';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 interface SchemaTemplate {
   _id: string;
   title: string;
@@ -371,18 +372,15 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
                           });
                       }
                     }}
+                    IconComponent={KeyboardArrowDownIcon}
                     sx={{
                       fontSize: "14px",
-                      // color: COLORS.PAGINATION.DEFAULT,
-                      // '& .MuiOutlinedInput-notchedOutline': {
-                      //   borderColor: COLORS.PAGINATION.DEFAULT,
-                      // },
-                      // '&:hover .MuiOutlinedInput-notchedOutline': {
-                      //   borderColor: COLORS.PAGINATION.DEFAULT,
-                      // },
-                      // '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      //   borderColor: COLORS.PAGINATION.SELECTED_BG,
-                      // },
+                      borderRadius: '8px',
+                      "& .MuiSelect-icon": {
+                        color: '#A6A6A6',
+                        fontSize: "24px",
+                      },
+                      color: COLORS.PAGINATION.DEFAULT,
                     }}
                     MenuProps={{
                       disableScrollLock: true,

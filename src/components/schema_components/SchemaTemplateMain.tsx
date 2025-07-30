@@ -180,16 +180,19 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
           backgroundColor: COLORS.BACKGROUND.PRIMARY,
           flexDirection: { xs: 'column', lg: 'row' },
           alignItems: 'flex-start',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          overflow: 'hidden'
         }}
       >
         {/* Left Container - Variables */}
         <Box 
           className="left-container"
           sx={{ 
-            flex: '1 1 0%', 
-            minWidth: 0,
-            width: '100%'
+            flex: { xs: '1 1 auto', lg: '1 1 0%' },
+            minWidth: { xs: '100%', lg: '0px' },
+            maxWidth: { xs: '100%', lg: 'calc(100% - 424px)' }, // 400px + 24px gap
+            width: { xs: '100%', lg: 'auto' },
+            overflow: 'hidden'
           }}
         >
           <SchemaTemplateVariables
@@ -207,8 +210,11 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
         <Box 
           className="right-container"
           sx={{ 
-            flex: '0 0 auto', 
-            width: { xs: '100%', lg: 400 }
+            flex: { xs: '1 1 auto', lg: '0 0 400px' },
+            minWidth: { xs: '100%', lg: '400px' },
+            maxWidth: { xs: '100%', lg: '400px' },
+            width: { xs: '100%', lg: '400px' },
+            overflow: 'hidden'
           }}
         >
           <SchemaTemplateEdit
