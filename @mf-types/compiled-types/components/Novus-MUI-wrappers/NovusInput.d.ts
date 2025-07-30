@@ -8,6 +8,8 @@ export interface NovusInputProps extends Omit<TextFieldProps, "variant" | "label
     showHelpIcon?: boolean;
     showCharacterCount?: boolean;
     maxLength?: number;
+    startIcon?: React.ReactNode;
+    endIcon?: React.ReactNode;
 }
 declare const NovusInputComponent: React.FC<NovusInputProps>;
 export default NovusInputComponent;
