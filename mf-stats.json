@@ -47,16 +47,16 @@
         }
       },
       "usedIn": [
-        "./define-element",
+        "./SEODetailsRemote",
         "./CanonicalTagRemote",
         "./CartSettingsRemote",
         "./CartSettingsRemoteNovus",
-        "./SEODetailsRemote",
         "./CustomMetaTagsRemote",
         "./ReactComponent",
         "./RobotsTxtRemote",
         "./SchemaRemote",
-        "./SitemapRemote"
+        "./SitemapRemote",
+        "./define-element"
       ]
     },
     {
