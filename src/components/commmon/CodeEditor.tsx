@@ -4,6 +4,11 @@ import CodeMirror from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
 import { xml } from '@codemirror/lang-xml';
 
+// Color constants
+const COLORS = {
+  border: '#E0E0E0'
+} as const;
+
 interface CodeEditorProps {
   value: string;
   onChange: (val: string) => void;
@@ -28,7 +33,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   return (
     <Box
       sx={{
-        border: '1px solid #E0E0E0',
+        border: `1px solid ${COLORS.border}`,
         borderRadius: '8px',
         overflow: 'hidden'
       }}

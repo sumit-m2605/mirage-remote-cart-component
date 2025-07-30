@@ -27,7 +27,7 @@ const COLORS = {
     PRIMARY: '#E0E0E0',
   },
   SHADOW: {
-    PRIMARY: '0 1px 3px #0000001A',
+    PRIMARY: '0 1px 3px #292929',
   },
 };
 

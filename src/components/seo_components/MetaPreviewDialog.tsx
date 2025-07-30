@@ -4,10 +4,19 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Box,
 } from "@mui/material";
 import { NovusInput } from "../Novus-MUI-wrappers";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
+
+// Color constants
+const COLORS = {
+  background: {
+    dark: '#21252B'
+  },
+  text: {
+    light: '#FFFFFF'
+  }
+} as const;
 
 interface MetaTagItem {
   key: string;
@@ -55,12 +64,12 @@ const MetaPreviewDialog: React.FC<Props> = ({ open, onClose, metaTags }) => {
           sx={{
             mt: 1,
             "& .MuiInputBase-root": {
-              backgroundColor: "#21252B",
-              color: "#fff",
+              backgroundColor: COLORS.background.dark,
+              color: COLORS.text.light,
               fontFamily: "monospace",
             },
             "& .MuiInputBase-input": {
-              color: "#fff",
+              color: COLORS.text.light,
             },
           }}
         />

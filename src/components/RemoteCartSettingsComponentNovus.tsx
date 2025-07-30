@@ -1,14 +1,33 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import {
   Box,
+  Typography,
   IconButton,
 } from '@mui/material';
 import NovusSnackbar from './Novus-MUI-wrappers/NovusSnackbar';
-
-import { Input, Button, Toggle, Typography } from "fds-web";
+import { NovusInput } from './Novus-MUI-wrappers';
+import NovusButton from './Novus-MUI-wrappers/NovusButton';
+import NovusToggle from './Novus-MUI-wrappers/NovusToggle';
+import ShimmerLoader from './commmon/ShimmerLoader';
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import ShimmerLoader from './commmon/ShimmerLoader';
+
+// Color constants
+const COLORS = {
+  background: {
+    primary: '#FFFFFF',
+    secondary: '#F5F8FF',
+    hover: '#F5F5F5'
+  },
+  text: {
+    primary: '#333333',
+    active: '#3F51B5'
+  },
+  border: {
+    primary: '#EEEEEE',
+    active: '#3F51B5'
+  }
+} as const;
 
 interface CartToggleOption {
   key: string;
@@ -202,7 +221,7 @@ const CartSettingsRemote = ({
     <Box>
       {/* Header */}
       <Box
-        bgcolor="#ffffff"
+        bgcolor={COLORS.background.primary}
         boxShadow="0 1px 0px 0 rgba(0,0,0,0.1)"
         display="flex"
         justifyContent="space-between"
@@ -235,7 +254,7 @@ const CartSettingsRemote = ({
           overflow="hidden"
         >
           <Box
-            bgcolor="#ffffff"
+            bgcolor={COLORS.background.primary}
             borderRadius="8px"
             boxShadow="0 0 0 1px rgba(0,0,0,0.05)"
             display="flex"
@@ -250,11 +269,11 @@ const CartSettingsRemote = ({
                 borderLeft="4px solid transparent"
                 sx={{
                   cursor: 'pointer',
-                  backgroundColor: activeTab === item.label ? '#f5f8ff' : 'transparent',
-                  color: activeTab === item.label ? '#3f51b5' : '#333',
+                  backgroundColor: activeTab === item.label ? COLORS.background.secondary : 'transparent',
+                  color: activeTab === item.label ? COLORS.text.active : COLORS.text.primary,
                   fontWeight: activeTab === item.label ? 600 : 400,
-                  borderLeftColor: activeTab === item.label ? '#3f51b5' : 'transparent',
-                  '&:hover': { backgroundColor: '#f5f5f5' }
+                  borderLeftColor: activeTab === item.label ? COLORS.border.active : 'transparent',
+                  '&:hover': { backgroundColor: COLORS.background.hover }
                 }}
                 onClick={() => scrollTo(item.ref, item.label)}
               >
@@ -295,7 +314,7 @@ const CartSettingsRemote = ({
                 justifyContent="space-between"
                 alignItems="center"
                 py={1}
-                borderBottom="1px solid #eee"
+                borderBottom={`1px solid ${COLORS.border.primary}`}
               >
                 <Typography type="span" variant="body-m">{opt.display}</Typography>
 
@@ -307,8 +326,8 @@ const CartSettingsRemote = ({
               </Box>
             ))}
 
-            <Box display="flex" justifyContent="space-between" alignItems="center" py={1}
-              borderBottom="1px solid #eee">
+                          <Box display="flex" justifyContent="space-between" alignItems="center" py={1}
+                borderBottom={`1px solid ${COLORS.border.primary}`}>
               <Typography type="span" variant="body-m">Allow coupon with rewards</Typography>
 
               <Toggle
@@ -317,8 +336,8 @@ const CartSettingsRemote = ({
               />
             </Box>
 
-            <Box display="flex" justifyContent="space-between" alignItems="center" py={1}
-              borderBottom="1px solid #eee"
+                          <Box display="flex" justifyContent="space-between" alignItems="center" py={1}
+                borderBottom={`1px solid ${COLORS.border.primary}`}
             >
               <Typography type="span" variant="body-m">Ask for PAN card details on checkout</Typography>
 

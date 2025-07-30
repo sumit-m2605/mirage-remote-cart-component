@@ -16,7 +16,6 @@ import {
   Delete as DeleteIcon,
   Visibility as VisibilityIcon,
   AutoAwesome as AutoAwesomeIcon,
-  EditNote as EditNoteIcon,
 } from "@mui/icons-material";
 
 // Import sub-components
@@ -26,6 +25,28 @@ import BreadcrumbBuilder from "./BreadcrumbBuilder";
 import CanonicalUrlBuilder from "./CanonicalUrlBuilder";
 import ConfirmationDialog from "./ConfirmationDialog";
 import ImageUploader from "./ImageUploader";
+
+// Color constants
+const COLORS = {
+  primary: {
+    main: '#000093',
+    light: '#1A0DAB',
+    dark: '#006621'
+  },
+  background: {
+    primary: '#FFFFFF',
+    secondary: '#F5F5F5'
+  },
+  border: {
+    primary: '#E0E0E0',
+    secondary: '#FAFAFA'
+  },
+  text: {
+    primary: '#141414',
+    secondary: '#9B9B9B',
+    tertiary: '#545454'
+  }
+} as const;
 
 interface SEOData {
   title: string;
@@ -408,9 +429,9 @@ const SEOComponent: React.FC<Props> = ({
     >
       {/* SEO Section */}
       <Box
-        bgcolor={"#FFFFFF"}
+        bgcolor={COLORS.background.primary}
         borderRadius={"12px"}
-        border={"1px solid #FAFAFA"}
+        border={`1px solid ${COLORS.border.secondary}`}
         display="flex"
         flexDirection="column"
       >
@@ -420,13 +441,13 @@ const SEOComponent: React.FC<Props> = ({
           alignItems="center"
           gap={1}
           padding={"16px 24px"}
-          borderBottom={"1px solid #E0E0E0"}
+          borderBottom={`1px solid ${COLORS.border.primary}`}
         >
           <Typography
             variant="h6"
             fontWeight={500}
             fontSize="16px"
-            color="#141414"
+            color={COLORS.text.primary}
           >
             SEO
           </Typography>
@@ -479,7 +500,7 @@ const SEOComponent: React.FC<Props> = ({
                 sx={{
                   width: "1px",
                   height: "16px !important",
-                  backgroundColor: "#E0E0E0",
+                  backgroundColor: COLORS.border.primary,
                   alignSelf: "center",
                 }}
               />
@@ -505,7 +526,7 @@ const SEOComponent: React.FC<Props> = ({
                   >
                     <path
                       d="M2.62998 4.67084C3.36331 4.67084 8.40331 4.60417 8.73665 4.67084C9.46998 4.80417 9.46998 5.87084 8.73665 6.00417H2.56331C1.76331 5.80417 1.82998 4.7375 2.62998 4.67084ZM2.62998 11.3308H13.3166C14.1166 11.1975 14.1766 10.1975 13.3833 9.9975H2.56331C1.76331 10.1975 1.82998 11.1975 2.62998 11.3308ZM13.3833 12.6642H2.62998C1.83665 12.7975 1.83665 13.8642 2.62998 13.9975H13.3833C14.1766 13.8642 14.1766 12.7975 13.3833 12.6642ZM13.45 7.3375H2.62998C1.83665 7.5375 1.83665 8.47084 2.56331 8.67084H13.45C14.1833 8.47084 14.1833 7.5375 13.45 7.3375ZM10.67 4.2975C11.19 4.4975 11.5966 4.9175 11.7766 5.4375L11.9566 5.94417C11.99 6.04417 12.1433 6.04417 12.1766 5.94417L12.3566 5.4375C12.5366 4.9175 12.9433 4.4975 13.4633 4.2975L13.93 4.1175C14.03 4.0775 14.03 3.94417 13.93 3.90417L13.4633 3.72417C12.9433 3.52417 12.5366 3.10417 12.3566 2.58417L12.1766 2.0775C12.1433 1.9775 11.99 1.9775 11.9566 2.0775L11.7766 2.58417C11.5966 3.10417 11.19 3.52417 10.67 3.72417L10.2033 3.90417C10.1033 3.94417 10.1033 4.0775 10.2033 4.1175L10.67 4.2975Z"
-                      fill="#000093"
+                      fill={COLORS.primary.main}
                     />
                   </svg>{" "}
                   {generateTitleWithKeyWordProgress
@@ -564,7 +585,7 @@ const SEOComponent: React.FC<Props> = ({
                 sx={{
                   width: "1px",
                   height: "16px !important",
-                  backgroundColor: "#E0E0E0",
+                  backgroundColor: COLORS.border.primary,
                   alignSelf: "center",
                 }}
               />
@@ -590,7 +611,7 @@ const SEOComponent: React.FC<Props> = ({
                   >
                     <path
                       d="M2.62998 4.67084C3.36331 4.67084 8.40331 4.60417 8.73665 4.67084C9.46998 4.80417 9.46998 5.87084 8.73665 6.00417H2.56331C1.76331 5.80417 1.82998 4.7375 2.62998 4.67084ZM2.62998 11.3308H13.3166C14.1166 11.1975 14.1766 10.1975 13.3833 9.9975H2.56331C1.76331 10.1975 1.82998 11.1975 2.62998 11.3308ZM13.3833 12.6642H2.62998C1.83665 12.7975 1.83665 13.8642 2.62998 13.9975H13.3833C14.1766 13.8642 14.1766 12.7975 13.3833 12.6642ZM13.45 7.3375H2.62998C1.83665 7.5375 1.83665 8.47084 2.56331 8.67084H13.45C14.1833 8.47084 14.1833 7.5375 13.45 7.3375ZM10.67 4.2975C11.19 4.4975 11.5966 4.9175 11.7766 5.4375L11.9566 5.94417C11.99 6.04417 12.1433 6.04417 12.1766 5.94417L12.3566 5.4375C12.5366 4.9175 12.9433 4.4975 13.4633 4.2975L13.93 4.1175C14.03 4.0775 14.03 3.94417 13.93 3.90417L13.4633 3.72417C12.9433 3.52417 12.5366 3.10417 12.3566 2.58417L12.1766 2.0775C12.1433 1.9775 11.99 1.9775 11.9566 2.0775L11.7766 2.58417C11.5966 3.10417 11.19 3.52417 10.67 3.72417L10.2033 3.90417C10.1033 3.94417 10.1033 4.0775 10.2033 4.1175L10.67 4.2975Z"
-                      fill="#000093"
+                      fill={COLORS.primary.main}
                     />
                   </svg>
 
@@ -605,7 +626,7 @@ const SEOComponent: React.FC<Props> = ({
           {/* Social Media Image Uploader */}
           {showImageUploader && (
             <Box>
-              <Typography variant="subtitle2" color="#9b9b9b" mb={1}>
+              <Typography variant="subtitle2" color={COLORS.text.secondary} mb={1}>
                 Social Media Image
               </Typography>
               <ImageUploader
@@ -638,9 +659,9 @@ const SEOComponent: React.FC<Props> = ({
       {/* Preview Section */}
       {(titlePreview || descriptionPreview) && (
         <Box
-          bgcolor={"#FFFFFF"}
+          bgcolor={COLORS.background.primary}
           borderRadius={"12px"}
-          border={"1px solid #FAFAFA"}
+          border={`1px solid ${COLORS.border.secondary}`}
           display="flex"
           flexDirection="column"
         >
@@ -650,13 +671,13 @@ const SEOComponent: React.FC<Props> = ({
             alignItems="center"
             gap={1}
             padding={"16px 24px"}
-            borderBottom={"1px solid #E0E0E0"}
+            borderBottom={`1px solid ${COLORS.border.primary}`}
           >
             <Typography
               variant="h6"
               fontWeight={500}
               fontSize="16px"
-              color="#141414"
+              color={COLORS.text.primary}
             >
               Preview
             </Typography>
@@ -665,14 +686,14 @@ const SEOComponent: React.FC<Props> = ({
           {/* Content */}
           <Box
             padding={"16px"}
-            border={"1px solid #E0E0E0"}
+            border={`1px solid ${COLORS.border.primary}`}
             borderRadius={"12px"}
             margin={"24px"}
           >
             <Box fontFamily="arial, sans-serif">
               <Typography
                 variant="h6"
-                color="#1a0dab"
+                color={COLORS.primary.light}
                 sx={{
                   fontSize: 18,
                   fontWeight: 400,
@@ -684,14 +705,14 @@ const SEOComponent: React.FC<Props> = ({
               </Typography>
               <Typography
                 variant="body2"
-                color="#006621"
+                color={COLORS.primary.dark}
                 sx={{ fontSize: 14, lineHeight: 1.3, margin: 0 }}
               >
                 {url || "https://"}
               </Typography>
               <Typography
                 variant="body2"
-                color="#545454"
+                color={COLORS.text.tertiary}
                 sx={{ fontSize: 14, lineHeight: 1.58, marginTop: 0.5 }}
               >
                 {descriptionPreview || "Brief description about the preview"}
@@ -722,9 +743,9 @@ const SEOComponent: React.FC<Props> = ({
       {/* Breadcrumbs Section */}
       {breadcrumbEnabled && (
         <Box
-          bgcolor={"#FFFFFF"}
+          bgcolor={COLORS.background.primary}
           borderRadius={"12px"}
-          border={"1px solid #FAFAFA"}
+          border={`1px solid ${COLORS.border.secondary}`}
           display="flex"
           flexDirection="column"
         >
@@ -734,13 +755,13 @@ const SEOComponent: React.FC<Props> = ({
             alignItems="center"
             gap={1}
             padding={"16px 24px"}
-            borderBottom={"1px solid #E0E0E0"}
+            borderBottom={`1px solid ${COLORS.border.primary}`}
           >
             <Typography
               variant="h6"
               fontWeight={500}
               fontSize="16px"
-              color="#141414"
+              color={COLORS.text.primary}
             >
               Breadcrumbs
             </Typography>
@@ -772,9 +793,9 @@ const SEOComponent: React.FC<Props> = ({
       {/* Sitemap Section */}
       {sitemapEnabled && (
         <Box
-          bgcolor={"#FFFFFF"}
+          bgcolor={COLORS.background.primary}
           borderRadius={"12px"}
-          border={"1px solid #FAFAFA"}
+          border={`1px solid ${COLORS.border.secondary}`}
           display="flex"
           flexDirection="column"
         >
@@ -784,13 +805,13 @@ const SEOComponent: React.FC<Props> = ({
             alignItems="center"
             gap={1}
             padding={"16px 24px"}
-            borderBottom={"1px solid #E0E0E0"}
+            borderBottom={`1px solid ${COLORS.border.primary}`}
           >
             <Typography
               variant="h6"
               fontWeight={500}
               fontSize="16px"
-              color="#141414"
+              color={COLORS.text.primary}
             >
               Sitemap
             </Typography>
@@ -831,9 +852,9 @@ const SEOComponent: React.FC<Props> = ({
       {/* Meta Tags Section */}
       {metaTagsEnabled && (
         <Box
-          bgcolor={"#FFFFFF"}
+          bgcolor={COLORS.background.primary}
           borderRadius={"12px"}
-          border={"1px solid #FAFAFA"}
+          border={`1px solid ${COLORS.border.secondary}`}
           display="flex"
           flexDirection="column"
         >
@@ -843,13 +864,13 @@ const SEOComponent: React.FC<Props> = ({
             alignItems="center"
             justifyContent="space-between"
             padding={"16px 24px"}
-            borderBottom={"1px solid #E0E0E0"}
+            borderBottom={`1px solid ${COLORS.border.primary}`}
           >
             <Typography
               variant="h6"
               fontWeight={500}
               fontSize="16px"
-              color="#141414"
+              color={COLORS.text.primary}
             >
               Meta Tags
             </Typography>
@@ -879,12 +900,12 @@ const SEOComponent: React.FC<Props> = ({
                 key={index}
                 p={2}
                 border={1}
-                borderColor="#E0E0E0"
+                borderColor={COLORS.border.primary}
                 borderRadius={1}
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                bgcolor="#FAFAFA"
+                bgcolor={COLORS.border.secondary}
               >
                 <Box>
                   <Typography
@@ -892,11 +913,11 @@ const SEOComponent: React.FC<Props> = ({
                     mb={1}
                     fontWeight={500}
                     fontSize="16px"
-                    color="#141414"
+                    color={COLORS.text.primary}
                   >
                     {metaTag.title}
                   </Typography>
-                  <Typography variant="body2" color="#9b9b9b" fontSize="11px">
+                  <Typography variant="body2" color={COLORS.text.secondary} fontSize="11px">
                     {getTagInString(metaTag.items)}
                   </Typography>
                 </Box>
@@ -946,8 +967,8 @@ const SEOComponent: React.FC<Props> = ({
             alignItems: "center",
             gap: "8px",
             padding: "12px 16px",
-            backgroundColor: "#F5F5F5",
-            borderBottom: "1px solid #E0E0E0",
+            backgroundColor: COLORS.background.secondary,
+            borderBottom: `1px solid ${COLORS.border.primary}`,
           }}
         >
           <Box sx={{ flex: 1 }}>
@@ -955,7 +976,7 @@ const SEOComponent: React.FC<Props> = ({
               sx={{
                 fontWeight: 600,
                 fontSize: "18px",
-                color: "#141414",
+                color: COLORS.text.primary,
               }}
             >
               Custom Keywords
@@ -1009,7 +1030,7 @@ const SEOComponent: React.FC<Props> = ({
             justifyContent: "center",
             gap: "12px",
             padding: "16px 20px",
-            backgroundColor: "#FFFFFF",
+            backgroundColor: COLORS.background.primary,
           }}
         >
           <Box
@@ -1033,7 +1054,7 @@ const SEOComponent: React.FC<Props> = ({
               </Box>
               <Box
                 border={1}
-                borderColor="#E0E0E0"
+                borderColor={COLORS.border.primary}
                 borderRadius={1}
                 p={1}
                 minHeight={120}
@@ -1083,7 +1104,7 @@ const SEOComponent: React.FC<Props> = ({
             alignSelf: "stretch",
             gap: "24px",
             padding: "16px 24px",
-            backgroundColor: "#FFFFFF",
+            backgroundColor: COLORS.background.primary,
           }}
         >
           <Box
@@ -1135,8 +1156,8 @@ const SEOComponent: React.FC<Props> = ({
             alignItems: "center",
             gap: "8px",
             padding: "12px 16px",
-            backgroundColor: "#F5F5F5",
-            borderBottom: "1px solid #E0E0E0",
+            backgroundColor: COLORS.background.secondary,
+            borderBottom: `1px solid ${COLORS.border.primary}`,
           }}
         >
           <Box sx={{ flex: 1 }}>
@@ -1144,7 +1165,7 @@ const SEOComponent: React.FC<Props> = ({
               sx={{
                 fontWeight: 600,
                 fontSize: "18px",
-                color: "#141414",
+                color: COLORS.text.primary,
               }}
             >
               Custom Keywords
@@ -1198,7 +1219,7 @@ const SEOComponent: React.FC<Props> = ({
             justifyContent: "center",
             gap: "12px",
             padding: "16px 20px",
-            backgroundColor: "#FFFFFF",
+            backgroundColor: COLORS.background.primary,
           }}
         >
           <Box
@@ -1222,7 +1243,7 @@ const SEOComponent: React.FC<Props> = ({
               </Box>
               <Box
                 border={1}
-                borderColor="#E0E0E0"
+                borderColor={COLORS.border.primary}
                 borderRadius={1}
                 p={1}
                 minHeight={120}
@@ -1272,7 +1293,7 @@ const SEOComponent: React.FC<Props> = ({
             alignSelf: "stretch",
             gap: "24px",
             padding: "16px 24px",
-            backgroundColor: "#FFFFFF",
+            backgroundColor: COLORS.background.primary,
           }}
         >
           <Box

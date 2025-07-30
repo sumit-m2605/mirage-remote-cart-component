@@ -6,8 +6,6 @@ import {
   DialogActions,
   IconButton,
   Box,
-  Typography,
-  Chip,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -40,7 +38,6 @@ const MetaTagsDialog: React.FC<Props> = ({
   onClose,
   onSave,
   onUpdate,
-  metaTags,
   editData,
 }) => {
   const [title, setTitle] = useState("");

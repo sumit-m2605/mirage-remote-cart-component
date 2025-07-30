@@ -11,6 +11,15 @@ import CodeEditor from "./commmon/CodeEditor";
 import ShimmerLoader from "./commmon/ShimmerLoader";
 import InfoBox from "./commmon/InfoBox";
 
+// Color constants
+const COLORS = {
+  background: {
+    primary: '#FFFFFF',
+    secondary: '#F5F5F5'
+  },
+  border: '#FAFAFA'
+} as const;
+
 interface Props {
   fetchSitemapStatus: () => Promise<{ enabled: boolean; content: string }>;
   updateSitemapStatus: (enabled: boolean) => Promise<boolean>;
@@ -104,7 +113,7 @@ const SitemapRemote: React.FC<Props> = ({
     <Box
       display="flex"
       flexDirection="column"
-      bgcolor={'#F5F5F5'}
+      bgcolor={COLORS.background.secondary}
       height="100%"
       minHeight="100%"
     >
@@ -146,9 +155,9 @@ const SitemapRemote: React.FC<Props> = ({
         overflow="auto"
       >
         <Box
-          bgcolor={'#FFFFFF'}
+          bgcolor={COLORS.background.primary}
           borderRadius={{ xs: '8px', sm: '10px', md: '12px' }}
-          border={'1px solid #FAFAFA'}
+          border={`1px solid ${COLORS.border}`}
           padding={{ xs: '16px', sm: '20px', md: '24px' }}
           height={'fit-content'}
           flex={{ xs: "1 1 100%", md: "0 1 70%" }}

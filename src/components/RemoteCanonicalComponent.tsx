@@ -7,6 +7,17 @@ import NovusSnackbar from "./Novus-MUI-wrappers/NovusSnackbar";
 import RemotePageHeader from "./commmon/RemotePageHeader";
 import NovusToggle from "./Novus-MUI-wrappers/NovusToggle";
 
+// Color constants
+const COLORS = {
+  primary: '#141414',
+  secondary: '#5A5A5A',
+  background: {
+    primary: '#FFFFFF',
+    secondary: '#F5F5F5'
+  },
+  border: '#E0E0E0'
+} as const;
+
 interface Props {
   fetchCanonicalEnabled: () => Promise<boolean>;
   updateCanonicalEnabled: (value: boolean) => Promise<boolean>;
@@ -60,6 +71,7 @@ const CanonicalTagRemote: React.FC<Props> = ({
     <Box
       display="flex"
       flexDirection="column"
+      bgcolor={COLORS.background.secondary}
     >
       <RemotePageHeader
         title="Self Canonical Tag"
@@ -85,8 +97,8 @@ const CanonicalTagRemote: React.FC<Props> = ({
           alignItems: 'flex-start',
           gap: '16px',
           borderRadius: '12px',
-          border: '1px solid #E0E0E0',
-          background: '#FAFAFA',
+          border: `1px solid ${COLORS.border}`,
+          background: COLORS.background.primary,
           margin: '24px',
         }}
       >
@@ -106,7 +118,7 @@ const CanonicalTagRemote: React.FC<Props> = ({
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '20px',
-              color: '#141414',
+              color: COLORS.primary,
               margin: 0
             }}
           >
@@ -119,7 +131,7 @@ const CanonicalTagRemote: React.FC<Props> = ({
           sx={{
             width: '100%',
             height: '0',
-            borderTop: '1px solid #E0E0E0'
+            borderTop: `1px solid ${COLORS.border}`
           }}
         />
 
@@ -138,7 +150,7 @@ const CanonicalTagRemote: React.FC<Props> = ({
               fontWeight: 400,
               fontSize: '12px',
               lineHeight: '16px',
-              color: '#5A5A5A',
+              color: COLORS.secondary,
               margin: 0
             }}
           >
@@ -154,7 +166,7 @@ const CanonicalTagRemote: React.FC<Props> = ({
               fontWeight: 400,
               fontSize: '12px',
               lineHeight: '16px',
-              color: '#5A5A5A',
+              color: COLORS.secondary,
               margin: 0
             }}
           >

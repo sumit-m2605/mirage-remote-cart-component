@@ -1,6 +1,15 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
+// Color constants
+const COLORS = {
+  shimmer: {
+    light: '#E6E6E6',
+    medium: '#CCCCCC',
+    dark: '#E6E6E6'
+  }
+} as const;
+
 interface ShimmerLoaderProps {
   width?: string | number;
   height?: string | number;
@@ -24,7 +33,7 @@ const ShimmerLoader: React.FC<ShimmerLoaderProps> = ({
         },
         '& .animate': {
           animation: 'shimmer 3s infinite',
-          background: 'linear-gradient(to right, #e6e6e6 5%, #cccccc 25%, #e6e6e6 35%)',
+          background: `linear-gradient(to right, ${COLORS.shimmer.light} 5%, ${COLORS.shimmer.medium} 25%, ${COLORS.shimmer.dark} 35%)`,
           backgroundSize: '1000px 100%',
           height: '100%',
         },

@@ -27,7 +27,7 @@ const COLORS = {
     HOVER_SHADOW: '#2C4BFF1A',
   },
   AVATAR: {
-    BACKGROUND: '#2C4BFF',
+    BACKGROUND: '#2E31BE',
     TEXT: '#FFFFFF',
   },
   TEXT: {

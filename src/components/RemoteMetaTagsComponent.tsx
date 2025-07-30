@@ -9,6 +9,15 @@ import type { MetaTag } from "./meta_components/MetaTags.tsx";
 import NovusButton from "./Novus-MUI-wrappers/NovusButton.tsx";
 import ShimmerLoader from "./commmon/ShimmerLoader";
 
+// Color constants
+const COLORS = {
+  background: {
+    primary: '#FFFFFF',
+    secondary: '#F5F5F5'
+  },
+  border: '#FAFAFA'
+} as const;
+
 interface Props {
   fetchCustomMetaTags: () => Promise<MetaTag[]>;
   updateCustomMetaTags: (list: MetaTag[]) => Promise<void>;
@@ -136,7 +145,7 @@ const MetaTagsRemote: React.FC<Props> = ({
     <Box
       display="flex"
       flexDirection="column"
-      bgcolor={"#F5F5F5"}
+      bgcolor={COLORS.background.secondary}
       height="100%"
     >
       <RemotePageHeader
@@ -156,9 +165,9 @@ const MetaTagsRemote: React.FC<Props> = ({
       />
 
       <Box
-        bgcolor={"#FFFFFF"}
+        bgcolor={COLORS.background.primary}
         borderRadius={"12px"}
-        border={"1px solid #FAFAFA"}
+        border={`1px solid ${COLORS.border}`}
         margin={"24px"}
         flex={1}
         minHeight={0}

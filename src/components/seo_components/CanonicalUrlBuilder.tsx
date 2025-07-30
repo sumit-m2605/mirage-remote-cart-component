@@ -8,6 +8,13 @@ import {
 import { Help as HelpIcon } from "@mui/icons-material";
 import { NovusInput } from "../Novus-MUI-wrappers";
 
+// Color constants
+const COLORS = {
+  text: {
+    primary: '#41434C'
+  }
+} as const;
+
 interface Props {
   canonicalUrlPath: string;
   canonicalUrlDomain: string;
@@ -44,7 +51,7 @@ const CanonicalUrlBuilder: React.FC<Props> = ({
   return (
     <Box mt={3}>
       <Box display="flex" alignItems="center" mb={2}>
-        <Typography variant="h6" fontWeight={600} color="#41434C">
+        <Typography variant="h6" fontWeight={600} color={COLORS.text.primary}>
           Canonical URL
         </Typography>
         <Tooltip title={tooltipText} arrow>

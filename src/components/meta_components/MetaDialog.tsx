@@ -12,6 +12,21 @@ import { NovusInput } from "../Novus-MUI-wrappers";
 import CodeEditor from "../commmon/CodeEditor";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 
+// Color constants
+const COLORS = {
+  primary: '#141414',
+  secondary: '#A6A6A6',
+  background: {
+    primary: '#FFFFFF',
+    secondary: '#F5F5F5'
+  },
+  border: '#E0E0E0',
+  button: {
+    hover: '#0A0A0A'
+  },
+  shadow: '#292929'
+} as const;
+
 interface Props {
   open: boolean;
   meta: MetaTag | null;
@@ -47,7 +62,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
       PaperProps={{
         sx: {
           borderRadius: '16px',
-          boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.16)',
+          boxShadow: `0px 4px 16px 0px ${COLORS.shadow}`,
           maxHeight: '80vh'
         }
       }}
@@ -60,8 +75,8 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
           alignItems: 'center',
           gap: '8px',
           padding: '12px 16px',
-          backgroundColor: '#F5F5F5',
-          borderBottom: '1px solid #E0E0E0'
+          backgroundColor: COLORS.background.secondary,
+          borderBottom: `1px solid ${COLORS.border}`
         }}
       >
         <Box sx={{ flex: 1 }}>
@@ -69,7 +84,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
             sx={{
               fontWeight: 600,
               fontSize: '18px',
-              color: '#141414'
+              color: COLORS.primary
             }}
           >
             {meta?.name ? "Edit Meta Tag" : "Add Meta Tag"}
@@ -96,7 +111,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
               borderRadius: '250px',
               cursor: 'pointer',
               '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                backgroundColor: COLORS.button.hover
               }
             }}
           >
@@ -123,7 +138,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
           justifyContent: 'center',
           gap: '12px',
           padding: '16px 20px',
-          backgroundColor: '#FFFFFF'
+          backgroundColor: COLORS.background.primary
         }}
       >
         <Box
@@ -157,7 +172,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
                   fontWeight: 400,
                   fontSize: '14px',
                   lineHeight: '1.429',
-                  color: '#A6A6A6'
+                  color: COLORS.secondary
                 }}
               >
                 Content
@@ -183,7 +198,7 @@ const MetaDialog: React.FC<Props> = ({ open, meta, onClose, onSave }) => {
           alignSelf: 'stretch',
           gap: '24px',
           padding: '16px 24px',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: COLORS.background.primary,
         }}
       >
         <Box

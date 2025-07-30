@@ -12,6 +12,16 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import type { MetaTag } from './MetaTags';
 
+// Color constants
+const COLORS = {
+  primary: '#141414',
+  secondary: '#888888',
+  background: {
+    primary: '#FAFAFA'
+  },
+  border: '#E0E0E0'
+} as const;
+
 interface Props {
   metaList: MetaTag[];
   onEdit: (meta: MetaTag, index: number) => void;
@@ -47,8 +57,8 @@ const MetaList: React.FC<Props> = ({ metaList, onEdit, onDelete, onReorder }) =>
                         gap: '12px',
                         alignSelf: 'stretch',
                         borderRadius: '8px',
-                        border: '1px solid #E0E0E0',
-                        background: '#FAFAFA',
+                        border: `1px solid ${COLORS.border}`,
+                        background: COLORS.background.primary,
                         boxShadow: 'none'
                       }}
                     >
@@ -56,8 +66,8 @@ const MetaList: React.FC<Props> = ({ metaList, onEdit, onDelete, onReorder }) =>
                         <DragHandleIcon />
                       </Box>
                       <Box flex={1}>
-                        <Typography fontWeight={500} fontSize={'16px'} color={'#141414'}>{meta.name}</Typography>
-                        <Typography fontWeight={400} fontSize={'11px'} color={'#888888'}>{meta.content}</Typography>
+                        <Typography fontWeight={500} fontSize={'16px'} color={COLORS.primary}>{meta.name}</Typography>
+                        <Typography fontWeight={400} fontSize={'11px'} color={COLORS.secondary}>{meta.content}</Typography>
                       </Box>
                       <Box display="flex" gap={2}>
                         <IconButton sx={{height: '16px', width: '16px'}} onClick={() => onEdit(meta, index)}><EditIcon  sx={{height: '16px', width: '16px'}} /></IconButton>

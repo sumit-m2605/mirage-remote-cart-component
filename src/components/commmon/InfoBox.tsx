@@ -1,6 +1,16 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
+// Color constants
+const COLORS = {
+  primary: '#141414',
+  secondary: '#5A5A5A',
+  background: {
+    primary: '#FAFAFA'
+  },
+  border: '#E0E0E0'
+} as const;
+
 interface InfoBoxProps {
   title: string;
   description?: string;
@@ -40,7 +50,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({
         listStyleType,
         '& li': {
           fontSize: '12px',
-          color: '#5A5A5A',
+          color: COLORS.secondary,
           lineHeight: '16px',
           marginBottom: '4px',
           '&:last-child': {
@@ -68,8 +78,8 @@ const InfoBox: React.FC<InfoBoxProps> = ({
           alignItems: 'flex-start',
           gap: '16px',
           borderRadius: '12px',
-          border: '1px solid #E0E0E0',
-          background: '#FAFAFA'
+          border: `1px solid ${COLORS.border}`,
+          background: COLORS.background.primary
         }}
       >
         {/* Title Section */}
@@ -88,7 +98,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({
               fontWeight: 500,
               fontSize: '14px',
               lineHeight: '20px',
-              color: '##141414',
+              color: COLORS.primary,
               margin: 0
             }}
           >
@@ -101,7 +111,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({
           sx={{
             width: '100%',
             height: '0',
-            borderTop: '1px solid #E0E0E0'
+            borderTop: `1px solid ${COLORS.border}`
           }}
         />
 
@@ -123,7 +133,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({
                   fontWeight: 400,
                   fontSize: '12px',
                   lineHeight: '16px',
-                  color: '#5A5A5A',
+                  color: COLORS.secondary,
                   margin: 0
                 }}
               >

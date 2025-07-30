@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import {
   Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  IconButton,
   Typography,
-  Chip,
+  IconButton,
+  FormControl,
 } from "@mui/material";
-import {
-  Delete as DeleteIcon,
-} from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { NovusDropdown } from "../Novus-MUI-wrappers";
+
+// Color constants
+const COLORS = {
+  border: {
+    primary: '#E4E5E6'
+  },
+  background: {
+    secondary: '#F5F5F5'
+  }
+} as const;
 
 // Breadcrumb types data
 const BREADCRUMB_TYPES = [
@@ -210,7 +215,7 @@ const BreadcrumbBuilder: React.FC<Props> = ({
   return (
     <Box
       border={1}
-      borderColor="#e4e5e6"
+      borderColor={COLORS.border.primary}
       borderRadius={1}
       p={2}
       mb={2}
@@ -300,7 +305,7 @@ const BreadcrumbBuilder: React.FC<Props> = ({
             sx={{
               wordBreak: "break-all",
               p: 1,
-              bgcolor: "#f5f5f5",
+              bgcolor: COLORS.background.secondary,
               borderRadius: 1,
             }}
           >

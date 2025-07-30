@@ -21,10 +21,10 @@ import type { SnackbarProps } from '@mui/material';
 const COLORS = {
   // Background colors
   BACKGROUND_DARK: "#141414",
-  BACKGROUND_HOVER: "rgba(255, 255, 255, 0.1)",
+  BACKGROUND_HOVER: "#292929",
   
   // Text colors
-  TEXT_WHITE: "rgba(250, 250, 250, 1)",
+  TEXT_WHITE: "#FAFAFA",
   
   // Icon colors
   ICON_SUCCESS: "#25AB21",
@@ -37,8 +37,8 @@ const COLORS = {
   CLOSE_BUTTON_OPACITY: 0.7,
   
   // Shadow colors
-  SHADOW_DARK: "rgba(0, 0, 0, 0.24)",
-  SHADOW_LIGHT: "rgba(255, 255, 255, 0.3)",
+  SHADOW_DARK: "#292929",
+  SHADOW_LIGHT: "#292929",
 } as const;
 
 type SnackbarSeverityType = 'success' | 'error' | 'warning' | 'info';
