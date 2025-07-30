@@ -5,6 +5,16 @@ import {
 import { NovusInput } from '../Novus-MUI-wrappers';
 import './SchemaTemplateVariables.css';
 
+// Color definitions
+const COLORS = {
+  BACKGROUND: {
+    PRIMARY: '#FFFFFF',
+  },
+  TEXT: {
+    PRIMARY: '#41434C',
+  },
+};
+
 interface FormField {
   value: string;
   showerror: boolean;
@@ -167,7 +177,7 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
         width: '100%', 
         padding: '24px',
         borderRadius: '16px',
-        backgroundColor: '#ffffff',
+        backgroundColor: COLORS.BACKGROUND.PRIMARY,
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
@@ -175,7 +185,7 @@ const SchemaTemplateEdit = forwardRef<any, SchemaTemplateEditProps>(({
       }}>
         <Typography
           sx={{
-            color: '#41434C',
+            color: COLORS.TEXT.PRIMARY,
             fontWeight: '500',
             fontSize: '16px',
             textAlign: 'left',

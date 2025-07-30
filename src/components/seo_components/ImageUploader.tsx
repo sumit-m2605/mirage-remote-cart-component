@@ -169,7 +169,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
   const handleDelete = () => {
     onDelete();
-    setDialogOpen(false);
     setSnackbarMessage("Image deleted successfully");
     setShowSnackbar(true);
   };
@@ -361,9 +360,19 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 height: "100%",
               }}
             >
-              <FileUploadIcon
-                sx={{ color: "#2E31BE", fontSize: 24, mb: 0.5 }}
-              />
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.44622 13.8493C3.04208 13.8493 2.70001 13.7093 2.42001 13.4293C2.14 13.1493 2 12.8072 2 12.4031V10.8339C2 10.6636 2.05747 10.5211 2.1724 10.4063C2.2872 10.2913 2.42974 10.2339 2.60001 10.2339C2.77028 10.2339 2.91281 10.2913 3.02761 10.4063C3.14255 10.5211 3.20002 10.6636 3.20002 10.8339V12.4031C3.20002 12.4647 3.22568 12.5211 3.27702 12.5723C3.32822 12.6236 3.38462 12.6493 3.44622 12.6493H12.5539C12.6155 12.6493 12.6719 12.6236 12.7231 12.5723C12.7745 12.5211 12.8001 12.4647 12.8001 12.4031V10.8339C12.8001 10.6636 12.8576 10.5211 12.9725 10.4063C13.0873 10.2913 13.2299 10.2339 13.4001 10.2339C13.5704 10.2339 13.713 10.2913 13.8278 10.4063C13.9427 10.5211 14.0002 10.6636 14.0002 10.8339V12.4031C14.0002 12.8072 13.8602 13.1493 13.5802 13.4293C13.3001 13.7093 12.9581 13.8493 12.5539 13.8493H3.44622ZM7.40007 4.15998L5.86165 5.6984C5.74258 5.81734 5.60131 5.87607 5.43785 5.87461C5.27424 5.87301 5.13037 5.81014 5.00624 5.686C4.89037 5.562 4.83037 5.42153 4.82624 5.2646C4.8221 5.10766 4.8821 4.96713 5.00624 4.84299L7.49387 2.35536C7.56881 2.28042 7.64781 2.22762 7.73088 2.19696C7.81394 2.16616 7.90368 2.15076 8.00008 2.15076C8.09648 2.15076 8.18621 2.16616 8.26928 2.19696C8.35235 2.22762 8.43135 2.28042 8.50629 2.35536L10.9939 4.84299C11.1129 4.96193 11.1716 5.1012 11.1701 5.2608C11.1685 5.42027 11.1098 5.562 10.9939 5.686C10.8698 5.81014 10.7272 5.87427 10.5663 5.87841C10.4052 5.88254 10.2626 5.82254 10.1385 5.6984L8.60009 4.15998V10.2801C8.60009 10.4503 8.54262 10.5929 8.42768 10.7077C8.31288 10.8226 8.17035 10.8801 8.00008 10.8801C7.82981 10.8801 7.68727 10.8226 7.57247 10.7077C7.45754 10.5929 7.40007 10.4503 7.40007 10.2801V4.15998Z"
+                  fill="#000093"
+                />
+              </svg>
+
               <Typography
                 variant="caption"
                 sx={{
@@ -513,9 +522,19 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   </Box>
                 ) : (
                   <Box>
-                    <CloudUploadIcon
-                      sx={{ fontSize: 48, color: "#666", mb: 2 }}
-                    />
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.44622 13.8493C3.04208 13.8493 2.70001 13.7093 2.42001 13.4293C2.14 13.1493 2 12.8072 2 12.4031V10.8339C2 10.6636 2.05747 10.5211 2.1724 10.4063C2.2872 10.2913 2.42974 10.2339 2.60001 10.2339C2.77028 10.2339 2.91281 10.2913 3.02761 10.4063C3.14255 10.5211 3.20002 10.6636 3.20002 10.8339V12.4031C3.20002 12.4647 3.22568 12.5211 3.27702 12.5723C3.32822 12.6236 3.38462 12.6493 3.44622 12.6493H12.5539C12.6155 12.6493 12.6719 12.6236 12.7231 12.5723C12.7745 12.5211 12.8001 12.4647 12.8001 12.4031V10.8339C12.8001 10.6636 12.8576 10.5211 12.9725 10.4063C13.0873 10.2913 13.2299 10.2339 13.4001 10.2339C13.5704 10.2339 13.713 10.2913 13.8278 10.4063C13.9427 10.5211 14.0002 10.6636 14.0002 10.8339V12.4031C14.0002 12.8072 13.8602 13.1493 13.5802 13.4293C13.3001 13.7093 12.9581 13.8493 12.5539 13.8493H3.44622ZM7.40007 4.15998L5.86165 5.6984C5.74258 5.81734 5.60131 5.87607 5.43785 5.87461C5.27424 5.87301 5.13037 5.81014 5.00624 5.686C4.89037 5.562 4.83037 5.42153 4.82624 5.2646C4.8221 5.10766 4.8821 4.96713 5.00624 4.84299L7.49387 2.35536C7.56881 2.28042 7.64781 2.22762 7.73088 2.19696C7.81394 2.16616 7.90368 2.15076 8.00008 2.15076C8.09648 2.15076 8.18621 2.16616 8.26928 2.19696C8.35235 2.22762 8.43135 2.28042 8.50629 2.35536L10.9939 4.84299C11.1129 4.96193 11.1716 5.1012 11.1701 5.2608C11.1685 5.42027 11.1098 5.562 10.9939 5.686C10.8698 5.81014 10.7272 5.87427 10.5663 5.87841C10.4052 5.88254 10.2626 5.82254 10.1385 5.6984L8.60009 4.15998V10.2801C8.60009 10.4503 8.54262 10.5929 8.42768 10.7077C8.31288 10.8226 8.17035 10.8801 8.00008 10.8801C7.82981 10.8801 7.68727 10.8226 7.57247 10.7077C7.45754 10.5929 7.40007 10.4503 7.40007 10.2801V4.15998Z"
+                        fill="#000093"
+                      />
+                    </svg>
+
                     <Typography variant="h6" mb={1}>
                       Drag and drop a {label} here
                     </Typography>
@@ -536,19 +555,21 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 />
               </Box>
 
-              {/* URL Input */}
-              <Box mt={2}>
-                <Typography variant="subtitle2" mb={1}>
-                  Or enter image URL
-                </Typography>
-                <NovusInput
-                  placeholder="Enter image URL"
-                  value={imageUrl}
-                  onChange={handleUrlChange}
-                  novusSize="md"
-                  fullWidth
-                />
-              </Box>
+              {/* URL Input - Only show when no image is present */}
+              {!imageUrl && (
+                <Box mt={2}>
+                  <Typography variant="subtitle2" mb={1}>
+                    Or enter image URL
+                  </Typography>
+                  <NovusInput
+                    placeholder="Enter image URL"
+                    value={imageUrl}
+                    onChange={handleUrlChange}
+                    novusSize="md"
+                    fullWidth
+                  />
+                </Box>
+              )}
 
               {/* Error Display */}
               {error && (
@@ -597,14 +618,17 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
             </Box>
 
             {/* Separator */}
-            {showGallery && <Divider orientation="vertical" 
-            sx={{
-              width: "1px",
-              height: "16px !important",
-              backgroundColor: "#E0E0E0",
-              alignSelf: "center",
-            }}
-            />}
+            {showGallery && (
+              <Divider
+                orientation="vertical"
+                sx={{
+                  width: "1px",
+                  height: "16px !important",
+                  backgroundColor: "#E0E0E0",
+                  alignSelf: "center",
+                }}
+              />
+            )}
 
             {/* Right Panel - Gallery */}
             {showGallery && (
@@ -740,22 +764,15 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 onClick={handleDelete}
                 variantType="secondary"
                 startIcon={<DeleteIcon />}
-                novusSize="sm"
+                novusSize="md"
               >
                 Delete
               </NovusButton>
             )}
             <NovusButton
-              onClick={handleCloseDialog}
-              variantType="secondary"
-              novusSize="sm"
-            >
-              Cancel
-            </NovusButton>
-            <NovusButton
               onClick={handleSave}
               variantType="primary"
-              novusSize="sm"
+              novusSize="md"
             >
               {value ? "Update" : "Add"}
             </NovusButton>

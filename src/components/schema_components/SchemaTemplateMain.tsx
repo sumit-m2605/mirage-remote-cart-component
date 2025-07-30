@@ -7,6 +7,17 @@ import NovusButton from '../Novus-MUI-wrappers/NovusButton';
 import NovusToggle from '../Novus-MUI-wrappers/NovusToggle';
 import './SchemaTemplateVariables.css';
 
+// Color definitions
+const COLORS = {
+  BACKGROUND: {
+    PRIMARY: '#F5F5F5',
+  },
+  OVERLAY: {
+    BACKGROUND: '#00000080',
+    TEXT: '#FFFFFF',
+  },
+};
+
 // Base64 encoding function (same as Vue component)
 const base64Encode = (rawData: string): string => {
   const encoder = new TextEncoder();
@@ -133,7 +144,7 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
           checked={isActive}
           onChange={(e) => setIsActive(e.target.checked)}
           label="Active"
-          labelPosition="left"
+          labelPosition="right"
         />
       </Box>
       <NovusButton
@@ -148,7 +159,7 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
   );
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: '#F5F5F5', width: '100%' }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: COLORS.BACKGROUND.PRIMARY, width: '100%' }}>
       <RemotePageHeader
         title={isEditMode ? 'Edit Schema' : 'Create Schema'}
         onBack={handleCancel}
@@ -166,7 +177,7 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
           gap: '24px',
           minHeight: 'calc(100vh - 80px)',
           width: '100%',
-          backgroundColor: '##F5F5F5',
+          backgroundColor: COLORS.BACKGROUND.PRIMARY,
           flexDirection: { xs: 'column', lg: 'row' },
           alignItems: 'flex-start',
           boxSizing: 'border-box'
@@ -218,11 +229,11 @@ const SchemaTemplateMain: React.FC<SchemaTemplateMainProps> = ({
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: COLORS.OVERLAY.BACKGROUND,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#FFFFFF',
+            color: COLORS.OVERLAY.TEXT,
             fontSize: '16px',
             zIndex: 1000
           }}

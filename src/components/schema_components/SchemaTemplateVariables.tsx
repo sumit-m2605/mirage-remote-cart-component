@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useEffect,
   forwardRef,
@@ -8,12 +8,28 @@ import {
   Box,
   Typography,
   FormControl,
-  MenuItem,
   FormHelperText,
 } from "@mui/material";
 import type { SelectChangeEvent } from "@mui/material";
 import { NovusDropdown } from "../Novus-MUI-wrappers";
 import CodeEditor from "../commmon/CodeEditor";
+
+// Color definitions
+const COLORS = {
+  BACKGROUND: {
+    PRIMARY: '#FFFFFF',
+  },
+  TEXT: {
+    PRIMARY: '#41434C',
+    LINK: '#2C4BFF',
+  },
+  BORDER: {
+    PRIMARY: '#E0E0E0',
+  },
+  SHADOW: {
+    PRIMARY: '0 1px 3px #0000001A',
+  },
+};
 
 // Base64 decoding function
 const base64Decode = (encodedData: string): string => {
@@ -387,7 +403,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
             width: "100%",
             padding: "24px",
             borderRadius: "16px",
-            backgroundColor: "#ffffff",
+            backgroundColor: COLORS.BACKGROUND.PRIMARY,
             display: "flex",
             flexDirection: "column",
             gap: "16px",
@@ -396,7 +412,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
         >
           <Typography
             sx={{
-              color: "#41434C",
+              color: COLORS.TEXT.PRIMARY,
               fontWeight: "500",
               fontSize: "16px",
               textAlign: "left",
@@ -426,7 +442,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
 
           <Typography
             sx={{
-              color: "#41434C",
+              color: COLORS.TEXT.PRIMARY,
               fontWeight: "500",
               fontSize: "16px",
               textAlign: "left",
@@ -439,10 +455,10 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
           <Box>
             <Box
               sx={{
-                border: "1px solid #e0e0e0",
+                border: `1px solid ${COLORS.BORDER.PRIMARY}`,
                 borderRadius: 2,
                 overflow: "hidden",
-                boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+                boxShadow: COLORS.SHADOW.PRIMARY,
                 width: "100%",
               }}
             >
@@ -491,7 +507,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
               >
                 <Typography
                   sx={{
-                    color: "#41434C",
+                    color: COLORS.TEXT.PRIMARY,
                     fontWeight: "500",
                     fontSize: "16px",
                     textAlign: "left",
@@ -503,7 +519,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
                   component="button"
                   onClick={formatJson}
                   sx={{
-                    color: "#2C4BFF",
+                    color: COLORS.TEXT.LINK,
                     cursor: "pointer",
                     border: "none",
                     background: "none",
@@ -516,10 +532,10 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
               </Box>
               <Box
                 sx={{
-                  border: "1px solid #e0e0e0",
+                  border: "1px solid #E0E0E0",
                   borderRadius: 2,
                   overflow: "hidden",
-                  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+                  boxShadow: "0 1px 3px #0000001A",
                   width: "100%",
                   minWidth: 0,
                   flex: 1,
@@ -554,7 +570,7 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
             >
               <Typography
                 sx={{
-                  color: "#41434C",
+                  color: COLORS.TEXT.PRIMARY,
                   fontWeight: "500",
                   fontSize: "16px",
                   textAlign: "left",
@@ -565,10 +581,10 @@ const SchemaTemplateVariables = forwardRef<any, SchemaTemplateVariablesProps>(
               </Typography>
               <Box
                 sx={{
-                  border: "1px solid #e0e0e0",
+                  border: `1px solid ${COLORS.BORDER.PRIMARY}`,
                   borderRadius: 2,
                   overflow: "hidden",
-                  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+                  boxShadow: COLORS.SHADOW.PRIMARY,
                   width: "100%",
                   minWidth: 0,
                   flex: 1,

@@ -392,7 +392,7 @@ const NovusDropdownComponent: React.FC<NovusDropdownProps> = ({
                 lineHeight: '1.5em !important',
                 fontWeight: 400,
                 color: COLORS.TEXT_PRIMARY,
-                borderRadius: '8px',
+                borderRadius: '4px !important',
                 minHeight: '28px !important',
                 width: '100% !important',
                 minWidth: '100% !important',

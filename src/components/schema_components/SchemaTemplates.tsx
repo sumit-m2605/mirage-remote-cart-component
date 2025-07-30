@@ -1,8 +1,16 @@
 import React from "react";
-import { Box, Typography, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import RemotePageHeader from "../commmon/RemotePageHeader";
 import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 import SchemaTemplateListing from "./SchemaTemplateListing";
+
+// Color definitions
+const COLORS = {
+  BACKGROUND: {
+    PRIMARY: '#F5F5F5',
+    SECONDARY: '#FFFFFF',
+  },
+};
 
 interface SchemaTemplatesProps {
   onBack: () => void;
@@ -39,7 +47,7 @@ const SchemaTemplates: React.FC<SchemaTemplatesProps> = ({
     <Box sx={{ 
       display: "flex",
       flexDirection: "column",
-      bgcolor: "#F5F5F5",
+      bgcolor: COLORS.BACKGROUND.PRIMARY,
       height: "100%",
       minHeight: "100%",
     }}>
@@ -63,7 +71,7 @@ const SchemaTemplates: React.FC<SchemaTemplatesProps> = ({
         {/* Main Content - Only Listing */}
         <Box
           sx={{
-            backgroundColor: "#FFFFFF",
+            backgroundColor: COLORS.BACKGROUND.SECONDARY,
             display: "flex",
             flexDirection: "column",
             flex: 1,

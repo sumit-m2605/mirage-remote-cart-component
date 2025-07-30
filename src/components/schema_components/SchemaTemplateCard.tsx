@@ -18,6 +18,29 @@ interface SchemaTemplate {
   target_json?: string | object;
 }
 
+// Color definitions
+const COLORS = {
+  CARD: {
+    BORDER: '#E0E0E0',
+    BACKGROUND: '#FAFAFA',
+    HOVER_BORDER: '#000093',
+    HOVER_SHADOW: '#2C4BFF1A',
+  },
+  AVATAR: {
+    BACKGROUND: '#2C4BFF',
+    TEXT: '#FFFFFF',
+  },
+  TEXT: {
+    PRIMARY: '#41434C',
+    SECONDARY: '#9B9B9B',
+  },
+  STATUS: {
+    ACTIVE: '#00B140',
+    INACTIVE: '#FF7F00',
+    TEXT: '#FFFFFF',
+  },
+};
+
 interface SchemaTemplateCardProps {
   template: SchemaTemplate;
   onEdit: (template: SchemaTemplate) => void;
@@ -55,13 +78,13 @@ const SchemaTemplateCard: React.FC<SchemaTemplateCardProps> = ({
         gap: '12px',
         alignSelf: 'stretch',
         borderRadius: '8px',
-        border: '1px solid #E0E0E0',
-        background: '#FAFAFA',
+        border: `1px solid ${COLORS.CARD.BORDER}`,
+        background: COLORS.CARD.BACKGROUND,
         boxShadow: 'none',
         cursor: 'pointer',
         '&:hover': {
-          borderColor: 'rgba(0, 0, 147, 1)',
-          boxShadow: '0 2px 8px rgba(44, 75, 255, 0.1)'
+          borderColor: COLORS.CARD.HOVER_BORDER,
+          boxShadow: COLORS.CARD.HOVER_SHADOW
         }
       }}
     >
@@ -71,8 +94,8 @@ const SchemaTemplateCard: React.FC<SchemaTemplateCardProps> = ({
           sx={{
             width: 48,
             height: 48,
-            backgroundColor: '#2C4BFF',
-            color: '#fff',
+            backgroundColor: COLORS.AVATAR.BACKGROUND,
+            color: COLORS.AVATAR.TEXT,
             fontSize: '16px',
             fontWeight: 600
           }}
@@ -88,7 +111,7 @@ const SchemaTemplateCard: React.FC<SchemaTemplateCardProps> = ({
           sx={{
             fontSize: '16px',
             fontWeight: 600,
-            color: '#41434C',
+            color: COLORS.TEXT.PRIMARY,
             mb: 0.5,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -101,7 +124,7 @@ const SchemaTemplateCard: React.FC<SchemaTemplateCardProps> = ({
         <Typography
           variant="body2"
           sx={{
-            color: '#9b9b9b',
+            color: COLORS.TEXT.SECONDARY,
             fontSize: '14px',
             mb: 0.5,
             overflow: 'hidden',
@@ -115,7 +138,7 @@ const SchemaTemplateCard: React.FC<SchemaTemplateCardProps> = ({
         <Typography
           variant="caption"
           sx={{
-            color: '#9b9b9b',
+            color: COLORS.TEXT.SECONDARY,
             fontSize: '12px'
           }}
         >
@@ -129,8 +152,8 @@ const SchemaTemplateCard: React.FC<SchemaTemplateCardProps> = ({
           label={template.active ? 'Active' : 'Inactive'}
           size="small"
           sx={{
-            backgroundColor: template.active ? '#00B140' : '#FF7F00',
-            color: '#fff',
+            backgroundColor: template.active ? COLORS.STATUS.ACTIVE : COLORS.STATUS.INACTIVE,
+            color: COLORS.STATUS.TEXT,
             fontWeight: 500,
             fontSize: '12px',
             height: '24px',
