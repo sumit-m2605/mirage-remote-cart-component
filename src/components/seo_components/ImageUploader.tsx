@@ -169,6 +169,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
   const handleDelete = () => {
     onDelete();
+    setImageUrl("");
     setSnackbarMessage("Image deleted successfully");
     setShowSnackbar(true);
   };
@@ -759,7 +760,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
               gap: "12px",
             }}
           >
-            {value && (
+            {(value || imageUrl) && (
               <NovusButton
                 onClick={handleDelete}
                 variantType="secondary"
@@ -774,7 +775,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
               variantType="primary"
               novusSize="md"
             >
-              {value ? "Update" : "Add"}
+              {(value || imageUrl) ? "Update" : "Add"}
             </NovusButton>
           </Box>
         </Box>
