@@ -11,6 +11,7 @@ import SchemaTemplateCard from "./SchemaTemplateCard";
 import ShimmerLoader from "../commmon/ShimmerLoader";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import SearchIcon from '@mui/icons-material/Search';
 interface SchemaTemplate {
   _id: string;
   title: string;
@@ -240,6 +241,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
           onChange={handleSearchChange}
           novusSize="md"
           fullWidth
+          startIcon={<SearchIcon />}
         />
         <FormControl
           sx={{

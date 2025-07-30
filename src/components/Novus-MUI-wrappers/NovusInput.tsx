@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, styled, Box, Typography } from "@mui/material";
+import { TextField, styled, Box, Typography, InputAdornment } from "@mui/material";
 import type { TextFieldProps } from "@mui/material";
 
 // Color variables
@@ -29,7 +29,7 @@ const COLORS = {
   HELPER_SUCCESS: "#135610",
   
   // Required indicator
-  REQUIRED: "#000000A6",
+  REQUIRED: "#A6A6A6",
 } as const;
 
 const NovusLabel = styled(Typography)({
@@ -49,6 +49,8 @@ export interface NovusInputProps
   showHelpIcon?: boolean;
   showCharacterCount?: boolean;
   maxLength?: number;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 }
 
 const NovusInputField = styled(TextField)<TextFieldProps>(() => ({
@@ -145,6 +147,8 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
   showHelpIcon = false,
   showCharacterCount = false,
   maxLength,
+  startIcon,
+  endIcon,
   error,
   disabled,
   helperText,
@@ -312,6 +316,18 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
         inputProps={{
           maxLength: maxLength,
         }}
+        InputProps={{
+          startAdornment: startIcon ? (
+            <InputAdornment position="start" sx={{ color: COLORS.TEXT_ICON }}>
+              {startIcon}
+            </InputAdornment>
+          ) : undefined,
+          endAdornment: endIcon ? (
+            <InputAdornment position="end" sx={{ color: COLORS.TEXT_ICON }}>
+              {endIcon}
+            </InputAdornment>
+          ) : undefined,
+        }}
         sx={{
           width: "100%",
           minWidth: 0,
@@ -330,6 +346,9 @@ const NovusInputComponent: React.FC<NovusInputProps> = ({
             color: getHelperTextColor(),
             margin: "0px !important",
             marginTop: "4px !important",
+          },
+          "& .MuiInputAdornment-root": {
+            color: COLORS.TEXT_ICON,
           },
           ...(props.multiline && {
             "& .MuiOutlinedInput-root": {
