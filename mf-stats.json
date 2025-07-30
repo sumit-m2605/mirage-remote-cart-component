@@ -47,7 +47,6 @@
         }
       },
       "usedIn": [
-        "./define-element",
         "./CanonicalTagRemote",
         "./CartSettingsRemote",
         "./CartSettingsRemoteNovus",
@@ -55,7 +54,8 @@
         "./CustomMetaTagsRemote",
         "./RobotsTxtRemote",
         "./SchemaRemote",
-        "./SitemapRemote"
+        "./SitemapRemote",
+        "./define-element"
       ]
     },
     {
@@ -331,7 +331,7 @@
             "static/js/async/801.78403df4.js",
             "static/js/async/791.c0397ed4.js",
             "static/js/async/357.bb030332.js",
-            "static/js/async/__federation_expose_SchemaRemote.4a35316b.js"
+            "static/js/async/__federation_expose_SchemaRemote.a7750430.js"
           ],
           "async": []
         },
