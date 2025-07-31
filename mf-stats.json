@@ -47,6 +47,7 @@
         }
       },
       "usedIn": [
+        "./define-element",
         "./CanonicalTagRemote",
         "./CartSettingsRemote",
         "./CartSettingsRemoteNovus",
@@ -54,8 +55,7 @@
         "./CustomMetaTagsRemote",
         "./RobotsTxtRemote",
         "./SchemaRemote",
-        "./SitemapRemote",
-        "./define-element"
+        "./SitemapRemote"
       ]
     },
     {
@@ -144,8 +144,8 @@
             "static/js/async/519.68d751a6.js",
             "static/js/async/839.01ca2660.js",
             "static/js/async/445.9b50ee58.js",
-            "static/js/async/357.bb030332.js",
-            "static/js/async/__federation_expose_CartSettingsRemote.77a791b5.js"
+            "static/js/async/357.8a7bce4f.js",
+            "static/js/async/__federation_expose_CartSettingsRemote.b1051822.js"
           ],
           "async": []
         },
@@ -167,8 +167,7 @@
         "js": {
           "sync": [
             "static/js/async/907.e6b88678.js",
-            "static/js/async/145.5c1c534e.js",
-            "static/js/async/__federation_expose_CartSettingsRemoteNovus.3d454b1e.js"
+            "static/js/async/__federation_expose_CartSettingsRemoteNovus.d635ccb8.js"
           ],
           "async": []
         },
@@ -193,7 +192,7 @@
             "static/js/async/712.a1c80e0d.js",
             "static/js/async/839.01ca2660.js",
             "static/js/async/330.1bd0f50d.js",
-            "static/js/async/__federation_expose_RobotsTxtRemote.67f7c8a2.js"
+            "static/js/async/__federation_expose_RobotsTxtRemote.2395a7fb.js"
           ],
           "async": []
         },
@@ -221,8 +220,8 @@
             "static/js/async/330.1bd0f50d.js",
             "static/js/async/445.9b50ee58.js",
             "static/js/async/46.c57a2e5b.js",
-            "static/js/async/357.bb030332.js",
-            "static/js/async/__federation_expose_CustomMetaTagsRemote.d29afe9e.js"
+            "static/js/async/357.8a7bce4f.js",
+            "static/js/async/__federation_expose_CustomMetaTagsRemote.273c6ff3.js"
           ],
           "async": []
         },
@@ -246,7 +245,7 @@
             "static/js/async/907.e6b88678.js",
             "static/js/async/712.a1c80e0d.js",
             "static/js/async/519.68d751a6.js",
-            "static/js/async/__federation_expose_CanonicalTagRemote.91df7618.js"
+            "static/js/async/__federation_expose_CanonicalTagRemote.365f2df3.js"
           ],
           "async": []
         },
@@ -272,7 +271,7 @@
             "static/js/async/519.68d751a6.js",
             "static/js/async/839.01ca2660.js",
             "static/js/async/330.1bd0f50d.js",
-            "static/js/async/__federation_expose_SitemapRemote.4bf2bbb6.js"
+            "static/js/async/__federation_expose_SitemapRemote.f7d06d32.js"
           ],
           "async": []
         },
@@ -300,8 +299,8 @@
             "static/js/async/445.9b50ee58.js",
             "static/js/async/801.78403df4.js",
             "static/js/async/454.b2b28ccb.js",
-            "static/js/async/357.bb030332.js",
-            "static/js/async/__federation_expose_SEODetailsRemote.f8c0b92b.js"
+            "static/js/async/357.8a7bce4f.js",
+            "static/js/async/__federation_expose_SEODetailsRemote.24b83d8a.js"
           ],
           "async": []
         },
@@ -330,14 +329,14 @@
             "static/js/async/445.9b50ee58.js",
             "static/js/async/801.78403df4.js",
             "static/js/async/791.c0397ed4.js",
-            "static/js/async/357.bb030332.js",
-            "static/js/async/__federation_expose_SchemaRemote.a7750430.js"
+            "static/js/async/357.8a7bce4f.js",
+            "static/js/async/__federation_expose_SchemaRemote.7152d060.js"
           ],
           "async": []
         },
         "css": {
           "sync": [
-            "static/css/async/__federation_expose_SchemaRemote.a403c6ae.css"
+            "static/css/async/__federation_expose_SchemaRemote.7e85d1b0.css"
           ],
           "async": []
         }
