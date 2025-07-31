@@ -22,13 +22,13 @@ import NovusButton from "../Novus-MUI-wrappers/NovusButton";
 const COLORS = {
   primary: {
     main: '#2E31BE',
-    dark: '#1A1A8A',
+    dark: '#2E31BE',
     light: '#000093'
   },
   background: {
     primary: '#FFFFFF',
     secondary: '#F5F5F5',
-    tertiary: '#F7F9FC',
+    tertiary: '#F5F5F5',
     hover: '#F0F0F0',
     light: '#FAFAFA'
   },

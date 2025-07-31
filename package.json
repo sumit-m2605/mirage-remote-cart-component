@@ -5,9 +5,11 @@
   "name": "mirage-remote-cart-component",
   "homepage": "https://mirage-remote-cart-component.onrender.com/",
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "NODE_ENV=production npm run build",
     "deploy": "gh-pages -d dist",
     "build": "rsbuild build",
+    "build:dev": "NODE_ENV=development npm run build",
+    "build:prod": "NODE_ENV=production npm run build",
     "dev": "rsbuild dev --open",
     "preview": "rsbuild preview"
   },

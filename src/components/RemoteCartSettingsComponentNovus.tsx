@@ -16,16 +16,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const COLORS = {
   background: {
     primary: '#FFFFFF',
-    secondary: '#F5F8FF',
+    secondary: '#F5F5F5',
     hover: '#F5F5F5'
   },
   text: {
     primary: '#333333',
-    active: '#3F51B5'
+    active: '#3535F3'
   },
   border: {
     primary: '#EEEEEE',
-    active: '#3F51B5'
+    active: '#3535F3'
   }
 } as const;
 

@@ -2,11 +2,20 @@ import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 import { pluginModuleFederation } from '@module-federation/rsbuild-plugin';
 import { dependencies } from "./package.json";
+
+const getAssetPrefix = () => {
+  if (process.env.NODE_ENV != 'development') {
+    return 'https://mirage-remote-cart-component.onrender.com/';
+  }
+  return '';
+};
+
 export default defineConfig({
   server: { port: 3002 },
   output: {
-    // assetPrefix: 'https://mirage-remote-cart-component.onrender.com/',
+    assetPrefix: getAssetPrefix(),
   },
+  mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
   plugins: [
     pluginReact(),
     pluginModuleFederation({

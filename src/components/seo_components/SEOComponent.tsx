@@ -30,7 +30,7 @@ import ImageUploader from "./ImageUploader";
 const COLORS = {
   primary: {
     main: '#000093',
-    light: '#1A0DAB',
+    light: '#2E31BE',
     dark: '#006621'
   },
   background: {

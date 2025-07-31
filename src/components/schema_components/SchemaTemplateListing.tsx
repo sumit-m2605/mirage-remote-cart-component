@@ -431,7 +431,7 @@ const SchemaTemplateListing: React.FC<SchemaTemplateListingProps> = ({
                               backgroundColor: '#F5F5F5',
                             },
                             '&.Mui-selected': {
-                              backgroundColor: '#F0F0FF',
+                              backgroundColor: '#F0F0F0',
                               color: '#000093',
                               '&:hover': {
                                 backgroundColor: '#E8E8FC',
