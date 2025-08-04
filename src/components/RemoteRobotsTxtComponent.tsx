@@ -1,5 +1,5 @@
 // REMOTE COMPONENT: src/components/RemoteRobotsTxtComponent.tsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import {
   Box,
 } from "@mui/material";
@@ -27,13 +27,28 @@ interface Props {
   helpDocsURLs: Record<string, string>;
 }
 
-const RobotsTxtRemote: React.FC<Props> = ({
+// Interface for methods exposed to Vue wrapper
+export interface RobotsTxtRemoteRef {
+  getRobotsTxtContent: () => string;
+  updateRobotsTxtContent: (content: string) => Promise<void>;
+  validateRobotsTxtContent: (content?: string) => ValidationResult;
+  resetToDefault: () => void;
+  saveContent: () => Promise<void>;
+}
+
+interface ValidationResult {
+  isValid: boolean;
+  warnings: string[];
+  errors: string[];
+}
+
+const RobotsTxtRemote = forwardRef<RobotsTxtRemoteRef, Props>(({
   fetchRobotsTxt,
   saveRobotsTxt,
   onCancel,
   helpSlug,
   helpDocsURLs,
-}) => {
+}, ref) => {
   const [robotsTxt, setRobotsTxt] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -42,6 +57,79 @@ const RobotsTxtRemote: React.FC<Props> = ({
     message: "",
     success: true,
   });
+
+  // Expose methods to parent components (Vue wrapper)
+  useImperativeHandle(ref, () => ({
+    getRobotsTxtContent: () => {
+      return robotsTxt;
+    },
+
+    updateRobotsTxtContent: async (content: string) => {
+      setRobotsTxt(content);
+      try {
+        await saveRobotsTxt(content);
+        setSnackbar({
+          open: true,
+          message: "Robots.txt updated successfully via copilot",
+          success: true,
+        });
+      } catch (err: any) {
+        setSnackbar({
+          open: true,
+          message: `Failed to update Robots.txt: ${err?.message || 'Unknown error'}`,
+          success: false,
+        });
+        throw err;
+      }
+    },
+
+    validateRobotsTxtContent: (content?: string): ValidationResult => {
+      const contentToValidate = content || robotsTxt;
+      
+      if (!contentToValidate) {
+        return { isValid: true, warnings: [], errors: [] };
+      }
+
+      const lines = contentToValidate.split('\n');
+      const warnings: string[] = [];
+      const errors: string[] = [];
+      let hasUserAgent = false;
+
+      lines.forEach((line, index) => {
+        const trimmedLine = line.trim();
+        if (trimmedLine === '' || trimmedLine.startsWith('#')) {
+          return; // Skip empty lines and comments
+        }
+
+        if (trimmedLine.toLowerCase().startsWith('user-agent:')) {
+          hasUserAgent = true;
+        } else if (trimmedLine.toLowerCase().startsWith('disallow:') || 
+                   trimmedLine.toLowerCase().startsWith('allow:')) {
+          if (!hasUserAgent) {
+            errors.push(`Line ${index + 1}: Directive without User-agent`);
+          }
+        } else if (trimmedLine.toLowerCase().startsWith('sitemap:')) {
+          // Sitemap is valid
+        } else {
+          warnings.push(`Line ${index + 1}: Unrecognized directive: ${trimmedLine}`);
+        }
+      });
+
+      return {
+        isValid: errors.length === 0,
+        warnings: warnings,
+        errors: errors
+      };
+    },
+
+    resetToDefault: () => {
+      setRobotsTxt("User-agent: *\nDisallow: /");
+    },
+
+    saveContent: async () => {
+      return handleSave();
+    }
+  }), [robotsTxt, saveRobotsTxt]);
 
   useEffect(() => {
     fetchRobotsTxt()
@@ -77,6 +165,7 @@ const RobotsTxtRemote: React.FC<Props> = ({
         }`,
         success: false,
       });
+      throw err;
     } finally {
       setSaving(false);
     }
@@ -175,6 +264,8 @@ const RobotsTxtRemote: React.FC<Props> = ({
       />
     </Box>
   );
-};
+});
+
+RobotsTxtRemote.displayName = 'RobotsTxtRemote';
 
 export default RobotsTxtRemote;
